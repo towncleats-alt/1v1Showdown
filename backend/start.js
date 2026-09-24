@@ -1,30 +1,35 @@
 /**
  * backend/start.js — Production startup wrapper for Railway
- * Runs migrations + seed first, then starts the server.
- * This runs at container start time when the internal network is available.
+ * Starts the HTTP server immediately (so healthchecks pass),
+ * then runs migrations + seed in the background.
  */
-import { execSync } from 'node:child_process';
+import { exec } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const root = path.resolve(__dirname, '..');
 
-function run(cmd) {
-  console.log(`\n▶ ${cmd}`);
-  execSync(cmd, { stdio: 'inherit', cwd: path.resolve(__dirname, '..') });
+function runBackground(cmd) {
+  return new Promise((resolve) => {
+    console.log(`\n▶ ${cmd}`);
+    exec(cmd, { cwd: root }, (err, stdout, stderr) => {
+      if (stdout) console.log(stdout);
+      if (stderr) console.error(stderr);
+      if (err) console.error(`Command failed (non-fatal): ${err.message}`);
+      resolve();
+    });
+  });
 }
 
-try {
-  run('node backend/db/migrate.js');
-} catch (e) {
-  console.error('Migration failed — continuing anyway (may already be up to date)');
-}
+// Start the server first so Railway healthcheck passes immediately
+const serverModule = await import('./server.js');
 
-try {
-  run('node backend/db/seed.js');
-} catch (e) {
-  console.error('Seed failed — continuing anyway (admin may already exist)');
-}
-
-// Start the server — import so it shares the same process
-await import('./server.js');
+// Then run migrations + seed in the background (non-blocking)
+(async () => {
+  console.log('\n[start] Running DB migrations...');
+  await runBackground('node backend/db/migrate.js');
+  console.log('[start] Running DB seed...');
+  await runBackground('node backend/db/seed.js');
+  console.log('[start] Migrations and seed complete.');
+})();
