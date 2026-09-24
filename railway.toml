@@ -8,10 +8,10 @@
 
 [build]
 builder = "nixpacks"
-buildCommand = "npm ci && node backend/db/migrate.js && node backend/db/seed.js"
+buildCommand = "npm install --production=false"
 
 [deploy]
-startCommand = "node backend/server.js"
+startCommand = "node backend/db/migrate.js && node backend/db/seed.js && node backend/server.js"
 healthcheckPath = "/health"
 healthcheckTimeout = 30
 restartPolicyType = "on_failure"
