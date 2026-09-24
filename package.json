@@ -1,0 +1,27 @@
+{
+  "name": "faisalabad-1v1",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js",
+    "build": "node scripts/inject-api-url.js",
+    "db:migrate": "node backend/db/migrate.js",
+    "db:seed": "node backend/db/seed.js",
+    "db:seed:players": "node scripts/seed128players.js",
+    "test": "node --test backend/tests/*.test.js"
+  },
+  "dependencies": {
+    "cors": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "express-rate-limit": "^8.7.0",
+    "helmet": "latest",
+    "nodemailer": "^10.0.10",
+    "pg": "latest"
+  }
+}

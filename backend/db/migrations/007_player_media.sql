@@ -1,0 +1,3 @@
+ALTER TABLE players
+  ADD COLUMN IF NOT EXISTS best_skills TEXT,
+  ADD COLUMN IF NOT EXISTS game_videos JSONB NOT NULL DEFAULT '[]'::jsonb;

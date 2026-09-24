@@ -1,0 +1,78 @@
+# render.yaml — one-click backend deploy on Render.com
+# https://render.com/docs/yaml-spec
+#
+# ── How to deploy (one-time setup) ──────────────────────────────────────────
+#  1. Push this repo to GitHub.
+#  2. Go to https://dashboard.render.com → New → Blueprint.
+#  3. Connect your repo — Render reads this file and creates the web service + DB.
+#  4. Fill in the secret env vars marked  sync: false  in the Render dashboard:
+#       CORS_ORIGINS        → your Netlify URL, e.g. https://your-site.netlify.app
+#       TOURNAMENT_API_KEY  → run: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+#       SEED_ADMIN_EMAIL    → your admin Gmail, e.g. towncleats@gmail.com
+#       SEED_ADMIN_PASSWORD → a strong password you will use to log into the Admin Panel
+#  5. Click "Apply" — Render creates the Postgres DB, runs migrations, and starts the API.
+#  6. Copy the Render service URL (https://xxxx.onrender.com) → paste into Netlify as API_URL.
+
+services:
+  - type: web
+    name: 1v1-faisalabad-api
+    runtime: node
+    region: singapore          # closest to Pakistan; change to frankfurt/ohio as needed
+    plan: free                 # upgrade to starter ($7/mo) for always-on (no cold starts)
+    # Build: install deps, run all pending DB migrations, then seed the admin user
+    buildCommand: "npm ci && node backend/db/migrate.js && node backend/db/seed.js"
+    startCommand: node backend/server.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: APP_ENV
+        value: production
+      - key: API_PORT
+        value: "4000"
+
+      # ── Set this to your Netlify frontend URL ────────────────────────────────
+      # e.g.  https://1v1-showdown.netlify.app
+      - key: CORS_ORIGINS
+        sync: false            # fill in the Render dashboard after Netlify deploy
+
+      # ── Auto-injected by Render when the postgres DB below is linked ─────────
+      - key: DATABASE_URL
+        fromDatabase:
+          name: 1v1-faisalabad-db
+          property: connectionString
+      - key: DATABASE_SSL
+        value: "true"
+      - key: DATABASE_POOL_MAX
+        value: "5"
+
+      # ── Secrets — set these manually in the Render dashboard ────────────────
+      # Never commit real values here.
+      - key: TOURNAMENT_API_KEY
+        sync: false
+      - key: SEED_ADMIN_EMAIL
+        sync: false
+      - key: SEED_ADMIN_PASSWORD
+        sync: false
+
+      # ── Optional: email notifications via Gmail SMTP ─────────────────────────
+      # Enable 2FA on Gmail, then create an App Password at:
+      # https://myaccount.google.com/apppasswords
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: SMTP_FROM
+        sync: false
+      - key: ADMIN_WHATSAPP
+        sync: false
+
+databases:
+  - name: 1v1-faisalabad-db
+    databaseName: faisalabad_1v1
+    plan: free                 # 90-day free tier; upgrade to starter ($7/mo) for persistence
+    region: singapore

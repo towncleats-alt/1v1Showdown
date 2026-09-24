@@ -1,0 +1,53 @@
+# ── Netlify configuration ─────────────────────────────────────────────────────
+# Frontend is plain static HTML — no build step needed beyond injecting API_URL.
+# Backend runs separately on Render. Set API_URL in:
+#   Netlify → Site configuration → Environment variables → API_URL
+# Example: https://1v1-faisalabad-api.onrender.com
+#
+# Full deployment guide: see README.md
+
+[build]
+  publish = "frontend"
+  # Inject the backend URL into every HTML file at deploy time.
+  # API_URL must be set in the Netlify dashboard BEFORE deploying.
+  command = "node scripts/inject-api-url.js"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# ── Proxy: forward all /api/* calls to the Render backend ────────────────────
+# This means the browser talks to the SAME Netlify domain — zero CORS issues.
+# :API_URL is replaced at request-time by Netlify with the API_URL env var value.
+[[redirects]]
+  from   = "/api/*"
+  to     = ":API_URL/api/:splat"
+  status = 200
+  force  = true
+
+# ── SPA / single-HTML fallback ────────────────────────────────────────────────
+# Any path that doesn't match a real file serves index.html.
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+
+# ── Security headers (applied globally) ──────────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options        = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy        = "strict-origin-when-cross-origin"
+    Permissions-Policy     = "camera=(), microphone=(), geolocation=()"
+
+# Static assets — long-lived cache (images, logos, posters)
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTML — always revalidate so deploys are instant
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
