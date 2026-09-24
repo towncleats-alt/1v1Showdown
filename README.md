@@ -1,151 +1,140 @@
 # 1 ON 1 Showdown Faisalabad — Official Tournament Platform
 
 A full-stack tournament management platform for the Faisalabad 1v1 Football Showdown.  
-**Frontend** hosted on Netlify · **Backend + Database** hosted on Render.
+**Frontend** → Netlify (free, no card) · **Backend** → Railway (free, no card) · **Database** → Neon (free, no card)
 
 ---
 
 ## Architecture
 
 ```
-Browser  ──→  Netlify (index.html, /assets/*)
+Browser  ──→  Netlify  (index.html, static assets)
                │
-               │  /api/* proxy (same-origin, zero CORS)
+               │  /api/* proxy — same domain, zero CORS
                ▼
-             Render Web Service  (Node.js / Express)
+             Railway  (Node.js / Express backend)
                │
                ▼
-             Render PostgreSQL  (faisalabad_1v1)
+             Neon  (PostgreSQL database — persistent, survives restarts)
 ```
 
 ---
 
-## Production Deployment (Netlify + Render)
+## Production Deployment — No Card Required
 
-### Step 1 — Push to GitHub
-
-Make sure your code is committed and pushed to a GitHub repository.
-
-```powershell
-git add .
-git commit -m "ready for deploy"
-git push origin main
-```
+### Overview
+| Service | Purpose | Cost | Card? |
+|---|---|---|---|
+| **GitHub** | Code hosting | Free | No |
+| **Neon** | PostgreSQL database | Free | No |
+| **Railway** | Node.js backend | Free | No |
+| **Netlify** | Frontend (HTML) | Free | No |
 
 ---
 
-### Step 2 — Deploy Backend on Render
+## STEP 1 — Create the Database on Neon
 
-1. Go to **https://dashboard.render.com** → **New** → **Blueprint**
-2. Connect your GitHub repo — Render detects `render.yaml` automatically
-3. Render will create:
-   - **Web service** `1v1-faisalabad-api` (Node.js)
-   - **PostgreSQL database** `1v1-faisalabad-db`
-4. In the Render dashboard, fill in the **secret environment variables** (marked `sync: false`):
-
-| Variable | Value |
-|---|---|
-| `CORS_ORIGINS` | Your Netlify URL (fill in **after** Netlify deploy, see Step 4) |
-| `TOURNAMENT_API_KEY` | Run `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` |
-| `SEED_ADMIN_EMAIL` | `towncleats@gmail.com` (your admin Gmail) |
-| `SEED_ADMIN_PASSWORD` | A strong password — this is your **Admin Panel login** |
-
-5. Click **Apply / Deploy**
-6. The build command automatically runs:
-   - `npm ci` — installs packages
-   - `node backend/db/migrate.js` — creates all database tables
-   - `node backend/db/seed.js` — creates your admin user
-7. Wait for **"Live"** status on the Render dashboard
-8. **Copy the service URL** — it looks like `https://1v1-faisalabad-api.onrender.com`
-
-> **Free tier note:** Render free web services sleep after 15 minutes of inactivity and take ~30s to wake up on the first request. Upgrade to **Starter ($7/mo)** for always-on. The free Postgres DB expires after **90 days** — upgrade to Starter DB ($7/mo) for persistent storage.
+1. Go to **https://neon.tech** → **Sign Up** with Google or GitHub (no card)
+2. Click **Create Project**
+   - **Project name:** `1v1-showdown`
+   - **Region:** `AWS ap-southeast-1` (Singapore — closest to Pakistan)
+   - Click **Create project**
+3. On the dashboard you'll see a **Connection string** — click **Copy**
+   - It looks like: `postgresql://user:password@ep-xxx.ap-southeast-1.aws.neon.tech/neondb?sslmode=require`
+4. **Save this string** — you'll need it in Step 2
 
 ---
 
-### Step 3 — Deploy Frontend on Netlify
+## STEP 2 — Deploy Backend on Railway
 
-1. Go to **https://app.netlify.com** → **Add new site** → **Import an existing project**
-2. Connect your GitHub repo
-3. Netlify auto-detects `netlify.toml`. The settings are:
-   - **Base directory:** *(leave blank)*
-   - **Build command:** `node scripts/inject-api-url.js`
-   - **Publish directory:** `frontend`
-4. Before the first deploy, go to **Site configuration → Environment variables** and add:
+1. Go to **https://railway.app** → **Login with GitHub** (no card)
+2. Click **New Project → Deploy from GitHub repo**
+3. Select `marehman-exe/1v1-showdown-faisalabad`
+4. Railway detects `railway.toml` automatically
+5. Click on the created service → go to **Variables** tab → add these:
 
 | Variable | Value |
 |---|---|
-| `API_URL` | Your Render service URL, e.g. `https://1v1-faisalabad-api.onrender.com` |
+| `NODE_ENV` | `production` |
+| `APP_ENV` | `production` |
+| `API_PORT` | `4000` |
+| `DATABASE_URL` | *(paste the Neon connection string from Step 1)* |
+| `DATABASE_SSL` | `true` |
+| `DATABASE_POOL_MAX` | `5` |
+| `CORS_ORIGINS` | *(leave blank for now — fill after Step 3)* |
+| `TOURNAMENT_API_KEY` | `showdown2026securekey` |
+| `SEED_ADMIN_EMAIL` | `towncleats@gmail.com` |
+| `SEED_ADMIN_PASSWORD` | *(your chosen Admin Panel password)* |
+
+6. Click **Deploy** — Railway runs `npm ci`, migrations, and seeds the admin user
+7. Once deployed, go to **Settings → Networking → Generate Domain**
+8. **Copy the Railway URL** — looks like `https://1v1-showdown-faisalabad.up.railway.app`
+
+---
+
+## STEP 3 — Deploy Frontend on Netlify
+
+1. Go to **https://app.netlify.com** → **Add new site → Import an existing project → GitHub**
+2. Select `marehman-exe/1v1-showdown-faisalabad`
+3. Netlify reads `netlify.toml` automatically — settings are pre-filled
+4. Before deploying, go to **Environment variables** and add:
+
+| Variable | Value |
+|---|---|
+| `API_URL` | Your Railway URL from Step 2 (e.g. `https://1v1-showdown-faisalabad.up.railway.app`) |
 
 5. Click **Deploy site**
-6. **Copy your Netlify URL** — it looks like `https://1v1-showdown.netlify.app`
+6. **Copy your Netlify URL** — looks like `https://1v1-showdown.netlify.app`
 
 ---
 
-### Step 4 — Connect Backend CORS to Netlify
+## STEP 4 — Connect CORS
 
-1. Go back to **Render dashboard** → your web service → **Environment**
+1. Go back to **Railway → your service → Variables**
 2. Set `CORS_ORIGINS` = your Netlify URL (e.g. `https://1v1-showdown.netlify.app`)
-3. Click **Save Changes** — Render redeploys automatically
+3. Railway redeploys automatically
 
 ---
 
-### Step 5 — Verify Everything Works
+## STEP 5 — Test
 
-1. Open your Netlify URL in a browser
-2. The site should load with the tournament homepage
-3. Click **Player Login** — enter your `SEED_ADMIN_EMAIL` + `SEED_ADMIN_PASSWORD`
-4. You should land on the **Admin Panel** — you can now add players, schedule matches, etc.
-
-If the page loads but login fails, check:
-- `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` are set correctly in Render
-- The Render build log shows `Seeded development admin: ...` without errors
-- `CORS_ORIGINS` in Render matches your exact Netlify URL (no trailing slash)
+1. Open your Netlify URL in the browser
+2. Click **Player Login**
+3. Enter `towncleats@gmail.com` + your admin password
+4. You should land on the **Admin Panel**
+5. Go to **Manage Players → Add New Player** — add a player, set their password
+6. Log out → log back in as that player to confirm it works
 
 ---
 
-## Custom Domain (Optional)
+## How Admin Creates Players (No Public Registration)
 
-1. In Netlify: **Domain management** → **Add custom domain** → enter your domain
-2. Follow Netlify's DNS instructions to point your domain to Netlify
-3. Netlify provisions a free HTTPS certificate automatically
-4. Update `CORS_ORIGINS` in Render to use your custom domain instead of `.netlify.app`
-
----
-
-## How the Admin Creates Players
-
-Since public self-registration is **disabled**, the workflow is:
-
-1. Admin logs into the Admin Panel
-2. Go to **Manage Players** → **Add New Player**
-3. Fill in the player's name, Gmail address, phone, keeper preference
-4. Set a **Login Password** (min 8 characters)
-5. Save — the player is created in the database with login credentials
-6. **Share** the Gmail + password with the player via WhatsApp or SMS
-7. Player visits the site → **Player Login** → enters their credentials → accesses their dashboard
+1. Admin logs in → **Admin Panel → Manage Players → Add New Player**
+2. Fill in name, Gmail, phone, goalkeeper preference
+3. Set a **Login Password** (min 8 characters)
+4. Click **Save Player & Credentials**
+5. **WhatsApp or SMS the player** their Gmail + password
+6. Player visits the Netlify URL → **Player Login** → enters credentials → sees their dashboard
 
 ---
 
 ## Local Development
 
 ```powershell
-# 1. Clone and install
+# 1. Install dependencies
 npm install
 
-# 2. Copy env file and fill in values
+# 2. Copy env file and fill in your values
 Copy-Item .env.example .env
-# Edit .env: set POSTGRES_PASSWORD, TOURNAMENT_API_KEY, SEED_ADMIN_EMAIL, SEED_ADMIN_PASSWORD
+# Edit .env — set DATABASE_URL (from Neon), SEED_ADMIN_EMAIL, SEED_ADMIN_PASSWORD
 
-# 3. Start local PostgreSQL (requires Docker)
-docker compose up -d postgres
-
-# 4. Run database migrations
+# 3. Run database migrations
 npm run db:migrate
 
-# 5. Create the admin user
+# 4. Seed the admin user
 npm run db:seed
 
-# 6. Start the backend (serves both API and frontend)
+# 5. Start the backend (serves API + frontend on port 4000)
 npm run dev
 # Open http://localhost:4000
 ```
@@ -154,31 +143,31 @@ npm run dev
 
 ## Environment Variables Reference
 
-### Render (Backend)
+### Railway / Backend
 
 | Variable | Required | Description |
 |---|---|---|
 | `NODE_ENV` | Yes | `production` |
 | `APP_ENV` | Yes | `production` |
 | `API_PORT` | Yes | `4000` |
-| `DATABASE_URL` | Yes | Auto-injected by Render |
+| `DATABASE_URL` | Yes | Neon connection string |
 | `DATABASE_SSL` | Yes | `true` |
 | `DATABASE_POOL_MAX` | Yes | `5` |
 | `CORS_ORIGINS` | Yes | Your Netlify URL |
-| `TOURNAMENT_API_KEY` | Yes | Random 32-byte hex key |
+| `TOURNAMENT_API_KEY` | Yes | Any secret string |
 | `SEED_ADMIN_EMAIL` | Yes | Admin login email |
 | `SEED_ADMIN_PASSWORD` | Yes | Admin login password |
-| `SMTP_HOST` | No | Gmail SMTP for email notifications |
+| `SMTP_HOST` | No | `smtp.gmail.com` (for email alerts) |
 | `SMTP_PORT` | No | `587` |
-| `SMTP_USER` | No | Gmail address |
+| `SMTP_USER` | No | Your Gmail |
 | `SMTP_PASS` | No | Gmail App Password |
 | `ADMIN_WHATSAPP` | No | `923045534884` |
 
-### Netlify (Frontend Build)
+### Netlify / Frontend Build
 
 | Variable | Required | Description |
 |---|---|---|
-| `API_URL` | Yes | Your Render service URL |
+| `API_URL` | Yes | Your Railway service URL |
 
 ---
 
@@ -186,22 +175,23 @@ npm run dev
 
 ```
 ├── frontend/
-│   ├── index.html       # Full single-page app (served by Netlify)
-│   ├── UI.html          # Identical copy (served by Render's static file server)
-│   └── assets/          # Logo and poster images
+│   ├── index.html          # Full single-page app (Netlify)
+│   ├── UI.html             # Identical copy (Railway static fallback)
+│   └── assets/             # Logo and poster images
 ├── backend/
-│   ├── server.js        # Express API (all routes)
-│   ├── auth.js          # Password hashing, sessions
+│   ├── server.js           # Express API — all routes
+│   ├── auth.js             # Password hashing, sessions
 │   ├── db/
-│   │   ├── index.js     # PostgreSQL pool
-│   │   ├── migrate.js   # Migration runner
-│   │   ├── seed.js      # Admin user seeder
-│   │   ├── store.js     # In-memory fallback store
-│   │   └── migrations/  # SQL migration files (001–008)
+│   │   ├── index.js        # PostgreSQL pool (Neon-compatible)
+│   │   ├── migrate.js      # Migration runner
+│   │   ├── seed.js         # Admin user seeder
+│   │   ├── store.js        # In-memory fallback (offline mode)
+│   │   └── migrations/     # SQL files 001–008
 │   └── ...
 ├── scripts/
-│   └── inject-api-url.js  # Netlify build: replaces __API_URL__ in HTML
-├── netlify.toml           # Netlify build + proxy + headers config
-├── render.yaml            # Render one-click deploy config
-└── .env.example           # Template for local development
+│   └── inject-api-url.js   # Netlify build: injects API_URL into HTML
+├── railway.toml            # Railway deployment config
+├── netlify.toml            # Netlify build + proxy + headers
+├── render.yaml             # Render deployment config (alternative)
+└── .env.example            # Local development template
 ```

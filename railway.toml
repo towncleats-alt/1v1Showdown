@@ -1,0 +1,18 @@
+# railway.toml — Railway.app deployment config
+# https://docs.railway.app/reference/config-as-code
+#
+# Railway gives you free Node.js hosting with no credit card required.
+# Database is hosted on Neon.tech (free Postgres, also no card required).
+#
+# See README.md for the full step-by-step deployment guide.
+
+[build]
+builder = "nixpacks"
+buildCommand = "npm ci && node backend/db/migrate.js && node backend/db/seed.js"
+
+[deploy]
+startCommand = "node backend/server.js"
+healthcheckPath = "/health"
+healthcheckTimeout = 30
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
