@@ -19,7 +19,7 @@
 # Hardcoded Railway URL — browser never sees a cross-origin request.
 [[redirects]]
   from   = "/api/*"
-  to     = "https://1v1-faisalabad-api-production.up.railway.app/api/:splat"
+  to     = "https://1v1showdown-production.up.railway.app/api/:splat"
   status = 200
   force  = true
 
