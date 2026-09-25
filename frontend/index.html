@@ -419,21 +419,24 @@
     /* ── Section header ── */
     .section-header {
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
       justify-content: space-between;
-      gap: 1rem;
+      flex-wrap: wrap;
+      gap: .75rem;
       padding-bottom: var(--sp-3);
       border-bottom: var(--bw-lg) solid var(--clr-ink);
       margin-bottom: var(--sp-6);
     }
+    .section-header > div:first-child { flex: 1 1 0; min-width: 0; }
+    .section-header > :not(:first-child) { flex-shrink: 0; }
     .section-header h3 {
       font-family: "Rajdhani", sans-serif;
       font-weight: 800;
-      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-size: clamp(1.15rem, 4vw, 2rem);
       letter-spacing: .04em;
       text-transform: uppercase;
       color: var(--clr-ink);
-      line-height: 1;
+      line-height: 1.1;
     }
     .section-header p { color: var(--clr-ink-soft); font-size: var(--fs-sm); margin-top: var(--sp-1); }
 
@@ -506,13 +509,40 @@
       #mobile-nav { display: flex !important; }
       #visitor-root { gap: 1.25rem; }
 
-      /* Countdown – compact but readable */
-      .countdown-unit { min-width: 2.8rem; padding: .28rem .38rem .22rem; }
-      .countdown-num  { font-size: 1.3rem; }
-      .countdown-lbl  { font-size: .48rem; }
+      /* Countdown – compact but readable; justify across full width */
+      .countdown-unit { min-width: 2.6rem; padding: .28rem .35rem .22rem; }
+      .countdown-num  { font-size: 1.25rem; }
+      .countdown-lbl  { font-size: .46rem; }
+      #countdown-wrap { justify-content: space-between; width: 100%; }
+
+      /* Hero stat strip – equal borders in 2-col grid */
+      .grid.grid-cols-2 .stat-card:nth-child(odd)  { border-right: 2px solid var(--clr-line) !important; }
+      .grid.grid-cols-2 .stat-card:nth-child(-n+2) { border-bottom: 2px solid var(--clr-line) !important; }
+
+      /* Hero poster images – shorter on mobile */
+      .grid.grid-cols-2.gap-3 .poster-card img { height: 9rem; }
+
+      /* Hero CTA buttons – full-width stack */
+      .flex.flex-wrap.gap-3.pt-1 { flex-direction: column; }
+      .flex.flex-wrap.gap-3.pt-1 .btn,
+      .flex.flex-wrap.gap-3.pt-1 a.btn { width: 100%; justify-content: center; }
 
       .panel h2 { font-size: 1.6rem !important; }
-      .grid.grid-cols-2.gap-4 .poster-card img { height: 14rem; }
+
+      /* Section headers – tighten on mobile */
+      .section-header { gap: .5rem; margin-bottom: var(--sp-4); }
+      .section-header h3 { font-size: 1.15rem; }
+
+      /* Fixtures filter – scrollable row, no wrap */
+      #v-fixtures-filter {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+        width: 100%;
+      }
+      #v-fixtures-filter::-webkit-scrollbar { display: none; }
+      #v-fixtures-filter .btn { flex-shrink: 0; font-size: .68rem; padding: .35rem .6rem; min-height: 34px; }
 
       /* Live score display */
       #v-score-a-num, #v-score-b-num { font-size: 4.5rem !important; }
@@ -522,6 +552,13 @@
       #v-standings-table-body td:nth-child(5),
       #v-standings-table-body td:nth-child(6) { display: none; }
       thead th:nth-child(5), thead th:nth-child(6) { display: none; }
+
+      /* Standings & Players panel – remove side padding squeeze */
+      #sec-standings .panel,
+      #sec-players .panel { padding: 1rem !important; }
+
+      /* Player search – full-width when it wraps to its own row */
+      #v-player-search-input { max-width: 100% !important; width: 100%; }
 
       /* Modals – full-width bottom-sheet style, safe scroll */
       .modal-backdrop { align-items: flex-end !important; padding: 0 !important; }
