@@ -15,12 +15,11 @@
 [build.environment]
   NODE_VERSION = "20"
 
-# ── Proxy: forward all /api/* calls to the Render backend ────────────────────
-# This means the browser talks to the SAME Netlify domain — zero CORS issues.
-# :API_URL is replaced at request-time by Netlify with the API_URL env var value.
+# ── Proxy: forward all /api/* calls to the Railway backend ───────────────────
+# Hardcoded Railway URL — browser never sees a cross-origin request.
 [[redirects]]
   from   = "/api/*"
-  to     = ":API_URL/api/:splat"
+  to     = "https://1v1-faisalabad-api-production.up.railway.app/api/:splat"
   status = 200
   force  = true
 
