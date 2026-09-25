@@ -20,7 +20,8 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 app.set('trust proxy', 1);          // needed behind nginx/load-balancer for correct IPs
-const port = Number(process.env.API_PORT ?? 4000);
+// Railway injects PORT automatically; fall back to API_PORT then 4000
+const port = Number(process.env.PORT ?? process.env.API_PORT ?? 4000);
 const expectedKey = process.env.TOURNAMENT_API_KEY ?? null;
 const allowedOrigins = (process.env.CORS_ORIGINS ?? `http://127.0.0.1:${port},http://localhost:${port}`).split(',').map((origin) => origin.trim());
 const isDevelopmentOrigin = process.env.APP_ENV === 'development'
