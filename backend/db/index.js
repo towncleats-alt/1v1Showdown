@@ -14,7 +14,7 @@ export const pool = new Pool({
   connectionTimeoutMillis: 2_000,
   // Queue requests that exceed pool size rather than crashing — up to 50 queued
   allowExitOnIdle: false,
-  ssl: process.env.DATABASE_SSL === 'true' ? { rejectUnauthorized: true } : undefined,
+  ssl: process.env.DATABASE_SSL === 'true' ? { rejectUnauthorized: false } : undefined,
 });
 
 // ─── DB health tracking ───────────────────────────────────────────────────────
