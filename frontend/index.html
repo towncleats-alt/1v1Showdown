@@ -11,179 +11,435 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
   <style>
-    /* ═══════════════════════════════════════════════════════════════
-       DVM-STYLE THEME — cream bg · dark green header · white cards
-       hard black borders · black offset shadows · bold black type
-       ═══════════════════════════════════════════════════════════════ */
+    /* ═══════════════════════════════════════════════════════════════════════
+       1V1 SHOWDOWN FAISALABAD — DESIGN SYSTEM
+       Neo-Brutalist × Premium Football × Street Football Energy
+       ═══════════════════════════════════════════════════════════════════════ */
     :root {
-      --bg:           #F0EBE0;
-      --surface:      #FFFFFF;
-      --surface-soft: #F7F3EC;
-      --border:       #111111;
-      --border-mid:   #333333;
-      --accent:       #1B5E3B;        /* dark green — primary action */
-      --accent-light: #2D7A52;        /* hover state */
-      --accent-gold:  #FFB800;        /* gold for LIVE / urgent */
-      --live:         #1B5E3B;
-      --danger:       #C0392B;
-      --text:         #111111;
-      --muted:        #555555;
-      --panel-border: #111111;
-      /* ── Hard offset shadow tokens ── */
-      --nb-shadow:    4px 4px 0px 0px #111111;
-      --nb-shadow-sm: 3px 3px 0px 0px #111111;
-      --nb-shadow-lg: 6px 6px 0px 0px #111111;
+      /* ── Color Palette ── */
+      --clr-bg:           #F2EDE3;   /* warm cream — dominant surface */
+      --clr-surface:      #FFFFFF;
+      --clr-surface-soft: #F8F4EE;
+      --clr-surface-mid:  #EDE8DE;
+      --clr-green:        #1A5C38;   /* deep football green — 20% */
+      --clr-green-dark:   #133F28;   /* hover / pressed state */
+      --clr-green-mid:    #2D7A52;
+      --clr-mint:         #D1FAE5;   /* pitch mint — 10% accent */
+      --clr-mint-mid:     #A7F3D0;
+      --clr-gold:         #D97706;   /* amber gold — LIVE / urgent */
+      --clr-danger:       #C0392B;
+      --clr-blue:         #1D4ED8;   /* sky — admin-neutral */
+      --clr-ink:          #0F0F0F;   /* near-black text */
+      --clr-ink-mid:      #2C2C2C;
+      --clr-ink-soft:     #4A4A4A;
+      --clr-ink-muted:    #6B6B6B;
+      --clr-line:         #D0C9BE;   /* subtle dividers */
+
+      /* ── Border Widths ── */
+      --bw-sm:  1.5px;
+      --bw-md:  2px;
+      --bw-lg:  3px;
+      --bw-xl:  4px;
+
+      /* ── Shadows (hard offset — neobrutalist) ── */
+      --sh-xs:  2px 2px 0px 0px var(--clr-ink);
+      --sh-sm:  3px 3px 0px 0px var(--clr-ink);
+      --sh-md:  4px 4px 0px 0px var(--clr-ink);
+      --sh-lg:  6px 6px 0px 0px var(--clr-ink);
+      --sh-xl:  8px 8px 0px 0px var(--clr-ink);
+      --sh-green-sm: 3px 3px 0px 0px var(--clr-green);
+      --sh-green-lg: 6px 6px 0px 0px var(--clr-green);
+
+      /* ── Border Radius ── */
+      --r-none: 0;
+      --r-xs:   4px;
+      --r-sm:   6px;
+      --r-md:   10px;
+      --r-lg:   14px;
+      --r-xl:   20px;
+      --r-2xl:  28px;
+
+      /* ── Spacing Scale ── */
+      --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+      --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-10: 40px;
+
+      /* ── Typography Scale ── */
+      --fs-xs:  0.68rem;
+      --fs-sm:  0.8rem;
+      --fs-base:0.875rem;
+      --fs-md:  1rem;
+      --fs-lg:  1.25rem;
+      --fs-xl:  1.5rem;
+      --fs-2xl: 2rem;
+      --fs-3xl: 2.75rem;
+      --fs-4xl: 3.75rem;
+
+      /* ── Animation ── */
+      --ease-fast:  .1s ease;
+      --ease-mid:   .18s ease;
+      --ease-slow:  .3s ease;
     }
 
-    * { box-sizing: border-box; }
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; }
 
+    /* ── Base ── */
     body {
-      margin: 0;
-      font-family: "DM Sans", sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: var(--clr-bg);
+      color: var(--clr-ink);
       overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Cream dotted background ── */
-    .sports-grid {
-      background-color: #F0EBE0;
-      background-image: radial-gradient(circle, #999 1px, transparent 1px);
-      background-size: 22px 22px;
+    /* ── Typography Utilities ── */
+    .display {
+      font-family: "Rajdhani", sans-serif;
+      letter-spacing: .05em;
+      font-weight: 800;
+      line-height: 1.05;
     }
-
-    /* ── Typography ── */
-    .display { font-family: "Rajdhani", sans-serif; letter-spacing: .04em; font-weight: 800; }
     .mono { font-family: "Space Mono", monospace; }
 
-    /* ── Panels: white card, hard black border, hard shadow ── */
+    /* ── Cream Dotted Background ── */
+    .sports-grid {
+      background-color: var(--clr-bg);
+      background-image: radial-gradient(circle, rgba(90,70,50,.18) 1px, transparent 1px);
+      background-size: 20px 20px;
+      position: relative;
+    }
+
+    /* ── Goal-Net Atmosphere Canvas ── */
+    #goal-net-canvas {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: .045;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #goal-net-canvas { display: none; }
+    }
+
+    /* Ensure all content sits above the canvas */
+    header, main, footer, #mobile-nav { position: relative; z-index: 1; }
+    [id$="-modal"], #toast { z-index: 50; }
+
+    /* ── Panels ── */
     .panel {
-      background: #FFFFFF;
-      border: 2px solid #111111;
-      box-shadow: var(--nb-shadow);
+      background: var(--clr-surface);
+      border: var(--bw-md) solid var(--clr-ink);
+      box-shadow: var(--sh-md);
     }
     .panel-soft {
-      background: #F7F3EC;
-      border: 2px solid #111111;
-      box-shadow: var(--nb-shadow-sm);
+      background: var(--clr-surface-soft);
+      border: var(--bw-sm) solid var(--clr-line);
+    }
+    .panel-green {
+      background: var(--clr-green);
+      border: var(--bw-md) solid var(--clr-ink);
+      box-shadow: var(--sh-md);
+      color: #FFFFFF;
     }
 
     /* ── Buttons ── */
     .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
-      border-radius: 6px; padding: .55rem .9rem; font-weight: 800; font-size: .82rem;
-      letter-spacing: .05em; text-transform: uppercase;
-      transition: transform .1s ease, box-shadow .1s ease;
-      cursor: pointer; border: 2px solid #111111;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .4rem;
+      border-radius: var(--r-sm);
+      padding: .52rem .9rem;
+      font-weight: 800;
+      font-size: var(--fs-sm);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: transform var(--ease-fast), box-shadow var(--ease-fast), background var(--ease-mid);
+      cursor: pointer;
+      border: var(--bw-md) solid var(--clr-ink);
+      white-space: nowrap;
+      user-select: none;
     }
     .btn:active { transform: translate(3px,3px) !important; box-shadow: none !important; }
-    .btn:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
-      outline: 3px solid var(--accent); outline-offset: 2px;
-    }
+    .btn:focus-visible { outline: 3px solid var(--clr-green); outline-offset: 2px; }
+    input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--clr-green); outline-offset: 2px; }
 
-    /* Primary — dark green */
+    /* Primary — football green */
     .btn-lime {
-      color: #FFFFFF; background: var(--accent); border-color: #111111;
-      box-shadow: 3px 3px 0px 0px #111111;
+      color: #FFFFFF;
+      background: var(--clr-green);
+      border-color: var(--clr-ink);
+      box-shadow: var(--sh-sm);
     }
-    .btn-lime:hover { background: var(--accent-light); transform: translate(-1px,-1px); box-shadow: 4px 4px 0px 0px #111111; }
+    .btn-lime:hover {
+      background: var(--clr-green-dark);
+      transform: translate(-1px,-1px);
+      box-shadow: var(--sh-md);
+    }
 
-    /* Secondary — white/cream */
+    /* Secondary — cream/white */
     .btn-dark {
-      background: #FFFFFF; border-color: #111111; color: #111111;
-      box-shadow: 3px 3px 0px 0px #111111;
+      background: var(--clr-surface);
+      border-color: var(--clr-ink);
+      color: var(--clr-ink);
+      box-shadow: var(--sh-sm);
     }
-    .btn-dark:hover { background: #F0EBE0; transform: translate(-1px,-1px); box-shadow: 4px 4px 0px 0px #111111; }
+    .btn-dark:hover {
+      background: var(--clr-surface-mid);
+      transform: translate(-1px,-1px);
+      box-shadow: var(--sh-md);
+    }
 
-    /* Danger — red */
+    /* Danger */
     .btn-danger {
-      background: #FEE2E2; border-color: #C0392B; color: #C0392B;
-      box-shadow: 3px 3px 0px 0px #C0392B;
+      background: #FEE2E2;
+      border-color: var(--clr-danger);
+      color: var(--clr-danger);
+      box-shadow: 3px 3px 0px 0px var(--clr-danger);
     }
-    .btn-danger:hover { background: #FECACA; transform: translate(-1px,-1px); box-shadow: 4px 4px 0px 0px #C0392B; }
+    .btn-danger:hover {
+      background: #FECACA;
+      transform: translate(-1px,-1px);
+      box-shadow: 4px 4px 0px 0px var(--clr-danger);
+    }
 
-    /* Sky — blue outline (admin neutral) */
+    /* Sky — admin neutral */
     .btn-sky {
-      background: #EFF6FF; border-color: #1D4ED8; color: #1D4ED8;
-      box-shadow: 3px 3px 0px 0px #1D4ED8;
+      background: #EFF6FF;
+      border-color: var(--clr-blue);
+      color: var(--clr-blue);
+      box-shadow: 3px 3px 0px 0px var(--clr-blue);
     }
-    .btn-sky:hover { background: #DBEAFE; transform: translate(-1px,-1px); box-shadow: 4px 4px 0px 0px #1D4ED8; }
+    .btn-sky:hover {
+      background: #DBEAFE;
+      transform: translate(-1px,-1px);
+      box-shadow: 4px 4px 0px 0px var(--clr-blue);
+    }
 
     /* Gold — admin badge */
     .btn-gold {
-      background: #FFFBEB; border-color: #B45309; color: #B45309;
-      box-shadow: 3px 3px 0px 0px #B45309;
+      background: #FFFBEB;
+      border-color: var(--clr-gold);
+      color: var(--clr-gold);
+      box-shadow: 3px 3px 0px 0px var(--clr-gold);
     }
-    .btn-gold:hover { background: #FEF3C7; transform: translate(-1px,-1px); box-shadow: 4px 4px 0px 0px #B45309; }
+    .btn-gold:hover {
+      background: #FEF3C7;
+      transform: translate(-1px,-1px);
+      box-shadow: 4px 4px 0px 0px var(--clr-gold);
+    }
 
     /* ── Inputs ── */
     .input {
-      width: 100%; border-radius: 6px; background: #FFFFFF;
-      border: 2px solid #111111;
-      color: #111111; padding: .65rem .85rem; font-family: inherit; font-size: .875rem;
-      transition: box-shadow .12s;
-      box-shadow: 2px 2px 0px 0px #111111;
+      width: 100%;
+      border-radius: var(--r-sm);
+      background: var(--clr-surface);
+      border: var(--bw-md) solid var(--clr-ink);
+      color: var(--clr-ink);
+      padding: .62rem .85rem;
+      font-family: inherit;
+      font-size: var(--fs-base);
+      transition: box-shadow var(--ease-fast), border-color var(--ease-fast);
+      box-shadow: var(--sh-xs);
     }
-    .input:focus { box-shadow: 3px 3px 0px 0px var(--accent); border-color: var(--accent); outline: none; }
-    .input::placeholder { color: #888888; }
+    .input:focus {
+      border-color: var(--clr-green);
+      box-shadow: var(--sh-green-sm);
+      outline: none;
+    }
+    .input::placeholder { color: var(--clr-ink-muted); }
+    select.input { cursor: pointer; }
 
-    /* ── Tags ── */
+    /* ── Badges / Tags ── */
     .tag {
-      border: 2px solid #111111; background: #F7F3EC; color: #111111;
-      border-radius: 5px; padding: .18rem .6rem; font-size: .7rem; font-weight: 800;
-      letter-spacing: .07em; text-transform: uppercase;
-      display: inline-flex; align-items: center; gap: .35rem;
-      box-shadow: 2px 2px 0px 0px #111111;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      border: var(--bw-md) solid var(--clr-ink);
+      background: var(--clr-surface-soft);
+      color: var(--clr-ink);
+      border-radius: var(--r-xs);
+      padding: .15rem .55rem;
+      font-size: var(--fs-xs);
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      box-shadow: var(--sh-xs);
+      white-space: nowrap;
     }
-    /* Status variants — keep readable on light bg */
-    .tag-live     { color: #FFFFFF; border-color: var(--accent); background: var(--accent); box-shadow: 2px 2px 0px 0px var(--accent); }
-    .tag-approved { color: #FFFFFF; border-color: #1B5E3B; background: #1B5E3B; box-shadow: 2px 2px 0px 0px #1B5E3B; }
-    .tag-pending  { color: #111111; border-color: #B45309; background: #FEF3C7; box-shadow: 2px 2px 0px 0px #B45309; }
-    .tag-suspended{ color: #FFFFFF; border-color: #C0392B; background: #C0392B; box-shadow: 2px 2px 0px 0px #C0392B; }
+    .tag-live     { color: #FFF; border-color: var(--clr-green); background: var(--clr-green); box-shadow: var(--sh-xs); }
+    .tag-approved { color: #FFF; border-color: var(--clr-green-dark); background: var(--clr-green-dark); box-shadow: var(--sh-xs); }
+    .tag-pending  { color: var(--clr-ink); border-color: var(--clr-gold); background: #FEF3C7; box-shadow: 2px 2px 0px 0px var(--clr-gold); }
+    .tag-suspended{ color: #FFF; border-color: var(--clr-danger); background: var(--clr-danger); box-shadow: var(--sh-xs); }
+
+    /* ── Live pulse badge ── */
+    @keyframes live-pulse { 0%,100%{opacity:1} 50%{opacity:.55} }
+    .tag-live.animate-pulse { animation: live-pulse 1.4s ease infinite; }
 
     /* ── Try progress dots ── */
     .try-dot {
-      width: 22px; height: 22px; border-radius: 4px; border: 2px solid #AAAAAA;
-      display: inline-grid; place-items: center; font-size: 10px; font-weight: 800;
-      font-family: "Space Mono", monospace; background: #FFFFFF;
+      width: 24px; height: 24px;
+      border-radius: var(--r-xs);
+      border: var(--bw-md) solid var(--clr-line);
+      display: inline-grid;
+      place-items: center;
+      font-size: 10px;
+      font-weight: 800;
+      font-family: "Space Mono", monospace;
+      background: var(--clr-surface);
+      color: var(--clr-ink-muted);
     }
-    .try-dot.done    { background: var(--accent); border-color: #111111; color: #FFFFFF; box-shadow: 2px 2px 0px 0px #111111; }
-    .try-dot.current { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(27,94,59,.2), 2px 2px 0px 0px var(--accent); background: #D1FAE5; }
+    .try-dot.done {
+      background: var(--clr-green);
+      border-color: var(--clr-ink);
+      color: #FFF;
+      box-shadow: var(--sh-xs);
+    }
+    .try-dot.current {
+      border-color: var(--clr-green);
+      box-shadow: 0 0 0 3px rgba(26,92,56,.2), var(--sh-xs);
+      background: var(--clr-mint);
+      color: var(--clr-green-dark);
+    }
 
-    .score-number, .timer { font-family: "Space Mono", monospace; letter-spacing: -.05em; }
+    /* ── Score numbers & timer ── */
+    .score-number, .timer {
+      font-family: "Space Mono", monospace;
+      letter-spacing: -.04em;
+      font-variant-numeric: tabular-nums;
+    }
 
     /* ── Countdown units ── */
     .countdown-unit {
-      display: flex; flex-direction: column; align-items: center; min-width: 3.2rem;
-      background: #FFFFFF; border: 2px solid #111111;
-      border-radius: 8px; padding: .35rem .5rem .25rem;
-      box-shadow: 3px 3px 0px 0px #111111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 3.4rem;
+      background: var(--clr-surface);
+      border: var(--bw-md) solid var(--clr-ink);
+      border-radius: var(--r-md);
+      padding: .4rem .55rem .3rem;
+      box-shadow: var(--sh-sm);
     }
-    .countdown-num  { font-family: "Space Mono", monospace; font-size: 1.6rem; font-weight: 700; color: var(--accent); line-height: 1; letter-spacing: -.04em; }
-    .countdown-lbl  { font-size: .55rem; font-weight: 800; color: #555; letter-spacing: .14em; margin-top: .15rem; text-transform: uppercase; }
-    #cd-days.cd-done { color: var(--accent); border-color: var(--accent); background: #D1FAE5; box-shadow: 3px 3px 0px 0px var(--accent); }
+    .countdown-num {
+      font-family: "Space Mono", monospace;
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--clr-green);
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+    .countdown-lbl {
+      font-size: .52rem;
+      font-weight: 800;
+      color: var(--clr-ink-muted);
+      letter-spacing: .15em;
+      margin-top: .18rem;
+      text-transform: uppercase;
+    }
+    #cd-days.cd-done {
+      color: var(--clr-green);
+      border-color: var(--clr-green);
+      background: var(--clr-mint);
+      box-shadow: var(--sh-green-sm);
+    }
 
     @keyframes cd-tick { 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(.88)} }
     .cd-tick { animation: cd-tick .12s ease; }
-    .timer.urgent { color: var(--danger); animation: pulse .8s infinite; }
+    .timer.urgent { color: var(--clr-danger); animation: pulse .8s infinite; }
     @keyframes pulse { 50% { opacity: .5; transform: scale(1.03); } }
 
     /* ── Modal backdrop ── */
-    .modal-backdrop { background: rgba(10,10,10,.75); backdrop-filter: blur(6px); }
+    .modal-backdrop {
+      background: rgba(8,8,8,.78);
+      backdrop-filter: blur(8px);
+    }
 
     /* ── Rulebook details ── */
-    details { border-bottom: 2px solid #DDDDDD; }
+    details { border-bottom: var(--bw-sm) solid var(--clr-line); }
     details:last-child { border-bottom: 0; }
-    summary { cursor: pointer; list-style: none; color: #111111; }
+    summary { cursor: pointer; list-style: none; color: var(--clr-ink); }
     summary::-webkit-details-marker { display: none; }
 
-    /* ── Poster card ── */
-    .poster-card { transition: transform .18s ease, box-shadow .18s ease; }
-    .poster-card:hover { transform: translate(-3px,-3px); box-shadow: 5px 5px 0px 0px #111111; }
+    /* ── Poster / media card ── */
+    .poster-card { transition: transform var(--ease-mid), box-shadow var(--ease-mid); }
+    .poster-card:hover {
+      transform: translate(-3px,-3px);
+      box-shadow: var(--sh-lg);
+    }
 
-    /* ═══════════════════════════════════════════════════════════════
-       MOBILE OVERRIDES  (≤ 639px)
-       ═══════════════════════════════════════════════════════════════ */
+    /* ── Section header ── */
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-bottom: var(--sp-3);
+      border-bottom: var(--bw-lg) solid var(--clr-ink);
+      margin-bottom: var(--sp-6);
+    }
+    .section-header h3 {
+      font-family: "Rajdhani", sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--clr-ink);
+      line-height: 1;
+    }
+    .section-header p { color: var(--clr-ink-soft); font-size: var(--fs-sm); margin-top: var(--sp-1); }
+
+    /* ── Stat card ── */
+    .stat-card {
+      background: var(--clr-surface);
+      border: var(--bw-md) solid var(--clr-ink);
+      box-shadow: var(--sh-sm);
+      border-radius: var(--r-sm);
+      padding: var(--sp-4) var(--sp-5);
+      text-align: center;
+    }
+    .stat-card .stat-num {
+      display: block;
+      font-family: "Space Mono", monospace;
+      font-size: var(--fs-3xl);
+      font-weight: 700;
+      color: var(--clr-green);
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+    .stat-card .stat-label {
+      display: block;
+      font-size: var(--fs-xs);
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--clr-ink-muted);
+      margin-top: var(--sp-1);
+    }
+
+    /* ── Nav active state ── */
+    .v-nav-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: "DM Sans", sans-serif;
+      font-size: var(--fs-sm);
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.7);
+      padding: .45rem .7rem;
+      border-radius: var(--r-xs);
+      transition: color var(--ease-fast), background var(--ease-fast);
+    }
+    .v-nav-btn:hover { color: #FFFFFF; background: rgba(255,255,255,.1); }
+    .v-nav-btn.nav-active { color: #FFFFFF; background: rgba(255,255,255,.18); }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       MOBILE OVERRIDES (≤ 639px)
+       ═══════════════════════════════════════════════════════════════════════ */
     @media (max-width: 639px) {
       main { padding: .75rem !important; }
 
@@ -194,7 +450,7 @@
 
       #unauthenticated-buttons .btn,
       #player-session-badge .btn,
-      #admin-session-badge .btn { padding: .4rem .65rem; font-size: .72rem; gap: .3rem; }
+      #admin-session-badge .btn { padding: .35rem .6rem; font-size: .7rem; gap: .3rem; }
       #player-session-name { max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
       #admin-session-label { display: none; }
       #backend-status-badge { display: none !important; }
@@ -202,15 +458,15 @@
       #mobile-nav { display: flex !important; }
       #visitor-root { gap: 1.5rem; }
 
-      .countdown-unit { min-width: 2.6rem; padding: .25rem .35rem .2rem; }
+      .countdown-unit { min-width: 2.7rem; padding: .25rem .35rem .2rem; }
       .countdown-num  { font-size: 1.25rem; }
-      .countdown-lbl  { font-size: .48rem; }
+      .countdown-lbl  { font-size: .46rem; }
 
-      .panel.rounded-3xl h2 { font-size: 1.75rem !important; }
+      .panel h2 { font-size: 1.6rem !important; }
       .grid.grid-cols-2.gap-4 .poster-card img { height: 14rem; }
 
       #v-score-a-num, #v-score-b-num { font-size: 4.5rem !important; }
-      #v-score-a-name, #v-score-b-name { font-size: 1.25rem !important; }
+      #v-score-a-name, #v-score-b-name { font-size: 1.1rem !important; }
 
       #v-standings-table-body td:nth-child(5),
       #v-standings-table-body td:nth-child(6) { display: none; }
@@ -219,374 +475,365 @@
       .panel.rounded-3xl.max-w-md,
       .panel.rounded-3xl.max-w-xl,
       .panel.rounded-3xl.max-w-2xl,
-      .panel.rounded-3xl.max-w-3xl { border-radius: 1.25rem; padding: 1.1rem !important; max-height: 94vh; }
+      .panel.rounded-3xl.max-w-3xl { border-radius: 1.25rem; padding: 1rem !important; max-height: 94vh; }
       [id$="-modal"] > div { margin: 0; width: 100% !important; max-width: 100% !important; }
 
       #admin-panel-view .panel .flex.flex-wrap.gap-2 { gap: .35rem; }
-      .adm-tab, #admin-panel-view .btn { font-size: .7rem !important; padding: .4rem .6rem !important; }
+      .adm-tab, #admin-panel-view .btn { font-size: .68rem !important; padding: .38rem .55rem !important; }
 
       #adm-live-a-score, #adm-live-b-score { font-size: 3.5rem !important; }
-      #adm-live-a-name,  #adm-live-b-name  { font-size: 1.1rem !important; }
+      #adm-live-a-name,  #adm-live-b-name  { font-size: 1rem !important; }
       #adm-live-timer { font-size: 3rem !important; }
 
       #adm-players-tbody td, #adm-players-tbody th { white-space: nowrap; }
       #player-portal-view .panel.rounded-3xl { border-radius: 1.25rem; }
       #p-dash-checkin-btn span { display: none; }
 
-      footer { padding: 1.25rem .75rem; }
+      footer { padding: 1.25rem .75rem !important; }
       footer p { font-size: .68rem; }
     }
 
-    /* ── Mobile bottom navigation bar ── */
+    /* ── Mobile Bottom Navigation Bar ── */
     #mobile-nav {
       display: none;
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 45;
-      background: #FFFFFF; border-top: 3px solid #111111;
+      background: var(--clr-surface);
+      border-top: var(--bw-lg) solid var(--clr-ink);
       padding: .4rem .25rem calc(.4rem + env(safe-area-inset-bottom));
-      justify-content: space-around; align-items: center;
+      justify-content: space-around;
+      align-items: center;
       gap: .1rem;
-      box-shadow: 0 -3px 0 0 #111111;
+      box-shadow: 0 -3px 0 0 var(--clr-ink);
     }
     #mobile-nav button {
       display: flex; flex-direction: column; align-items: center; gap: .15rem;
       background: none; border: none; cursor: pointer;
-      color: #555555; font-size: .58rem; font-weight: 800; font-family: "DM Sans", sans-serif;
-      padding: .3rem .5rem; border-radius: 4px; transition: color .12s;
+      color: var(--clr-ink-muted);
+      font-size: .56rem; font-weight: 800;
+      font-family: "DM Sans", sans-serif;
+      padding: .3rem .5rem; border-radius: var(--r-xs);
+      transition: color var(--ease-fast), background var(--ease-fast);
       min-width: 3.2rem; letter-spacing: .06em; text-transform: uppercase;
     }
     #mobile-nav button svg { width: 1.2rem; height: 1.2rem; }
-    #mobile-nav button.mob-active { color: var(--accent); }
-    #mobile-nav button:active { background: #D1FAE5; }
-
-    @media (max-width: 639px) { body { padding-bottom: 4rem; } }
+    #mobile-nav button.mob-active { color: var(--clr-green); background: var(--clr-mint); }
+    #mobile-nav button:active { background: var(--clr-mint); }
+    @media (max-width: 639px) { body { padding-bottom: 4.5rem; } }
 
     /* ── Bracket ── */
-    .bk-col { display: flex; flex-direction: column; justify-content: space-around; min-width: 168px; }
-    .bk-col:first-child { min-width: 180px; }
-    .bk-connector { display: flex; flex-direction: column; justify-content: space-around; width: 36px; flex-shrink: 0; }
+    .bk-col { display: flex; flex-direction: column; justify-content: space-around; min-width: 175px; }
+    .bk-col:first-child { min-width: 185px; }
+    .bk-connector { display: flex; flex-direction: column; justify-content: space-around; width: 38px; flex-shrink: 0; }
     .bk-match {
       position: relative; margin: 6px 0;
-      border: 2px solid #111111; border-radius: 6px; overflow: hidden;
-      background: #FFFFFF;
-      transition: box-shadow .12s, transform .12s;
-      box-shadow: 3px 3px 0px 0px #111111;
+      border: var(--bw-md) solid var(--clr-ink);
+      border-radius: var(--r-sm); overflow: hidden;
+      background: var(--clr-surface);
+      transition: box-shadow var(--ease-fast), transform var(--ease-fast);
+      box-shadow: var(--sh-sm);
     }
-    .bk-match:hover { box-shadow: 5px 5px 0px 0px #111111; transform: translate(-1px,-1px); }
+    .bk-match:hover { box-shadow: var(--sh-lg); transform: translate(-2px,-2px); }
     .bk-slot {
-      padding: 6px 10px; font-size: 12px; font-weight: 800;
+      padding: 7px 11px; font-size: 12px; font-weight: 800;
       display: flex; align-items: center; justify-content: space-between; gap: 6px;
-      min-height: 34px; color: #111111; letter-spacing: .03em; text-transform: uppercase;
+      min-height: 36px; color: var(--clr-ink); letter-spacing: .03em; text-transform: uppercase;
     }
-    .bk-slot + .bk-slot { border-top: 2px solid #EEEEEE; }
-    .bk-slot.winner { background: #D1FAE5; color: var(--accent); }
-    .bk-slot.tbd { color: #AAAAAA; font-style: italic; text-transform: none; }
+    .bk-slot + .bk-slot { border-top: var(--bw-sm) solid var(--clr-line); }
+    .bk-slot.winner { background: var(--clr-mint); color: var(--clr-green-dark); }
+    .bk-slot.tbd { color: var(--clr-ink-muted); font-style: italic; text-transform: none; }
     .bk-score {
-      font-family: "Space Mono", monospace; font-size: 11px;
-      background: #F0EBE0; border: 2px solid #111111; border-radius: 4px;
-      padding: 1px 5px; min-width: 22px; text-align: center;
-      flex-shrink: 0; color: #111111; font-weight: 800;
+      font-family: "Space Mono", monospace; font-size: 11px; font-weight: 800;
+      background: var(--clr-surface-soft); border: var(--bw-sm) solid var(--clr-ink);
+      border-radius: var(--r-xs); padding: 1px 5px; min-width: 22px;
+      text-align: center; color: var(--clr-ink); flex-shrink: 0;
     }
     .bk-round-label {
       text-align: center; font-size: 10px; font-weight: 800;
-      letter-spacing: .14em; text-transform: uppercase;
-      color: var(--accent); padding-bottom: 8px;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--clr-green); padding-bottom: 8px;
     }
     .bk-final-slot {
-      min-width: 160px; border: 3px solid #111111;
-      border-radius: 6px; background: #D1FAE5;
-      padding: 12px 14px; text-align: center;
-      box-shadow: 5px 5px 0px 0px #111111;
+      min-width: 165px; border: var(--bw-lg) solid var(--clr-ink);
+      border-radius: var(--r-sm); background: var(--clr-mint);
+      padding: 14px 16px; text-align: center;
+      box-shadow: var(--sh-lg);
     }
-    .bk-final-slot .name { font-size: 15px; font-weight: 800; color: var(--accent); letter-spacing: .04em; text-transform: uppercase; }
-    .bk-final-slot .label { font-size: 10px; color: #555555; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 4px; }
+    .bk-final-slot .name { font-size: 15px; font-weight: 800; color: var(--clr-green-dark); letter-spacing: .04em; text-transform: uppercase; }
+    .bk-final-slot .label { font-size: 10px; color: var(--clr-ink-soft); text-transform: uppercase; letter-spacing: .14em; margin-bottom: 5px; }
     .bk-svg { overflow: visible; }
+
+    /* ── Scroll area for bracket ── */
+    #bracket-scroll-area { overflow-x: auto; padding-bottom: 8px; }
+    #bracket-canvas { display: flex; align-items: flex-start; padding: 8px 4px; min-width: min-content; }
   </style>
 </head>
 <body class="sports-grid min-h-screen">
 
+<!-- ── Goal-net atmosphere (canvas, drawn by JS below) ── -->
+<canvas id="goal-net-canvas" aria-hidden="true"></canvas>
+
 <!-- ===================================================================== -->
-<!-- TOP HEADER BAR (Always Visitor by Default — Login on Top Right)      -->
+<!-- HEADER                                                                 -->
 <!-- ===================================================================== -->
-<header class="sticky top-0 z-40" style="background:#1B5E3B;border-bottom:3px solid #111111;box-shadow:0 4px 0 0 #111111;">
-  <div class="max-w-[1600px] mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
-    <!-- Brand & Official Logo -->
-    <a href="#" onclick="showSection('overview'); return false;" class="flex items-center gap-3">
-      <img src="assets/logo.png" alt="1 ON 1 Showdown Logo" class="h-11 w-11 object-contain rounded-lg p-0.5" style="border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);box-shadow:2px 2px 0 0 #111111;">
+<header class="sticky top-0 z-40" style="background:var(--clr-green);border-bottom:3px solid var(--clr-ink);box-shadow:0 4px 0 0 var(--clr-ink);">
+  <div class="max-w-[1600px] mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
+
+    <!-- Brand -->
+    <a href="#" onclick="showSection('overview'); return false;" class="flex items-center gap-3 no-underline">
+      <img src="assets/logo.png" alt="1 ON 1 Showdown Logo" class="h-10 w-10 object-contain rounded-md p-0.5"
+        style="border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);box-shadow:2px 2px 0 0 var(--clr-ink);">
       <div>
         <div class="flex items-center gap-2">
-          <span class="font-extrabold text-lg leading-none tracking-tight display text-white" id="brand-title">1 ON 1 SHOWDOWN</span>
-          <span class="tag tag-live text-[10px] py-0 px-2">FAISALABAD</span>
+          <span class="font-extrabold text-base leading-none tracking-tight display text-white" id="brand-title">1 ON 1 SHOWDOWN</span>
+          <span class="tag tag-live" style="font-size:.6rem;padding:.1rem .45rem;box-shadow:none;">FAISALABAD</span>
         </div>
-        <p class="text-[11px] mt-0.5" style="color:rgba(255,255,255,.65);" id="brand-sub">Sunday, Oct 11, 2026 · Padel Pavilion, Faisalabad</p>
+        <p class="text-[11px] mt-0.5" style="color:rgba(255,255,255,.6);" id="brand-sub">Oct 11, 2026 · Padel Pavilion, Faisalabad</p>
       </div>
     </a>
 
-    <!-- Visitor Navigation Links -->
-    <nav class="hidden lg:flex items-center gap-1 text-sm font-semibold">
-      <button class="v-nav-btn text-white px-3 py-1.5 rounded-md font-bold uppercase tracking-wide" data-target="overview">Tournament Info</button>
-      <button class="v-nav-btn px-3 py-1.5 rounded-md font-bold uppercase tracking-wide" style="color:rgba(255,255,255,.7)" data-target="live">Live Arena</button>
-      <button class="v-nav-btn px-3 py-1.5 rounded-md font-bold uppercase tracking-wide" style="color:rgba(255,255,255,.7)" data-target="fixtures">Fixtures & Results</button>
-      <button class="v-nav-btn px-3 py-1.5 rounded-md font-bold uppercase tracking-wide" style="color:rgba(255,255,255,.7)" data-target="standings">Leaderboard</button>
-      <button class="v-nav-btn px-3 py-1.5 rounded-md font-bold uppercase tracking-wide" style="color:rgba(255,255,255,.7)" data-target="players">Players Roster</button>
-      <button class="v-nav-btn px-3 py-1.5 rounded-md font-bold uppercase tracking-wide" style="color:rgba(255,255,255,.7)" data-target="rules">Official Rules</button>
+    <!-- Desktop Nav -->
+    <nav class="hidden lg:flex items-center gap-0.5" aria-label="Main navigation">
+      <button class="v-nav-btn" data-target="overview">Home</button>
+      <button class="v-nav-btn" data-target="live">Live</button>
+      <button class="v-nav-btn" data-target="fixtures">Fixtures</button>
+      <button class="v-nav-btn" data-target="standings">Leaderboard</button>
+      <button class="v-nav-btn" data-target="players">Players</button>
+      <button class="v-nav-btn" data-target="rules">Rules</button>
     </nav>
 
-    <!-- Top Right Controls: Status & Login/Profile State -->
-    <div class="flex items-center gap-2.5">
-      <!-- Status badge: only shown to admin — hidden from visitors & players -->
-      <span id="backend-status-badge" class="hidden tag tag-live text-[11px]">⬤ Connected (DB)</span>
+    <!-- Auth Controls -->
+    <div class="flex items-center gap-2">
+      <span id="backend-status-badge" class="hidden tag tag-live" style="font-size:.6rem">⬤ Connected</span>
 
-      <!-- NOT Logged In State (Visitors) -->
       <div id="unauthenticated-buttons" class="flex items-center gap-2">
-        <button id="open-login-btn" class="btn btn-lime text-xs"><i data-lucide="log-in"></i>Player Login</button>
+        <button id="open-login-btn" class="btn btn-lime text-xs" style="background:#fff;color:var(--clr-green);border-color:var(--clr-ink);">
+          <i data-lucide="log-in"></i>Player Login
+        </button>
       </div>
 
-      <!-- PLAYER Logged In State -->
       <div id="player-session-badge" class="hidden items-center gap-2">
-        <button id="go-player-dashboard-btn" class="btn btn-lime text-xs">
+        <button id="go-player-dashboard-btn" class="btn btn-lime text-xs" style="background:#fff;color:var(--clr-green);border-color:var(--clr-ink);">
           <i data-lucide="user"></i><span id="player-session-name">My Dashboard</span>
         </button>
-        <button id="player-logout-btn" class="btn btn-dark text-xs"><i data-lucide="log-out"></i></button>
+        <button id="player-logout-btn" class="btn btn-dark text-xs" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.3);">
+          <i data-lucide="log-out"></i>
+        </button>
       </div>
 
-      <!-- ADMIN Logged In State -->
       <div id="admin-session-badge" class="hidden items-center gap-2">
         <button id="toggle-admin-panel-btn" class="btn btn-gold text-xs">
           <i data-lucide="shield-check"></i><span id="admin-session-label">Admin Panel</span>
         </button>
-        <button id="admin-logout-btn" class="btn btn-dark text-xs"><i data-lucide="log-out"></i></button>
+        <button id="admin-logout-btn" class="btn btn-dark text-xs" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.3);">
+          <i data-lucide="log-out"></i>
+        </button>
       </div>
     </div>
+
   </div>
 </header>
 
 <!-- ===================================================================== -->
-<!-- MAIN CONTENT CONTAINER                                                -->
+<!-- MAIN                                                                   -->
 <!-- ===================================================================== -->
 <main class="max-w-[1600px] mx-auto p-4 md:p-8">
 
-  <!-- =================================================================== -->
-  <!-- PUBLIC VISITOR EXPERIENCE (Default View for everyone)               -->
-  <!-- =================================================================== -->
-  <div id="visitor-root" class="space-y-12">
+  <!-- PUBLIC VISITOR EXPERIENCE -->
+  <div id="visitor-root" class="space-y-14">
 
-    <!-- 1. HERO SHOWCASE WITH OFFICIAL POSTERS & EVENT DETAILS -->
+    <!-- ═══ SECTION 1: OVERVIEW / HERO ═══ -->
     <section id="sec-overview" class="visitor-section space-y-6">
 
-      <!-- ── PRIZE POOL HIGHLIGHT BAR ── -->
-      <div class="rounded-2xl border border-black/20 bg-white px-4 py-4 sm:px-6 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div class="flex items-center gap-3 sm:gap-4">
-          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#FFB800]/10 border border-black/20 flex items-center justify-center shrink-0 text-xl sm:text-2xl">🏆</div>
+      <!-- Hero Banner — full editorial composition -->
+      <div class="panel rounded-2xl overflow-hidden" style="border-width:3px;">
+        <!-- Green hero header strip -->
+        <div class="px-6 py-5 sm:px-10 sm:py-8" style="background:var(--clr-green);border-bottom:3px solid var(--clr-ink);">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div class="space-y-3">
+              <span class="tag tag-live animate-pulse" style="background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4);color:#fff;box-shadow:none;">
+                ⚽ ONE-DAY TOURNAMENT · FAISALABAD, PAKISTAN
+              </span>
+              <h1 class="display text-white leading-none" style="font-size:clamp(2.2rem,7vw,4.5rem);letter-spacing:.03em;">
+                FAISALABAD<br>
+                <span style="color:var(--clr-mint);">1 VS 1</span><br>
+                FOOTBALL
+              </h1>
+              <p class="text-sm sm:text-base font-medium leading-relaxed" style="color:rgba(255,255,255,.75);max-width:500px;">
+                No team to hide behind. Just you, your ball, your skills. One day. Every skill you have. Pakistan's 1v1 era starts here.
+              </p>
+              <div class="flex flex-wrap gap-3 pt-1">
+                <a href="https://forms.gle/b7nFBif7d65v94op8" target="_blank" rel="noopener"
+                  class="btn" style="background:#fff;color:var(--clr-green);border-color:var(--clr-ink);box-shadow:3px 3px 0 0 rgba(0,0,0,.35);">
+                  <i data-lucide="clipboard-list"></i>Register Now
+                </a>
+                <button onclick="showSection('fixtures')"
+                  class="btn" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.35);box-shadow:3px 3px 0 0 rgba(0,0,0,.2);">
+                  <i data-lucide="calendar"></i>View Fixtures
+                </button>
+                <button onclick="openLoginModal()"
+                  class="btn" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.35);box-shadow:3px 3px 0 0 rgba(0,0,0,.2);">
+                  <i data-lucide="log-in"></i>Player Login
+                </button>
+              </div>
+            </div>
+            <!-- Official Posters -->
+            <div class="grid grid-cols-2 gap-3 lg:w-[340px] shrink-0">
+              <div class="poster-card rounded-lg overflow-hidden cursor-pointer" style="border:2px solid rgba(255,255,255,.3);"
+                onclick="openLightbox('assets/poster_skills.png','1v1 Showdown — Official Flyer')">
+                <img src="assets/poster_skills.png" alt="Skills Poster" class="w-full h-36 sm:h-48 object-cover object-top">
+                <div class="flex items-center justify-center gap-1 py-1.5" style="background:rgba(0,0,0,.25);">
+                  <i data-lucide="zoom-in" class="w-3 h-3 text-white"></i>
+                  <span style="font-size:.62rem;font-weight:800;letter-spacing:.08em;color:#fff;text-transform:uppercase;">View Flyer</span>
+                </div>
+              </div>
+              <div class="poster-card rounded-lg overflow-hidden cursor-pointer" style="border:2px solid rgba(255,255,255,.3);"
+                onclick="openLightbox('assets/poster_moment.png','The Game. Your Moment.')">
+                <img src="assets/poster_moment.png" alt="Moment Poster" class="w-full h-36 sm:h-48 object-cover object-top">
+                <div class="flex items-center justify-center gap-1 py-1.5" style="background:rgba(0,0,0,.25);">
+                  <i data-lucide="zoom-in" class="w-3 h-3 text-white"></i>
+                  <span style="font-size:.62rem;font-weight:800;letter-spacing:.08em;color:#fff;text-transform:uppercase;">View Flyer</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event stats strip -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 bg-white" style="border-top:2px solid var(--clr-line);">
+          <div class="stat-card" style="border:none;border-right:2px solid var(--clr-line);border-radius:0;box-shadow:none;">
+            <span class="stat-num" style="font-size:1.8rem;">🏆</span>
+            <span class="stat-num" style="font-size:1.5rem;">20K</span>
+            <span class="stat-label">Prize Pool (PKR)</span>
+          </div>
+          <div class="stat-card" style="border:none;border-right:2px solid var(--clr-line);border-radius:0;box-shadow:none;">
+            <span class="stat-num" style="font-size:1.5rem;">1,000</span>
+            <span class="stat-label">Entry Fee (PKR)</span>
+          </div>
+          <div class="stat-card" style="border:none;border-right:2px solid var(--clr-line);border-radius:0;box-shadow:none;">
+            <span class="stat-num" style="font-size:1rem;line-height:1.4;">Oct 11, 2026</span>
+            <span class="stat-label">Tournament Date</span>
+          </div>
+          <div class="stat-card" style="border:none;border-radius:0;box-shadow:none;">
+            <span class="stat-num" style="font-size:1rem;line-height:1.4;">Padel Pavilion</span>
+            <span class="stat-label">Venue · Faisalabad</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Countdown Timer -->
+      <div class="panel rounded-xl px-5 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-md flex items-center justify-center shrink-0 text-xl"
+            style="background:var(--clr-mint);border:2px solid var(--clr-ink);">⏳</div>
           <div>
-            <p class="text-[10px] font-bold text-[#555555] uppercase tracking-widest">Winner Takes</p>
-            <p class="text-2xl sm:text-4xl font-black display text-[#1B5E3B] leading-none">PKR 20,000</p>
-            <p class="text-xs text-[#333333] mt-0.5">+ Official Champion Trophy · One-Day 1 v 1 Football</p>
+            <p style="font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--clr-ink-muted);">Tournament Starts In</p>
+            <p style="font-size:.8rem;font-weight:700;color:var(--clr-ink-soft);">October 11, 2026 · 4:00 PM — Padel Pavilion, Faisalabad</p>
           </div>
         </div>
-        <div class="flex items-center justify-between sm:justify-end gap-2 sm:gap-3">
-          <div class="text-center px-3 py-2 sm:px-4 rounded-xl bg-white border border-black/10">
-            <p class="text-[10px] text-[#555555] font-bold uppercase">Entry Fee</p>
-            <p class="text-lg sm:text-xl font-black text-[#1B5E3B]">PKR 1,000</p>
-          </div>
-          <a href="https://forms.gle/b7nFBif7d65v94op8" target="_blank" rel="noopener" class="btn btn-dark text-xs sm:text-sm px-4 py-2.5 sm:px-5 sm:py-3 border-[#1B5E3B]/50 text-[#1B5E3B] hover:bg-[#F7F3EC]">
-            <i data-lucide="clipboard-list"></i>Register Here
-          </a>
-          <button onclick="openLoginModal()" class="btn btn-lime text-xs sm:text-sm px-4 py-2.5 sm:px-5 sm:py-3 shadow-lg shadow-black/10">
-            <i data-lucide="log-in"></i>Player Login
-          </button>
+        <div id="countdown-wrap" class="flex items-center gap-2">
+          <div class="countdown-unit"><span id="cd-days" class="countdown-num">--</span><span class="countdown-lbl">Days</span></div>
+          <span style="color:var(--clr-green);font-weight:900;font-size:1.4rem;line-height:1;margin-bottom:.5rem;">:</span>
+          <div class="countdown-unit"><span id="cd-hours" class="countdown-num">--</span><span class="countdown-lbl">Hrs</span></div>
+          <span style="color:var(--clr-green);font-weight:900;font-size:1.4rem;line-height:1;margin-bottom:.5rem;">:</span>
+          <div class="countdown-unit"><span id="cd-mins" class="countdown-num">--</span><span class="countdown-lbl">Min</span></div>
+          <span style="color:var(--clr-green);font-weight:900;font-size:1.4rem;line-height:1;margin-bottom:.5rem;">:</span>
+          <div class="countdown-unit"><span id="cd-secs" class="countdown-num">--</span><span class="countdown-lbl">Sec</span></div>
         </div>
       </div>
 
-      <!-- ── COUNTDOWN TIMER ── -->
-      <div class="rounded-2xl border border-black/15 bg-white px-4 py-3 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div class="flex items-center gap-2 sm:gap-3">
-          <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#FFB800]/10 border border-black/20 flex items-center justify-center shrink-0 text-base sm:text-lg">⏳</div>
-          <div>
-            <p class="text-[10px] font-bold text-[#555555] uppercase tracking-widest">Tournament Starts</p>
-            <p class="text-[11px] sm:text-xs text-[#333333] font-semibold">October 11, 2026 · 4:00 PM — Padel Pavilion</p>
-          </div>
-        </div>
-        <div id="countdown-wrap" class="flex items-center gap-1.5 sm:gap-3">
-          <div class="countdown-unit">
-            <span id="cd-days" class="countdown-num">--</span>
-            <span class="countdown-lbl">DAYS</span>
-          </div>
-          <span class="text-[#1B5E3B] font-black text-xl leading-none mb-3">:</span>
-          <div class="countdown-unit">
-            <span id="cd-hours" class="countdown-num">--</span>
-            <span class="countdown-lbl">HRS</span>
-          </div>
-          <span class="text-[#1B5E3B] font-black text-xl leading-none mb-3">:</span>
-          <div class="countdown-unit">
-            <span id="cd-mins" class="countdown-num">--</span>
-            <span class="countdown-lbl">MIN</span>
-          </div>
-          <span class="text-[#1B5E3B] font-black text-xl leading-none mb-3">:</span>
-          <div class="countdown-unit">
-            <span id="cd-secs" class="countdown-num">--</span>
-            <span class="countdown-lbl">SEC</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── MAIN HERO BANNER ── -->
-      <div class="panel rounded-3xl p-4 sm:p-6 md:p-10 border border-black/15 relative overflow-hidden bg-gradient-to-br from-[#F0EBE0] via-white to-[#F0EBE0]">
-        <div class="grid lg:grid-cols-[1.25fr_1fr] gap-6 md:gap-8 items-center">
-          <div class="space-y-4 sm:space-y-5">
-            <span class="tag tag-live text-[10px] sm:text-xs">ONE-DAY FOOTBALL EXPERIENCE · FAISALABAD</span>
-
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black display tracking-tight text-white leading-none">
-              READY TO PUT YOUR SKILLS <span class="text-[#1B5E3B]">ON THE LINE?</span>
-            </h2>
-
-            <p class="text-sm sm:text-lg text-[#333333] font-medium leading-relaxed max-w-2xl">
-              No team to hide behind. Just you. Your ball. Your skills. One day. Every skill you have. Pakistan, your 1 v 1 era starts here.
-            </p>
-
-            <!-- Event Snapshot -->
-            <div class="grid grid-cols-3 gap-2 sm:gap-3 pt-1 text-xs">
-              <div class="panel-soft rounded-xl p-2.5 sm:p-3.5 border border-black/10">
-                <p class="text-[#555555] font-bold text-[10px] sm:text-xs">DATE & TIME</p>
-                <p class="font-extrabold text-white text-[11px] sm:text-sm mt-1">Oct 11, 2026</p>
-                <p class="text-[#1B5E3B] mt-0.5 text-[10px] sm:text-xs">4:00–10:00 PM</p>
-              </div>
-              <div class="panel-soft rounded-xl p-2.5 sm:p-3.5 border border-black/10">
-                <p class="text-[#555555] font-bold text-[10px] sm:text-xs">LOCATION</p>
-                <p class="font-extrabold text-white text-[11px] sm:text-sm mt-1">Padel Pavilion</p>
-                <p class="text-[#1B5E3B] mt-0.5 text-[10px] sm:text-xs">Faisalabad</p>
-              </div>
-              <div class="panel-soft rounded-xl p-2.5 sm:p-3.5 border border-black/10">
-                <p class="text-[#555555] font-bold text-[10px] sm:text-xs">BROADCAST</p>
-                <p class="font-extrabold text-white text-[11px] sm:text-sm mt-1">Towncleats</p>
-                <p class="text-[#1B5E3B] mt-0.5 text-[10px] sm:text-xs">YT + IG Live</p>
-              </div>
-            </div>
-
-            <!-- CTAs -->
-            <div class="flex flex-wrap gap-2 sm:gap-3 pt-1">
-              <a href="https://wa.me/923045534884?text=Hi%20Towncleats!%20I%20want%20to%20know%20more%20about%20the%201%20v%201%20Showdown%20Faisalabad." target="_blank" class="btn btn-dark text-xs sm:text-sm px-3 py-2.5 sm:px-5 sm:py-3">
-                <i data-lucide="message-circle" class="text-[#25D366]"></i>WhatsApp
-              </a>
-              <button onclick="showSection('live')" class="btn btn-dark text-xs sm:text-sm px-3 py-2.5 sm:px-4 sm:py-3">
-                <i data-lucide="radio" class="text-[#1B5E3B]"></i>Live Arena
-              </button>
-              <button onclick="openLoginModal()" class="btn btn-dark text-xs sm:text-sm px-3 py-2.5 sm:px-4 sm:py-3">
-                <i data-lucide="log-in" class="text-[#1B5E3B]"></i>Player Login
-              </button>
-            </div>
-          </div>
-
-          <!-- Official Posters -->
-          <div class="grid grid-cols-2 gap-3 sm:gap-4 mt-2 lg:mt-0">
-            <div class="poster-card rounded-2xl overflow-hidden border border-black/15 bg-white cursor-pointer group" onclick="openLightbox('assets/poster_skills.png', '1 v 1 Showdown — Official Tournament Flyer')">
-              <img src="assets/poster_skills.png" alt="1 v 1 Showdown Skills Poster" class="w-full h-44 sm:h-72 object-cover object-top group-hover:scale-105 transition duration-300">
-              <div class="p-2 sm:p-2.5 flex items-center justify-center gap-1.5 bg-white border-t border-black/10">
-                <i data-lucide="zoom-in" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#1B5E3B]"></i>
-                <span class="text-[10px] font-bold text-[#1B5E3B] tracking-wide">Full Flyer</span>
-              </div>
-            </div>
-            <div class="poster-card rounded-2xl overflow-hidden border border-black/15 bg-white cursor-pointer group" onclick="openLightbox('assets/poster_moment.png', 'The Game. Your Moment.')">
-              <img src="assets/poster_moment.png" alt="The Game. Your Moment." class="w-full h-44 sm:h-72 object-cover object-top group-hover:scale-105 transition duration-300">
-              <div class="p-2 sm:p-2.5 flex items-center justify-center gap-1.5 bg-white border-t border-black/10">
-                <i data-lucide="zoom-in" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#1B5E3B]"></i>
-                <span class="text-[10px] font-bold text-[#1B5E3B] tracking-wide">Full Flyer</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── PERKS ROW ── -->
+      <!-- Perks Row -->
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <article class="panel rounded-2xl p-5 border border-black/10">
-          <div class="w-9 h-9 rounded-lg bg-[#FFB800]/15 text-[#1B5E3B] flex items-center justify-center mb-3"><i data-lucide="video"></i></div>
-          <h4 class="font-extrabold text-base text-white">Full Match Recording</h4>
-          <p class="text-xs text-[#555555] mt-1.5 leading-relaxed">Every match captured from first touch to last, linked to your player profile.</p>
+        <article class="panel rounded-xl p-5">
+          <div class="w-9 h-9 rounded-md flex items-center justify-center mb-3" style="background:var(--clr-mint);border:2px solid var(--clr-ink);color:var(--clr-green);"><i data-lucide="video"></i></div>
+          <h4 class="font-extrabold text-base" style="color:var(--clr-ink);">Full Match Recording</h4>
+          <p class="text-xs mt-1.5 leading-relaxed" style="color:var(--clr-ink-soft);">Every match captured from first touch to last, linked to your player profile.</p>
         </article>
-        <article class="panel rounded-2xl p-5 border border-black/10">
-          <div class="w-9 h-9 rounded-lg bg-[#FFB800]/15 text-[#1B5E3B] flex items-center justify-center mb-3"><i data-lucide="users"></i></div>
-          <h4 class="font-extrabold text-base text-white">Bring Your People</h4>
-          <p class="text-xs text-[#555555] mt-1.5 leading-relaxed">Friends, teammates, family — make a memorable day of competitive football.</p>
+        <article class="panel rounded-xl p-5">
+          <div class="w-9 h-9 rounded-md flex items-center justify-center mb-3" style="background:var(--clr-mint);border:2px solid var(--clr-ink);color:var(--clr-green);"><i data-lucide="users"></i></div>
+          <h4 class="font-extrabold text-base" style="color:var(--clr-ink);">Bring Your People</h4>
+          <p class="text-xs mt-1.5 leading-relaxed" style="color:var(--clr-ink-soft);">Friends, teammates, family — make a memorable day of competitive football.</p>
         </article>
-        <article class="panel rounded-2xl p-5 border border-black/10">
-          <div class="w-9 h-9 rounded-lg bg-[#FFB800]/15 text-[#1B5E3B] flex items-center justify-center mb-3"><i data-lucide="car"></i></div>
-          <h4 class="font-extrabold text-base text-white">1000+ Car Parking</h4>
-          <p class="text-xs text-[#555555] mt-1.5 leading-relaxed">Convenient, secure on-site parking for all players, coaches, and guests.</p>
+        <article class="panel rounded-xl p-5">
+          <div class="w-9 h-9 rounded-md flex items-center justify-center mb-3" style="background:var(--clr-mint);border:2px solid var(--clr-ink);color:var(--clr-green);"><i data-lucide="car"></i></div>
+          <h4 class="font-extrabold text-base" style="color:var(--clr-ink);">1000+ Car Parking</h4>
+          <p class="text-xs mt-1.5 leading-relaxed" style="color:var(--clr-ink-soft);">Convenient, secure on-site parking for all players, coaches, and guests.</p>
         </article>
-        <article class="panel rounded-2xl p-5 border border-black/10">
-          <div class="w-9 h-9 rounded-lg bg-[#FFB800]/15 text-[#1B5E3B] flex items-center justify-center mb-3"><i data-lucide="shield"></i></div>
-          <h4 class="font-extrabold text-base text-white">Secure Venue & Drinks</h4>
-          <p class="text-xs text-[#555555] mt-1.5 leading-relaxed">Professional security and on-site refreshments available throughout the day.</p>
+        <article class="panel rounded-xl p-5">
+          <div class="w-9 h-9 rounded-md flex items-center justify-center mb-3" style="background:var(--clr-mint);border:2px solid var(--clr-ink);color:var(--clr-green);"><i data-lucide="shield"></i></div>
+          <h4 class="font-extrabold text-base" style="color:var(--clr-ink);">Secure Venue & Drinks</h4>
+          <p class="text-xs mt-1.5 leading-relaxed" style="color:var(--clr-ink-soft);">Professional security and on-site refreshments available throughout the day.</p>
         </article>
       </div>
     </section>
 
-    <!-- 2. LIVE ARENA SECTION -->
-    <section id="sec-live" class="visitor-section space-y-6">
-      <div class="flex justify-between items-center">
+    <!-- ═══ SECTION 2: LIVE ARENA ═══ -->
+    <section id="sec-live" class="visitor-section space-y-5">
+      <div class="section-header">
         <div>
-          <h3 class="text-2xl font-black display text-white">LIVE MATCH ARENA</h3>
-          <p class="text-xs text-[#555555]">Real-time official scoreline, try sequence, and event commentary.</p>
+          <h3>Live Match Arena</h3>
+          <p>Real-time official scoreline, try sequence, and event commentary</p>
         </div>
-        <span id="v-live-tag" class="tag tag-live animate-pulse">MATCH IN PROGRESS</span>
+        <span id="v-live-tag" class="tag tag-live animate-pulse">⬤ Match In Progress</span>
       </div>
 
-      <article class="panel rounded-3xl overflow-hidden border border-black/15">
-        <div class="bg-[#F7F3EC] px-4 sm:px-6 py-3 flex justify-between items-center border-b border-black/10">
-          <div class="flex items-center gap-2">
-            <span class="tag tag-live text-[10px]">PITCH ALPHA</span>
-            <span id="v-live-round-title" class="font-bold text-xs text-[#1B5E3B]">Round 1</span>
+      <article class="panel rounded-xl overflow-hidden">
+        <!-- Match header bar -->
+        <div class="flex justify-between items-center px-5 py-3" style="background:var(--clr-green);border-bottom:2px solid var(--clr-ink);">
+          <div class="flex items-center gap-3">
+            <span class="tag" style="background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);color:#fff;box-shadow:none;">PITCH ALPHA</span>
+            <span id="v-live-round-title" class="font-bold text-xs text-white" style="letter-spacing:.06em;text-transform:uppercase;">Round 1</span>
           </div>
-          <span id="v-live-clock-pill" class="mono text-xs text-[#555555]">45s Try Clock</span>
+          <span id="v-live-clock-pill" class="mono text-xs" style="color:rgba(255,255,255,.7);">45s Try Clock</span>
         </div>
 
-        <div class="grid grid-cols-[1fr_auto_1fr] gap-3 sm:gap-6 p-4 sm:p-6 md:p-12 text-center items-center">
+        <!-- Score display -->
+        <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 py-8 sm:py-12 md:py-16 bg-white text-center">
           <div>
-            <p class="text-[10px] sm:text-xs text-[#555555] font-bold">PLAYER A</p>
-            <h4 id="v-score-a-name" class="text-lg sm:text-3xl md:text-5xl font-extrabold text-white mt-1 break-words leading-tight">—</h4>
-            <p id="v-score-a-num" class="score-number text-6xl sm:text-7xl md:text-9xl font-black text-[#1B5E3B] mt-1 sm:mt-2">0</p>
-            <span id="v-score-a-gd" class="tag mt-1 sm:mt-2 text-[10px]">GD +0</span>
+            <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color:var(--clr-ink-muted);">Player A</p>
+            <h4 id="v-score-a-name" class="font-extrabold break-words leading-tight" style="font-size:clamp(1rem,3vw,2.5rem);color:var(--clr-ink);">—</h4>
+            <p id="v-score-a-num" class="score-number font-black mt-2" style="font-size:clamp(4rem,10vw,7rem);color:var(--clr-green);line-height:1;">0</p>
+            <span id="v-score-a-gd" class="tag mt-2" style="justify-content:center;">GD +0</span>
           </div>
-          <div class="text-2xl sm:text-4xl font-black italic text-[#DDDDDD]">:</div>
+          <div class="text-3xl sm:text-5xl font-black italic" style="color:var(--clr-line);">:</div>
           <div>
-            <p class="text-[10px] sm:text-xs text-[#555555] font-bold">PLAYER B</p>
-            <h4 id="v-score-b-name" class="text-lg sm:text-3xl md:text-5xl font-extrabold text-white mt-1 break-words leading-tight">—</h4>
-            <p id="v-score-b-num" class="score-number text-6xl sm:text-7xl md:text-9xl font-black text-[#1B5E3B] mt-1 sm:mt-2">0</p>
-            <span id="v-score-b-gd" class="tag mt-1 sm:mt-2 text-[10px]">GD +0</span>
+            <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color:var(--clr-ink-muted);">Player B</p>
+            <h4 id="v-score-b-name" class="font-extrabold break-words leading-tight" style="font-size:clamp(1rem,3vw,2.5rem);color:var(--clr-ink);">—</h4>
+            <p id="v-score-b-num" class="score-number font-black mt-2" style="font-size:clamp(4rem,10vw,7rem);color:var(--clr-green);line-height:1;">0</p>
+            <span id="v-score-b-gd" class="tag mt-2" style="justify-content:center;">GD +0</span>
           </div>
         </div>
 
-        <div class="border-t border-black/10 bg-white p-3 sm:p-5 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-sm">
-          <div class="panel-soft rounded-xl p-3.5">
-            <p class="text-xs text-[#555555]">ATTACKING TURN</p>
-            <p id="v-live-turn-txt" class="font-extrabold text-[#1B5E3B] mt-1">Waiting for match kick-off…</p>
+        <!-- Match meta -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 sm:p-5" style="background:var(--clr-surface-soft);border-top:2px solid var(--clr-line);">
+          <div class="panel-soft rounded-lg p-3.5">
+            <p class="text-xs font-bold uppercase tracking-widest mb-1" style="color:var(--clr-ink-muted);">Attacking Turn</p>
+            <p id="v-live-turn-txt" class="font-extrabold text-sm" style="color:var(--clr-green);">Waiting for kick-off…</p>
           </div>
-          <div class="panel-soft rounded-xl p-3.5">
-            <p class="text-xs text-[#555555]">VENUE</p>
-            <p class="font-bold text-white mt-1">Padel Pavilion, Faisalabad</p>
+          <div class="panel-soft rounded-lg p-3.5">
+            <p class="text-xs font-bold uppercase tracking-widest mb-1" style="color:var(--clr-ink-muted);">Venue</p>
+            <p class="font-bold text-sm" style="color:var(--clr-ink);">Padel Pavilion, Faisalabad</p>
           </div>
-          <div class="panel-soft rounded-xl p-3.5">
-            <p class="text-xs text-[#555555]">CURRENT TRY CLOCK</p>
-            <p id="v-live-timer-txt" class="mono font-bold text-[#1B5E3B] mt-1 text-base">00:45</p>
+          <div class="panel-soft rounded-lg p-3.5">
+            <p class="text-xs font-bold uppercase tracking-widest mb-1" style="color:var(--clr-ink-muted);">Try Clock</p>
+            <p id="v-live-timer-txt" class="mono font-bold text-base" style="color:var(--clr-green);">00:45</p>
           </div>
         </div>
 
-        <!-- Embedded match video if attached -->
-        <div id="v-match-video-embed" class="p-6 border-t border-black/10 hidden">
-          <p class="text-xs font-bold text-[#1B5E3B] mb-2">OFFICIAL MATCH VIDEO STREAM</p>
-          <div id="v-match-video-frame" class="aspect-video w-full rounded-2xl overflow-hidden bg-black flex items-center justify-center"></div>
+        <div id="v-match-video-embed" class="p-5 hidden" style="border-top:2px solid var(--clr-line);">
+          <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color:var(--clr-green);">Official Match Stream</p>
+          <div id="v-match-video-frame" class="aspect-video w-full rounded-lg overflow-hidden bg-black flex items-center justify-center"></div>
         </div>
       </article>
     </section>
 
-    <!-- 3. FIXTURES & RESULTS -->
-    <section id="sec-fixtures" class="visitor-section space-y-6">
-      <div class="flex flex-wrap items-center justify-between gap-3">
+    <!-- ═══ SECTION 3: FIXTURES ═══ -->
+    <section id="sec-fixtures" class="visitor-section space-y-5">
+      <div class="section-header">
         <div>
-          <h3 class="text-2xl font-black display text-white">MATCH FIXTURES & RESULTS</h3>
-          <p class="text-xs text-[#555555]">Explore scheduled, live, and completed tournament matches.</p>
+          <h3>Match Fixtures & Results</h3>
+          <p>Scheduled, live, and completed tournament matches</p>
         </div>
-        <div class="flex gap-1 bg-[#F7F3EC] p-1 rounded-xl border border-black/10" id="v-fixtures-filter">
+        <div class="flex gap-1 p-1 rounded-md" style="background:var(--clr-surface-soft);border:2px solid var(--clr-ink);" id="v-fixtures-filter">
           <button class="btn btn-lime text-xs" data-f="All">All</button>
           <button class="btn btn-dark text-xs" data-f="UPCOMING">Upcoming</button>
           <button class="btn btn-dark text-xs" data-f="LIVE">Live</button>
@@ -596,8 +843,7 @@
       <div id="v-matches-list" class="space-y-3"></div>
     </section>
 
-    <!-- Bracket section removed from visitor view — available in Admin Panel -->
-    <!-- Hidden elements kept so bracket JS functions don't throw errors -->
+    <!-- Hidden bracket elements — JS needs these IDs -->
     <div style="display:none">
       <span id="bracket-player-count"></span>
       <span id="bracket-rounds-count"></span>
@@ -605,62 +851,61 @@
       <p id="bracket-empty-msg"></p>
     </div>
 
-    <!-- 4. LEADERBOARD & TOP SCORERS -->
-    <section id="sec-standings" class="visitor-section space-y-6">
-      <div class="panel rounded-3xl p-6 md:p-8 border border-black/10">
-        <div class="flex justify-between items-center mb-6">
+    <!-- ═══ SECTION 4: STANDINGS ═══ -->
+    <section id="sec-standings" class="visitor-section space-y-5">
+      <div class="panel rounded-xl p-6 md:p-8">
+        <div class="section-header">
           <div>
-            <h3 class="text-2xl font-black display text-white">STANDINGS & TOP SCORERS</h3>
-            <p class="text-xs text-[#555555] mt-0.5">Live standings computed from goals, shots, and match wins.</p>
+            <h3>Standings & Top Scorers</h3>
+            <p>Live standings computed from goals, shots, and match wins</p>
           </div>
-          <span class="tag tag-approved">AUTHORITATIVE</span>
+          <span class="tag tag-approved">Live Data</span>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-left text-sm">
-            <thead class="border-b border-black/10 text-xs text-[#555555] uppercase">
-              <tr>
+            <thead style="border-bottom:2px solid var(--clr-ink);">
+              <tr style="font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--clr-ink-muted);">
                 <th class="py-3 px-3">#</th>
                 <th class="py-3 px-4">Player</th>
                 <th class="py-3 px-3 text-center">Matches</th>
-                <th class="py-3 px-3 text-center text-[#1B5E3B]">Goals</th>
+                <th class="py-3 px-3 text-center" style="color:var(--clr-green);">Goals</th>
                 <th class="py-3 px-3 text-center">Shots</th>
                 <th class="py-3 px-3 text-center">Status</th>
                 <th class="py-3 px-3 text-right">Profile</th>
               </tr>
             </thead>
-            <tbody id="v-standings-table-body" class="divide-y divide-black/10"></tbody>
+            <tbody id="v-standings-table-body" style="--divide-color:var(--clr-line);"></tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- 5. PLAYERS ROSTER & SKILL REELS -->
-    <section id="sec-players" class="visitor-section space-y-6">
-      <div class="panel rounded-3xl p-6 md:p-8 border border-black/10">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+    <!-- ═══ SECTION 5: PLAYERS ROSTER ═══ -->
+    <section id="sec-players" class="visitor-section space-y-5">
+      <div class="panel rounded-xl p-6 md:p-8">
+        <div class="section-header">
           <div>
-            <h3 class="text-2xl font-black display text-white">TOURNAMENT PLAYERS ROSTER</h3>
-            <p class="text-xs text-[#555555] mt-0.5">Click any player profile to inspect signature skills and game highlight reels.</p>
+            <h3>Players Roster</h3>
+            <p>Click any card to inspect signature skills and highlight reels</p>
           </div>
-          <input id="v-player-search-input" class="input sm:max-w-xs" placeholder="Search player name, keeper, city…">
+          <input id="v-player-search-input" class="input" style="max-width:220px;" placeholder="Search player…" aria-label="Search players">
         </div>
         <div id="v-player-cards-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </div>
     </section>
 
-    <!-- 6. OFFICIAL RULES -->
-    <section id="sec-rules" class="visitor-section space-y-6">
-      <div class="panel rounded-3xl p-6 md:p-8 max-w-4xl mx-auto border border-black/10">
-        <!-- Rulebook header -->
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+    <!-- ═══ SECTION 6: OFFICIAL RULES ═══ -->
+    <section id="sec-rules" class="visitor-section space-y-5">
+      <div class="panel rounded-xl p-6 md:p-8 max-w-4xl mx-auto">
+        <div class="section-header">
           <div>
-            <p class="text-xs font-bold text-[#1B5E3B] tracking-widest uppercase mb-1">Official Rulebook</p>
-            <h3 class="text-2xl font-black display text-white leading-tight">1 V 1 SHOWDOWN — MASTER SERIALS</h3>
-            <p class="text-xs text-[#555555] mt-1">82 rules across 14 chapters · Issued by Tournament Management · Final &amp; Binding</p>
+            <p style="font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--clr-green);">Official Rulebook</p>
+            <h3>1V1 Showdown — Master Serials</h3>
+            <p>82 rules · 14 chapters · Issued by Tournament Management · Final &amp; Binding</p>
           </div>
           <div class="flex items-center gap-2 shrink-0">
-            <span class="tag tag-approved text-xs">R01 – R82</span>
-            <span class="tag text-xs">14 Chapters</span>
+            <span class="tag tag-approved">R01 – R82</span>
+            <span class="tag">14 Chapters</span>
           </div>
         </div>
         <div id="v-rules-list" class="space-y-1"></div>
@@ -677,10 +922,10 @@
     <div class="panel rounded-3xl p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-black/15">
       <div>
         <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
-          <h2 id="p-dash-name" class="text-xl sm:text-2xl md:text-3xl font-extrabold text-white">Welcome, Player</h2>
+          <h2 id="p-dash-name" class="text-xl sm:text-2xl md:text-3xl font-extrabold" style="color:var(--clr-ink)">Welcome, Player</h2>
           <span id="p-dash-status-pill" class="tag tag-approved">Active</span>
         </div>
-        <p class="text-xs text-[#555555] mt-1">Seed: <span id="p-dash-seed" class="text-[#1B5E3B] mono font-bold">—</span> · Faisalabad 1v1 Showdown</p>
+        <p class="text-xs mt-1" style="color:var(--clr-ink-muted)">Seed: <span id="p-dash-seed" class="mono font-bold" style="color:var(--clr-green)">—</span> · Faisalabad 1v1 Showdown</p>
       </div>
       <div class="flex gap-2">
         <button id="p-dash-checkin-btn" class="btn btn-lime text-xs"><i data-lucide="map-pin"></i><span>I'm On Spot</span></button>
@@ -689,12 +934,12 @@
     </div>
 
     <!-- 30-Minute Mandatory Arrival Reminder Alert -->
-    <div class="rounded-2xl border border-[#1B5E3B]/50 bg-[#F7F3EC] p-5 text-[#111111]">
+    <div class="rounded-2xl p-5" style="border:var(--bw-md) solid var(--clr-green);background:var(--clr-mint);color:var(--clr-ink)">
       <div class="flex items-start gap-3">
-        <i data-lucide="alert-triangle" class="w-6 h-6 text-[#1B5E3B] shrink-0 mt-0.5"></i>
+        <i data-lucide="alert-triangle" class="w-6 h-6 shrink-0 mt-0.5" style="color:var(--clr-green)"></i>
         <div>
-          <h4 class="font-extrabold text-base text-[#1B5E3B]">MANDATORY: BE ON SPOT 30 MINUTES BEFORE MATCH</h4>
-          <p class="text-xs leading-relaxed mt-1 text-[#2D7A52]">
+          <h4 class="font-extrabold text-base" style="color:var(--clr-green)">MANDATORY: BE ON SPOT 30 MINUTES BEFORE MATCH</h4>
+          <p class="text-xs leading-relaxed mt-1" style="color:var(--clr-green-dark)">
             Tournament rules require you to report directly to the pitch referee <b>at least 30 minutes before your scheduled kick-off time</b>.
             Late arrival deducts time from your 45-second attacking tries or awards goals to your opponent.
           </p>
@@ -704,36 +949,36 @@
 
     <!-- Next Match Card with WhatsApp/SMS Reminders -->
     <article class="panel rounded-3xl p-6 border border-black/10">
-      <h3 class="font-extrabold text-lg flex items-center gap-2 mb-4 text-white">
-        <i data-lucide="bell" class="text-[#1B5E3B] w-5"></i>Your Scheduled Match
+      <h3 class="font-extrabold text-lg flex items-center gap-2 mb-4" style="color:var(--clr-ink)">
+        <i data-lucide="bell" class="w-5" style="color:var(--clr-green)"></i>Your Scheduled Match
       </h3>
       <div id="p-dash-match-box" class="panel-soft rounded-2xl p-5">
-        <p class="text-sm text-[#555555]">Fetching your match schedule…</p>
+        <p class="text-sm" style="color:var(--clr-ink-muted)">Fetching your match schedule…</p>
       </div>
     </article>
 
     <!-- Profile Editor + Best Skills & Game Videos -->
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_.9fr] gap-4 sm:gap-6">
       <article class="panel rounded-3xl p-6 space-y-4 border border-black/10">
-        <h3 class="font-extrabold text-lg flex items-center gap-2 text-white">
-          <i data-lucide="user-check" class="text-[#1B5E3B] w-5"></i>Setup Player Profile
+        <h3 class="font-extrabold text-lg flex items-center gap-2" style="color:var(--clr-ink)">
+          <i data-lucide="user-check" class="w-5" style="color:var(--clr-green)"></i>Setup Player Profile
         </h3>
         <form id="player-self-profile-form" class="space-y-3 text-sm">
-          <div><label class="text-xs font-bold text-[#555555]">FULL NAME</label><input id="p-self-name" class="input mt-1"></div>
+          <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">FULL NAME</label><input id="p-self-name" class="input mt-1"></div>
           <div class="grid sm:grid-cols-2 gap-3">
-            <div><label class="text-xs font-bold text-[#555555]">PHONE NUMBER</label><input id="p-self-phone" class="input mt-1"></div>
-            <div><label class="text-xs font-bold text-[#555555]">WHATSAPP NUMBER</label><input id="p-self-whatsapp" class="input mt-1"></div>
+            <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">PHONE NUMBER</label><input id="p-self-phone" class="input mt-1"></div>
+            <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">WHATSAPP NUMBER</label><input id="p-self-whatsapp" class="input mt-1"></div>
           </div>
           <div class="grid sm:grid-cols-2 gap-3">
-            <div><label class="text-xs font-bold text-[#555555]">PREFERRED GOALKEEPER</label><input id="p-self-keeper" class="input mt-1"></div>
-            <div><label class="text-xs font-bold text-[#555555]">DOMINANT FOOT</label>
+            <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">PREFERRED GOALKEEPER</label><input id="p-self-keeper" class="input mt-1"></div>
+            <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">DOMINANT FOOT</label>
               <select id="p-self-foot" class="input mt-1"><option>Right</option><option>Left</option><option>Both</option></select>
             </div>
           </div>
-          <div><label class="text-xs font-bold text-[#555555]">CITY / AREA</label><input id="p-self-city" class="input mt-1"></div>
-          <div><label class="text-xs font-bold text-[#555555]">BIO / PLAYER TAGLINE</label><textarea id="p-self-bio" rows="2" class="input mt-1"></textarea></div>
+          <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">CITY / AREA</label><input id="p-self-city" class="input mt-1"></div>
+          <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">BIO / PLAYER TAGLINE</label><textarea id="p-self-bio" rows="2" class="input mt-1"></textarea></div>
           <div>
-            <label class="text-xs font-bold text-[#1B5E3B]">SIGNATURE SKILLS (e.g. Nutmeg, Step-over, Curve shot)</label>
+            <label class="text-xs font-bold" style="color:var(--clr-green)">SIGNATURE SKILLS (e.g. Nutmeg, Step-over, Curve shot)</label>
             <input id="p-self-skills" class="input mt-1" placeholder="Rapid Turns, Low Drive, Long Curver">
           </div>
           <button type="submit" class="btn btn-lime w-full mt-2"><i data-lucide="save"></i>Save Profile & Skills</button>
@@ -741,23 +986,23 @@
       </article>
 
       <article class="panel rounded-3xl p-6 space-y-4 border border-black/10">
-        <h3 class="font-extrabold text-lg flex items-center gap-2 text-white">
-          <i data-lucide="video" class="text-[#1B5E3B] w-5"></i>My Skills & Game Videos
+        <h3 class="font-extrabold text-lg flex items-center gap-2" style="color:var(--clr-ink)">
+          <i data-lucide="video" class="w-5" style="color:var(--clr-green)"></i>My Skills &amp; Game Videos
         </h3>
-        <p class="text-xs text-[#555555]">Attach your highlight reels and skill clips. Saved directly to the database.</p>
+        <p class="text-xs" style="color:var(--clr-ink-muted)">Attach your highlight reels and skill clips. Saved directly to the database.</p>
 
         <form id="p-add-video-form" class="panel-soft rounded-2xl p-4 space-y-3">
-          <p class="text-xs font-bold text-[#1B5E3B]">ADD NEW VIDEO REEL</p>
-          <div><label class="text-xs text-[#555555]">Video Title</label><input required id="p-v-title" class="input mt-1" placeholder="Best Qualifier Goals"></div>
-          <div><label class="text-xs text-[#555555]">Video URL (YouTube, TikTok, Drive, MP4)</label><input required id="p-v-url" class="input mt-1" placeholder="https://youtube.com/watch?v=…"></div>
+          <p class="text-xs font-bold" style="color:var(--clr-green)">ADD NEW VIDEO REEL</p>
+          <div><label class="text-xs" style="color:var(--clr-ink-muted)">Video Title</label><input required id="p-v-title" class="input mt-1" placeholder="Best Qualifier Goals"></div>
+          <div><label class="text-xs" style="color:var(--clr-ink-muted)">Video URL (YouTube, TikTok, Drive, MP4)</label><input required id="p-v-url" class="input mt-1" placeholder="https://youtube.com/watch?v=…"></div>
           <button type="submit" class="btn btn-lime w-full text-xs"><i data-lucide="plus"></i>Save Video to Profile</button>
         </form>
 
         <div id="p-my-videos-list" class="space-y-2 max-h-64 overflow-y-auto"></div>
 
         <div class="border-t border-black/10 pt-3">
-          <p class="text-xs font-bold text-[#1B5E3B] mb-2">OFFICIAL MATCH RECORDINGS OF YOUR MATCHES</p>
-          <div id="p-my-match-recordings" class="space-y-2 text-xs text-[#555555]"></div>
+          <p class="text-xs font-bold mb-2" style="color:var(--clr-green)">OFFICIAL MATCH RECORDINGS OF YOUR MATCHES</p>
+          <div id="p-my-match-recordings" class="space-y-2 text-xs" style="color:var(--clr-ink-muted)"></div>
         </div>
       </article>
     </div>
@@ -773,9 +1018,9 @@
         <div>
           <div class="flex items-center gap-2">
             <span class="tag tag-live text-[10px] sm:text-xs">SUPER ADMIN</span>
-            <h2 class="text-lg sm:text-2xl font-black display text-white">TOURNAMENT CONTROL</h2>
+            <h2 class="text-lg sm:text-2xl font-black display" style="color:var(--clr-ink)">TOURNAMENT CONTROL</h2>
           </div>
-          <p class="text-[11px] text-[#555555] mt-0.5">Logged in as: <b class="text-[#1B5E3B] mono" id="adm-email-badge">towncleats@gmail.com</b></p>
+          <p class="text-[11px] mt-0.5" style="color:var(--clr-ink-muted)">Logged in as: <b class="mono" id="adm-email-badge" style="color:var(--clr-green)">towncleats@gmail.com</b></p>
         </div>
         <button onclick="showSection('overview')" class="btn btn-dark text-xs self-start sm:self-auto"><i data-lucide="eye"></i>Visitor View</button>
       </div>
@@ -793,8 +1038,8 @@
       <div class="panel rounded-3xl p-6 md:p-8 border border-black/10">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
           <div>
-            <h3 class="text-2xl font-black display text-white">PLAYER REGISTRATIONS & PROFILES</h3>
-            <p class="text-xs text-[#555555] mt-0.5">Admin can add players, verify payments, edit profiles, accept or suspend players.</p>
+            <h3 class="text-2xl font-black display" style="color:var(--clr-ink)">PLAYER REGISTRATIONS &amp; PROFILES</h3>
+            <p class="text-xs mt-0.5" style="color:var(--clr-ink-muted)">Admin can add players, verify payments, edit profiles, accept or suspend players.</p>
           </div>
           <div class="flex flex-wrap gap-2 items-center">
             <input id="adm-p-search" class="input md:w-56" placeholder="Search name, phone, Gmail…">
@@ -816,8 +1061,8 @@
         </div>
 
         <!-- Bulk-action bar (hidden until ≥1 row selected) -->
-        <div id="adm-bulk-bar" class="hidden items-center gap-2 mb-4 p-3 rounded-xl bg-[#F7F3EC] border border-black/10">
-          <span id="adm-bulk-count" class="text-xs font-bold text-[#1B5E3B] mr-2">0 selected</span>
+        <div id="adm-bulk-bar" class="hidden items-center gap-2 mb-4 p-3 rounded-xl border border-black/10" style="background:var(--clr-surface-soft)">
+          <span id="adm-bulk-count" class="text-xs font-bold mr-2" style="color:var(--clr-green)">0 selected</span>
           <button class="btn btn-lime text-xs py-1 px-3" onclick="bulkSetApproval('APPROVED')"><i data-lucide="check"></i>Accept All</button>
           <button class="btn btn-danger text-xs py-1 px-3" onclick="bulkSetApproval('SUSPENDED')"><i data-lucide="ban"></i>Suspend All</button>
           <button class="btn btn-dark text-xs py-1 px-3 text-[#FF3B30]" onclick="bulkDeletePlayers()"><i data-lucide="trash-2"></i>Delete All</button>
@@ -826,7 +1071,7 @@
 
         <div class="overflow-x-auto">
           <table class="w-full text-left text-sm">
-            <thead class="border-b border-black/10 text-xs text-[#555555] uppercase">
+            <thead class="border-b border-black/10 text-xs uppercase" style="color:var(--clr-ink-muted)">
               <tr>
                 <th class="py-3 px-3">
                   <input type="checkbox" id="adm-select-all" title="Select all visible players"
@@ -835,7 +1080,7 @@
                 <th class="py-3 px-3">Seed / ID</th>
                 <th class="py-3 px-4">Player Details</th>
                 <th class="py-3 px-3">Contacts</th>
-                <th class="py-3 px-3 text-[#1B5E3B]">Login Credentials</th>
+                <th class="py-3 px-3" style="color:var(--clr-green)">Login Credentials</th>
                 <th class="py-3 px-3">Payment</th>
                 <th class="py-3 px-3">Approval</th>
                 <th class="py-3 px-3 text-right">Actions</th>
@@ -852,24 +1097,24 @@
       <div class="grid lg:grid-cols-[1.3fr_1fr] gap-6">
         <div class="panel rounded-3xl p-6 border border-black/10">
           <div class="flex justify-between items-center mb-5">
-            <h3 class="text-xl font-black display text-white">TOURNAMENT MATCHES</h3>
+            <h3 class="text-xl font-black display" style="color:var(--clr-ink)">TOURNAMENT MATCHES</h3>
             <span class="tag tag-live text-xs">OFFICIAL FIXTURES</span>
           </div>
           <div id="adm-matches-list" class="space-y-3"></div>
         </div>
 
         <form id="adm-schedule-form" class="panel rounded-3xl p-6 border border-black/10 space-y-3">
-          <h3 class="font-extrabold text-lg text-white flex items-center gap-2">
-            <i data-lucide="calendar-plus" class="text-[#1B5E3B] w-5"></i>Schedule Match
+          <h3 class="font-extrabold text-lg flex items-center gap-2" style="color:var(--clr-ink)">
+            <i data-lucide="calendar-plus" class="w-5" style="color:var(--clr-green)"></i>Schedule Match
           </h3>
-          <div><label class="text-xs font-bold text-[#555555]">PLAYER A</label><select required id="adm-m-a" class="input mt-1"></select></div>
-          <div><label class="text-xs font-bold text-[#555555]">PLAYER B</label><select required id="adm-m-b" class="input mt-1"></select></div>
+          <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">PLAYER A</label><select required id="adm-m-a" class="input mt-1"></select></div>
+          <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">PLAYER B</label><select required id="adm-m-b" class="input mt-1"></select></div>
           <div class="grid grid-cols-2 gap-2">
-            <div><label class="text-xs font-bold text-[#555555]">ROUND</label><input required id="adm-m-round" class="input mt-1" value="Round 1"></div>
-            <div><label class="text-xs font-bold text-[#555555]">TIME</label><input required id="adm-m-time" type="time" class="input mt-1" value="18:00"></div>
+            <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">ROUND</label><input required id="adm-m-round" class="input mt-1" value="Round 1"></div>
+            <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">TIME</label><input required id="adm-m-time" type="time" class="input mt-1" value="18:00"></div>
           </div>
-          <div><label class="text-xs font-bold text-[#555555]">MATCH VIDEO URL</label><input id="adm-m-video" class="input mt-1" placeholder="https://youtube.com/watch?v=…"></div>
-          <div><label class="text-xs font-bold text-[#555555]">VIDEO TITLE</label><input id="adm-m-videotitle" class="input mt-1" placeholder="Highlights & Full Recording"></div>
+          <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">MATCH VIDEO URL</label><input id="adm-m-video" class="input mt-1" placeholder="https://youtube.com/watch?v=…"></div>
+          <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">VIDEO TITLE</label><input id="adm-m-videotitle" class="input mt-1" placeholder="Highlights &amp; Full Recording"></div>
           <button type="submit" class="btn btn-lime w-full mt-3"><i data-lucide="check"></i>Schedule Match</button>
         </form>
       </div>
@@ -880,33 +1125,33 @@
       <div class="grid lg:grid-cols-[1.4fr_.8fr] gap-6">
         <div class="space-y-6">
           <article class="panel rounded-3xl overflow-hidden border border-black/15">
-            <div class="bg-[#F7F3EC] px-6 py-3 flex justify-between items-center">
+            <div class="px-6 py-3 flex justify-between items-center" style="background:var(--clr-surface-soft);border-bottom:var(--bw-sm) solid var(--clr-line)">
               <span id="adm-ref-mode" class="tag tag-live">LIVE · NORMAL PLAY</span>
-              <span id="adm-ref-clock" class="mono text-xs text-[#555555]">00:00 / 15:00</span>
+              <span id="adm-ref-clock" class="mono text-xs" style="color:var(--clr-ink-muted)">00:00 / 15:00</span>
             </div>
             <div class="grid grid-cols-[1fr_auto_1fr] gap-4 p-6 md:p-10 text-center items-center">
               <div>
-                <h4 id="adm-live-a-name" class="text-xl md:text-3xl font-extrabold text-white">—</h4>
-                <p class="text-xs text-[#555555] mt-1 font-bold">GOALS / GD</p>
-                <p id="adm-live-a-score" class="score-number text-6xl md:text-8xl font-black text-[#1B5E3B] mt-1">0</p>
+                <h4 id="adm-live-a-name" class="text-xl md:text-3xl font-extrabold" style="color:var(--clr-ink)">—</h4>
+                <p class="text-xs mt-1 font-bold" style="color:var(--clr-ink-muted)">GOALS / GD</p>
+                <p id="adm-live-a-score" class="score-number text-6xl md:text-8xl font-black mt-1" style="color:var(--clr-green)">0</p>
                 <span id="adm-live-a-gd" class="tag mt-2">GD +0</span>
               </div>
-              <div class="text-2xl font-black italic text-[#DDDDDD]">:</div>
+              <div class="text-2xl font-black italic" style="color:var(--clr-line)">:</div>
               <div>
-                <h4 id="adm-live-b-name" class="text-xl md:text-3xl font-extrabold text-white">—</h4>
-                <p class="text-xs text-[#555555] mt-1 font-bold">GOALS / GD</p>
-                <p id="adm-live-b-score" class="score-number text-6xl md:text-8xl font-black text-[#1B5E3B] mt-1">0</p>
+                <h4 id="adm-live-b-name" class="text-xl md:text-3xl font-extrabold" style="color:var(--clr-ink)">—</h4>
+                <p class="text-xs mt-1 font-bold" style="color:var(--clr-ink-muted)">GOALS / GD</p>
+                <p id="adm-live-b-score" class="score-number text-6xl md:text-8xl font-black mt-1" style="color:var(--clr-green)">0</p>
                 <span id="adm-live-b-gd" class="tag mt-2">GD +0</span>
               </div>
             </div>
 
-            <div class="border-t border-black/10 bg-white p-5 grid sm:grid-cols-2 gap-4">
+            <div class="border-t border-black/10 p-5 grid sm:grid-cols-2 gap-4" style="background:var(--clr-surface)">
               <div class="panel-soft rounded-xl p-3.5">
-                <p class="text-xs text-[#555555]">ATTACKING TURN</p>
-                <p id="adm-live-turn" class="font-extrabold text-[#1B5E3B] text-lg mt-1">Try 1</p>
+                <p class="text-xs" style="color:var(--clr-ink-muted)">ATTACKING TURN</p>
+                <p id="adm-live-turn" class="font-extrabold text-lg mt-1" style="color:var(--clr-green)">Try 1</p>
               </div>
               <div class="panel-soft rounded-xl p-3.5">
-                <p class="text-xs text-[#555555]">10-TRY SEQUENCE</p>
+                <p class="text-xs" style="color:var(--clr-ink-muted)">10-TRY SEQUENCE</p>
                 <div id="adm-live-dots" class="flex flex-wrap gap-2 mt-2"></div>
               </div>
             </div>
@@ -916,10 +1161,10 @@
           <article class="panel rounded-3xl p-6 border border-black/10">
             <div class="flex justify-between items-center">
               <div>
-                <p class="text-xs font-bold text-[#555555]">CURRENT ATTACKING TRY CLOCK</p>
-                <p class="text-xs text-[#1B5E3B] mt-0.5">Play ceases immediately on zero.</p>
+                <p class="text-xs font-bold" style="color:var(--clr-ink-muted)">CURRENT ATTACKING TRY CLOCK</p>
+                <p class="text-xs mt-0.5" style="color:var(--clr-green)">Play ceases immediately on zero.</p>
               </div>
-              <div id="adm-live-timer" class="timer text-6xl md:text-7xl font-bold text-[#1B5E3B]">00:45</div>
+              <div id="adm-live-timer" class="timer text-6xl md:text-7xl font-bold" style="color:var(--clr-green)">00:45</div>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-5">
               <button id="adm-t-start" class="btn btn-lime"><i data-lucide="play"></i>Start</button>
@@ -932,7 +1177,7 @@
           <!-- Referee Decisions -->
           <article class="panel rounded-3xl p-6 border border-black/10">
             <div class="flex justify-between items-center mb-3">
-              <h4 class="font-extrabold text-base text-white">Referee Decision Actions</h4>
+              <h4 class="font-extrabold text-base" style="color:var(--clr-ink)">Referee Decision Actions</h4>
               <button id="adm-undo-event-btn" class="btn btn-dark text-xs"><i data-lucide="undo-2"></i>Undo Action</button>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -952,21 +1197,21 @@
         <!-- Sidebar Referee Controls -->
         <div class="space-y-6">
           <article class="panel rounded-3xl p-6 border border-black/10 space-y-3">
-            <h4 class="font-bold text-white">Select Live Match</h4>
+            <h4 class="font-bold" style="color:var(--clr-ink)">Select Live Match</h4>
             <select id="adm-match-select" class="input"></select>
             <button id="adm-load-match-btn" class="btn btn-lime w-full"><i data-lucide="play-circle"></i>Load to Live Console</button>
           </article>
 
           <article class="panel rounded-3xl p-6 border border-black/10">
-            <h4 class="font-bold text-white mb-3">Timeouts Management</h4>
+            <h4 class="font-bold mb-3" style="color:var(--clr-ink)">Timeouts Management</h4>
             <div class="grid grid-cols-2 gap-3 text-center">
               <div class="panel-soft rounded-xl p-3">
-                <p class="text-[10px] text-[#555555]">PLAYER A TIMEOUT</p>
-                <p id="adm-timeout-a" class="mono text-2xl font-bold text-[#1B5E3B] mt-1">01:30</p>
+                <p class="text-[10px]" style="color:var(--clr-ink-muted)">PLAYER A TIMEOUT</p>
+                <p id="adm-timeout-a" class="mono text-2xl font-bold mt-1" style="color:var(--clr-green)">01:30</p>
               </div>
               <div class="panel-soft rounded-xl p-3">
-                <p class="text-[10px] text-[#555555]">PLAYER B TIMEOUT</p>
-                <p id="adm-timeout-b" class="mono text-2xl font-bold text-[#1B5E3B] mt-1">01:30</p>
+                <p class="text-[10px]" style="color:var(--clr-ink-muted)">PLAYER B TIMEOUT</p>
+                <p id="adm-timeout-b" class="mono text-2xl font-bold mt-1" style="color:var(--clr-green)">01:30</p>
               </div>
             </div>
             <button id="adm-call-timeout-btn" class="btn btn-dark w-full mt-3"><i data-lucide="timer"></i>Approve Timeout (−30s)</button>
@@ -974,7 +1219,7 @@
 
           <article class="panel rounded-3xl p-6 border border-black/10 space-y-4">
             <div class="flex justify-between items-center">
-              <h4 class="font-bold text-white">Official Event Log</h4>
+              <h4 class="font-bold" style="color:var(--clr-ink)">Official Event Log</h4>
               <button id="adm-sudden-btn" class="btn btn-dark text-xs">Sudden Death</button>
             </div>
             <div id="adm-event-log-box" class="panel-soft rounded-xl p-3 max-h-52 overflow-y-auto space-y-2 text-xs"></div>
@@ -988,30 +1233,30 @@
     <section id="adm-sec-config" class="admin-subview space-y-6 hidden">
       <form id="adm-full-config-form" class="panel rounded-3xl p-6 md:p-8 max-w-4xl mx-auto border border-black/10 space-y-6">
         <div>
-          <h3 class="text-2xl font-black display text-white">HEADER-TO-FOOTER CONFIGURATION</h3>
-          <p class="text-xs text-[#555555] mt-0.5">Admin can edit, delete, and update everything across the entire platform. Zero hard-coded values.</p>
+          <h3 class="text-2xl font-black display" style="color:var(--clr-ink)">HEADER-TO-FOOTER CONFIGURATION</h3>
+          <p class="text-xs mt-0.5" style="color:var(--clr-ink-muted)">Admin can edit, delete, and update everything across the entire platform. Zero hard-coded values.</p>
         </div>
 
         <div class="grid md:grid-cols-2 gap-4">
-          <div><label class="text-xs font-bold text-[#555555]">TOURNAMENT NAME</label><input required id="cfg-tname" class="input mt-1"></div>
-          <div><label class="text-xs font-bold text-[#555555]">HEADER SUBTITLE</label><input required id="cfg-tsub" class="input mt-1"></div>
-          <div><label class="text-xs font-bold text-[#555555]">VENUE NAME</label><input required id="cfg-tvenue" class="input mt-1"></div>
-          <div><label class="text-xs font-bold text-[#555555]">TIMEZONE</label><input required id="cfg-ttz" class="input mt-1"></div>
+          <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">TOURNAMENT NAME</label><input required id="cfg-tname" class="input mt-1"></div>
+          <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">HEADER SUBTITLE</label><input required id="cfg-tsub" class="input mt-1"></div>
+          <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">VENUE NAME</label><input required id="cfg-tvenue" class="input mt-1"></div>
+          <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">TIMEZONE</label><input required id="cfg-ttz" class="input mt-1"></div>
 
           <!-- Participant Limit — no cap, unlimited -->
           <div>
-            <label class="text-xs font-bold text-[#1B5E3B]">PARTICIPANT LIMIT <span class="text-[#555555] font-normal">(0 = unlimited)</span></label>
+            <label class="text-xs font-bold" style="color:var(--clr-green)">PARTICIPANT LIMIT <span style="color:var(--clr-ink-muted);font-weight:400">(0 = unlimited)</span></label>
             <input required type="number" id="cfg-tlimit" class="input mt-1" min="0" value="0">
-            <p class="text-[10px] text-[#555555] mt-1">Set to 0 for unlimited registrations. When a limit is set and saved, players are sorted by <strong class="text-white">enrollment date</strong> — the earliest registrants fill the spots first. Top N are auto-approved; the rest are marked Not Selected.</p>
-            <div id="limit-selection-result" class="hidden mt-3 rounded-xl border border-black/15 bg-[#0f1915] p-3 text-[11px] space-y-1"></div>
+            <p class="text-[10px] mt-1" style="color:var(--clr-ink-muted)">Set to 0 for unlimited registrations. When a limit is set and saved, players are sorted by <strong style="color:var(--clr-ink)">enrollment date</strong> — the earliest registrants fill the spots first. Top N are auto-approved; the rest are marked Not Selected.</p>
+            <div id="limit-selection-result" class="hidden mt-3 rounded-xl border border-black/15 p-3 text-[11px] space-y-1" style="background:var(--clr-mint);color:var(--clr-ink)"></div>
           </div>
 
-          <div><label class="text-xs font-bold text-[#555555]">MATCH DURATION (MINUTES)</label><input type="number" id="cfg-tdur" class="input mt-1"></div>
-          <div><label class="text-xs font-bold text-[#555555]">TRY DURATION (SECONDS)</label><input type="number" id="cfg-ttrydur" class="input mt-1"></div>
-          <div><label class="text-xs font-bold text-[#555555]">TRIES PER PLAYER</label><input type="number" id="cfg-ttries" class="input mt-1"></div>
+          <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">MATCH DURATION (MINUTES)</label><input type="number" id="cfg-tdur" class="input mt-1"></div>
+          <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">TRY DURATION (SECONDS)</label><input type="number" id="cfg-ttrydur" class="input mt-1"></div>
+          <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">TRIES PER PLAYER</label><input type="number" id="cfg-ttries" class="input mt-1"></div>
         </div>
 
-        <div><label class="text-xs font-bold text-[#555555]">FOOTER BRANDING TEXT</label><input id="cfg-tfooter" class="input mt-1"></div>
+        <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">FOOTER BRANDING TEXT</label><input id="cfg-tfooter" class="input mt-1"></div>
 
         <div class="flex flex-wrap gap-3 pt-4 border-t border-black/10">
           <button type="submit" class="btn btn-lime"><i data-lucide="save"></i>Save Changes to Database</button>
@@ -1033,24 +1278,25 @@
   <div class="panel rounded-3xl max-w-md w-full p-6 md:p-8 space-y-5 border border-black/15">
     <div class="flex justify-between items-center border-b border-black/10 pb-3">
       <div class="flex items-center gap-2.5">
-        <img src="assets/logo.png" class="w-8 h-8 rounded-md bg-[#F7F3EC]">
-        <h3 class="font-extrabold text-lg text-white">Sign In to 1 ON 1</h3>
+        <img src="assets/logo.png" class="w-8 h-8 rounded-md" style="background:var(--clr-surface-soft)">
+        <h3 class="font-extrabold text-lg" style="color:var(--clr-ink)">Sign In to 1 ON 1</h3>
       </div>
-      <button onclick="closeLoginModal()" class="text-[#555555] hover:text-white text-lg font-bold">✕</button>
+      <button onclick="closeLoginModal()" class="text-lg font-bold" style="color:var(--clr-ink-muted)">✕</button>
     </div>
 
     <form id="unified-login-form" class="space-y-4">
       <div>
-        <label class="text-xs font-bold text-[#555555]">EMAIL ADDRESS</label>
+        <label class="text-xs font-bold" style="color:var(--clr-ink-muted)">EMAIL ADDRESS</label>
         <input type="email" id="u-login-email" class="input mt-1" placeholder="you@gmail.com" required autocomplete="email">
       </div>
 
       <div>
-        <label class="text-xs font-bold text-[#555555]">PASSWORD</label>
+        <label class="text-xs font-bold" style="color:var(--clr-ink-muted)">PASSWORD</label>
         <div class="relative mt-1">
           <input type="password" id="u-login-pass" class="input pr-10 w-full" placeholder="••••••••" required autocomplete="current-password">
           <button type="button" onclick="togglePassEye()"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-[#555555] hover:text-[#1B5E3B] transition-colors"
+            class="absolute right-3 top-1/2 -translate-y-1/2 transition-colors"
+            style="color:var(--clr-ink-muted)"
             title="Show / Hide password">
             <i data-lucide="eye" id="eye-icon" class="w-4 h-4"></i>
           </button>
@@ -1061,8 +1307,8 @@
         <i data-lucide="log-in"></i>Sign In
       </button>
 
-      <p class="text-center text-xs text-[#555555]">
-        No account? Contact admin via <a href="https://wa.me/923045534884" target="_blank" class="text-[#1B5E3B] hover:underline font-bold">WhatsApp</a> to get your login credentials.
+      <p class="text-center text-xs" style="color:var(--clr-ink-muted)">
+        No account? Contact admin via <a href="https://wa.me/923045534884" target="_blank" class="font-bold hover:underline" style="color:var(--clr-green)">WhatsApp</a> to get your login credentials.
       </p>
     </form>
   </div>
@@ -1072,36 +1318,36 @@
 <div id="admin-player-edit-modal" class="hidden fixed z-50 inset-0 modal-backdrop p-4 items-center justify-center" role="dialog">
   <div class="panel rounded-3xl max-w-xl w-full p-6 md:p-8 space-y-4 border border-black/15 max-h-[90vh] overflow-y-auto">
     <div class="flex justify-between items-center border-b border-black/10 pb-3">
-      <h3 id="adm-p-modal-title" class="font-extrabold text-xl text-white">Add New Player Profile</h3>
-      <button onclick="closeAdminPlayerModal()" class="text-lg font-bold">✕</button>
+      <h3 id="adm-p-modal-title" class="font-extrabold text-xl" style="color:var(--clr-ink)">Add New Player Profile</h3>
+      <button onclick="closeAdminPlayerModal()" class="text-lg font-bold" style="color:var(--clr-ink-muted)">✕</button>
     </div>
 
     <form id="admin-player-save-form" class="space-y-3 text-sm">
       <input type="hidden" id="adm-edit-id">
-      <div><label class="text-xs font-bold text-[#555555]">FULL NAME *</label><input required id="adm-e-name" class="input mt-1"></div>
+      <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">FULL NAME *</label><input required id="adm-e-name" class="input mt-1"></div>
       <div class="grid grid-cols-2 gap-3">
-        <div><label class="text-xs font-bold text-[#555555]">SEED / ID</label><input id="adm-e-seed" class="input mt-1"></div>
-        <div><label class="text-xs font-bold text-[#555555]">GMAIL ADDRESS</label><input type="email" id="adm-e-gmail" class="input mt-1"></div>
+        <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">SEED / ID</label><input id="adm-e-seed" class="input mt-1"></div>
+        <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">GMAIL ADDRESS</label><input type="email" id="adm-e-gmail" class="input mt-1"></div>
       </div>
       <div class="grid grid-cols-2 gap-3">
-        <div><label class="text-xs font-bold text-[#555555]">CELL PHONE</label><input id="adm-e-phone" class="input mt-1"></div>
-        <div><label class="text-xs font-bold text-[#555555]">WHATSAPP NUMBER</label><input id="adm-e-whatsapp" class="input mt-1"></div>
+        <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">CELL PHONE</label><input id="adm-e-phone" class="input mt-1"></div>
+        <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">WHATSAPP NUMBER</label><input id="adm-e-whatsapp" class="input mt-1"></div>
       </div>
       <div class="grid grid-cols-2 gap-3">
-        <div><label class="text-xs font-bold text-[#555555]">PREFERRED GOALKEEPER</label><input id="adm-e-keeper" class="input mt-1"></div>
-        <div><label class="text-xs font-bold text-[#555555]">DOMINANT FOOT</label>
+        <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">PREFERRED GOALKEEPER</label><input id="adm-e-keeper" class="input mt-1"></div>
+        <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">DOMINANT FOOT</label>
           <select id="adm-e-foot" class="input mt-1"><option>Right</option><option>Left</option><option>Both</option></select>
         </div>
       </div>
       <div class="grid grid-cols-2 gap-3">
-        <div><label class="text-xs font-bold text-[#555555]">PAYMENT STATUS</label>
+        <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">PAYMENT STATUS</label>
           <select id="adm-e-pay" class="input mt-1">
             <option value="VERIFIED">VERIFIED</option>
             <option value="PENDING">PENDING</option>
             <option value="NOT_SUBMITTED">NOT SUBMITTED</option>
           </select>
         </div>
-        <div><label class="text-xs font-bold text-[#555555]">APPROVAL STATUS</label>
+        <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">APPROVAL STATUS</label>
           <select id="adm-e-approval" class="input mt-1">
             <option value="APPROVED">APPROVED / ACCEPTED</option>
             <option value="PENDING">PENDING REVIEW</option>
@@ -1109,15 +1355,15 @@
           </select>
         </div>
       </div>
-      <div><label class="text-xs font-bold text-[#555555]">SIGNATURE SKILLS</label><input id="adm-e-skills" class="input mt-1"></div>
-      <div><label class="text-xs font-bold text-[#555555]">INTERNAL NOTES</label><input id="adm-e-notes" class="input mt-1"></div>
+      <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">SIGNATURE SKILLS</label><input id="adm-e-skills" class="input mt-1"></div>
+      <div><label class="text-xs font-bold" style="color:var(--clr-ink-muted)">INTERNAL NOTES</label><input id="adm-e-notes" class="input mt-1"></div>
       <!-- Password — only required when adding a new player; leave blank to keep existing password on edit -->
       <div id="adm-e-pass-wrap">
-        <label class="text-xs font-bold text-[#1B5E3B]">LOGIN PASSWORD <span id="adm-e-pass-hint" class="text-[#555555] font-normal">(required for new player)</span></label>
+        <label class="text-xs font-bold" style="color:var(--clr-green)">LOGIN PASSWORD <span id="adm-e-pass-hint" style="color:var(--clr-ink-muted);font-weight:400">(required for new player)</span></label>
         <input type="password" id="adm-e-pass" class="input mt-1" placeholder="Min 8 characters" minlength="8" autocomplete="new-password">
-        <p class="text-[10px] text-[#555555] mt-1">Share this password with the player so they can log in. Leave blank when editing to keep existing password unchanged.</p>
+        <p class="text-[10px] mt-1" style="color:var(--clr-ink-muted)">Share this password with the player so they can log in. Leave blank when editing to keep existing password unchanged.</p>
       </div>
-      <button type="submit" class="btn btn-lime w-full mt-3"><i data-lucide="save"></i>Save Player & Credentials</button>
+      <button type="submit" class="btn btn-lime w-full mt-3"><i data-lucide="save"></i>Save Player &amp; Credentials</button>
     </form>
   </div>
 </div>
@@ -1128,32 +1374,32 @@
     <div class="flex justify-between items-start border-b border-black/10 pb-4">
       <div>
         <div class="flex items-center gap-2">
-          <h3 id="pv-name" class="text-2xl font-black text-white">—</h3>
+          <h3 id="pv-name" class="text-2xl font-black" style="color:var(--clr-ink)">—</h3>
           <span id="pv-badge" class="tag tag-approved">Active</span>
         </div>
-        <p id="pv-seed" class="text-xs text-[#555555] mono mt-0.5">—</p>
+        <p id="pv-seed" class="text-xs mono mt-0.5" style="color:var(--clr-ink-muted)">—</p>
       </div>
-      <button onclick="closePlayerViewModal()" class="text-lg font-bold">✕</button>
+      <button onclick="closePlayerViewModal()" class="text-lg font-bold" style="color:var(--clr-ink-muted)">✕</button>
     </div>
 
     <div class="grid sm:grid-cols-3 gap-3 text-xs">
-      <div class="panel-soft rounded-xl p-3"><p class="text-[#555555]">GOALKEEPER</p><p id="pv-keeper" class="font-bold text-white mt-1">—</p></div>
-      <div class="panel-soft rounded-xl p-3"><p class="text-[#555555]">DOMINANT FOOT</p><p id="pv-foot" class="font-bold text-white mt-1">Right</p></div>
-      <div class="panel-soft rounded-xl p-3"><p class="text-[#555555]">CITY</p><p id="pv-city" class="font-bold text-white mt-1">Faisalabad</p></div>
+      <div class="panel-soft rounded-xl p-3"><p style="color:var(--clr-ink-muted)">GOALKEEPER</p><p id="pv-keeper" class="font-bold mt-1" style="color:var(--clr-ink)">—</p></div>
+      <div class="panel-soft rounded-xl p-3"><p style="color:var(--clr-ink-muted)">DOMINANT FOOT</p><p id="pv-foot" class="font-bold mt-1" style="color:var(--clr-ink)">Right</p></div>
+      <div class="panel-soft rounded-xl p-3"><p style="color:var(--clr-ink-muted)">CITY</p><p id="pv-city" class="font-bold mt-1" style="color:var(--clr-ink)">Faisalabad</p></div>
     </div>
 
     <div class="panel-soft rounded-2xl p-4">
-      <p class="text-xs font-bold text-[#1B5E3B] mb-1">SIGNATURE SKILLS & PLAYSTYLE</p>
-      <p id="pv-skills" class="text-sm text-[#333333]">No signature skills recorded.</p>
+      <p class="text-xs font-bold mb-1" style="color:var(--clr-green)">SIGNATURE SKILLS &amp; PLAYSTYLE</p>
+      <p id="pv-skills" class="text-sm" style="color:var(--clr-ink-soft)">No signature skills recorded.</p>
     </div>
 
     <div>
-      <p class="text-xs font-bold text-[#1B5E3B] mb-2">GAME VIDEOS & SKILL REELS</p>
+      <p class="text-xs font-bold mb-2" style="color:var(--clr-green)">GAME VIDEOS &amp; SKILL REELS</p>
       <div id="pv-videos-list" class="space-y-2"></div>
     </div>
 
     <div>
-      <p class="text-xs font-bold text-[#1B5E3B] mb-2">OFFICIAL MATCH RECORDINGS</p>
+      <p class="text-xs font-bold mb-2" style="color:var(--clr-green)">OFFICIAL MATCH RECORDINGS</p>
       <div id="pv-match-recordings" class="space-y-2"></div>
     </div>
   </div>
@@ -1162,9 +1408,9 @@
 <!-- 5. LIGHTBOX MODAL (For Full Size Flyers & Posters) -->
 <div id="lightbox-modal" class="hidden fixed z-50 inset-0 modal-backdrop p-4 items-center justify-center" role="dialog">
   <div class="relative max-w-2xl w-full p-2 text-center">
-    <button onclick="closeLightbox()" class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#F7F3EC] text-white font-bold border border-black/15 flex items-center justify-center">✕</button>
+    <button onclick="closeLightbox()" class="absolute -top-3 -right-3 w-8 h-8 rounded-full font-bold border border-black/15 flex items-center justify-center" style="background:var(--clr-surface);color:var(--clr-ink)">✕</button>
     <img id="lightbox-img" class="w-full max-h-[85vh] object-contain rounded-2xl border border-black/15 shadow-2xl">
-    <p id="lightbox-caption" class="text-xs text-[#333333] mt-2 font-semibold"></p>
+    <p id="lightbox-caption" class="text-xs mt-2 font-semibold" style="color:var(--clr-ink-soft)"></p>
   </div>
 </div>
 
@@ -1172,8 +1418,8 @@
 <div id="match-video-modal" class="hidden fixed z-50 inset-0 modal-backdrop p-4 items-center justify-center" role="dialog">
   <div class="panel rounded-3xl max-w-3xl w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto border border-black/15">
     <div class="flex justify-between items-center border-b border-black/10 pb-3">
-      <h3 id="mv-title" class="font-black text-xl text-white">Match Recording</h3>
-      <button onclick="closeMatchVideoModal()" class="text-lg font-bold">✕</button>
+      <h3 id="mv-title" class="font-black text-xl" style="color:var(--clr-ink)">Match Recording</h3>
+      <button onclick="closeMatchVideoModal()" class="text-lg font-bold" style="color:var(--clr-ink-muted)">✕</button>
     </div>
     <div id="mv-frame" class="aspect-video w-full rounded-2xl bg-black overflow-hidden flex items-center justify-center"></div>
   </div>
@@ -1185,24 +1431,24 @@
   <div class="panel rounded-3xl max-w-2xl w-full p-6 md:p-8 max-h-[88vh] overflow-y-auto border border-black/15 space-y-5">
     <div class="flex justify-between items-center border-b border-black/10 pb-3">
       <div class="flex items-center gap-2.5">
-        <i data-lucide="shield-check" class="w-5 h-5 text-[#1B5E3B]"></i>
-        <h3 class="font-extrabold text-lg text-white">Privacy Policy</h3>
+        <i data-lucide="shield-check" class="w-5 h-5" style="color:var(--clr-green)"></i>
+        <h3 class="font-extrabold text-lg" style="color:var(--clr-ink)">Privacy Policy</h3>
       </div>
-      <button onclick="closePrivacyModal()" class="text-[#555555] hover:text-white text-lg font-bold">✕</button>
+      <button onclick="closePrivacyModal()" class="text-lg font-bold" style="color:var(--clr-ink-muted)">✕</button>
     </div>
 
-    <p class="text-xs text-[#555555]">Last updated: October 2026 · 1 ON 1 Showdown Faisalabad — Hosted by Towncleats</p>
+    <p class="text-xs" style="color:var(--clr-ink-muted)">Last updated: October 2026 · 1 ON 1 Showdown Faisalabad — Hosted by Towncleats</p>
 
-    <div class="space-y-4 text-sm text-[#333333] leading-relaxed">
+    <div class="space-y-4 text-sm leading-relaxed" style="color:var(--clr-ink-soft)">
 
       <section>
-        <h4 class="font-extrabold text-white mb-1">1. Information We Collect</h4>
+        <h4 class="font-extrabold mb-1" style="color:var(--clr-ink)">1. Information We Collect</h4>
         <p>Players are enrolled directly by the tournament administrator. When a player is added, we collect: their full name, Gmail address, cell phone number, WhatsApp number, preferred goalkeeper, and any football skills they choose to share. We do not collect national ID numbers, financial card details, or any document scans.</p>
       </section>
 
       <section>
-        <h4 class="font-extrabold text-white mb-1">2. How We Use Your Information</h4>
-        <ul class="list-disc list-inside space-y-1 text-[#555555]">
+        <h4 class="font-extrabold mb-1" style="color:var(--clr-ink)">2. How We Use Your Information</h4>
+        <ul class="list-disc list-inside space-y-1" style="color:var(--clr-ink-muted)">
           <li>To manage your tournament enrollment and match fixtures.</li>
           <li>To send you your match schedule, reminders, and official results via WhatsApp or email.</li>
           <li>To display your name and tournament statistics on the public leaderboard.</li>
@@ -1211,28 +1457,28 @@
       </section>
 
       <section>
-        <h4 class="font-extrabold text-white mb-1">3. Data Storage & Security</h4>
+        <h4 class="font-extrabold mb-1" style="color:var(--clr-ink)">3. Data Storage &amp; Security</h4>
         <p>Your data is stored in an encrypted PostgreSQL database hosted locally on tournament infrastructure. Passwords are hashed using scrypt (industry-standard, never stored in plain text). We apply rate limiting, input validation, and security headers on all API endpoints. Access to player data is restricted to authorised tournament administrators only.</p>
       </section>
 
       <section>
-        <h4 class="font-extrabold text-white mb-1">4. We Never Share Your Data</h4>
-        <p>Your personal information is <strong class="text-white">never sold, rented, or shared</strong> with any third party, advertiser, or sponsor. Match results and tournament standings displayed publicly contain only your name and game statistics — never your phone number or email address.</p>
+        <h4 class="font-extrabold mb-1" style="color:var(--clr-ink)">4. We Never Share Your Data</h4>
+        <p>Your personal information is <strong style="color:var(--clr-ink)">never sold, rented, or shared</strong> with any third party, advertiser, or sponsor. Match results and tournament standings displayed publicly contain only your name and game statistics — never your phone number or email address.</p>
       </section>
 
       <section>
-        <h4 class="font-extrabold text-white mb-1">5. WhatsApp & Email Communications</h4>
+        <h4 class="font-extrabold mb-1" style="color:var(--clr-ink)">5. WhatsApp &amp; Email Communications</h4>
         <p>By being enrolled in the tournament, you consent to receiving tournament-related WhatsApp messages and emails — such as match reminders, schedule updates, and result notifications. You will not receive spam or marketing messages. These communications are limited to the tournament period (Oct 11, 2026).</p>
       </section>
 
       <section>
-        <h4 class="font-extrabold text-white mb-1">6. Your Rights</h4>
-        <p>You may request deletion of your personal data at any time before the tournament by contacting us on WhatsApp at <a href="https://wa.me/923045534884" target="_blank" class="text-[#1B5E3B] hover:underline">+92 304 5534884</a>. After the event, anonymised match statistics may be retained for historical records.</p>
+        <h4 class="font-extrabold mb-1" style="color:var(--clr-ink)">6. Your Rights</h4>
+        <p>You may request deletion of your personal data at any time before the tournament by contacting us on WhatsApp at <a href="https://wa.me/923045534884" target="_blank" class="hover:underline" style="color:var(--clr-green)">+92 304 5534884</a>. After the event, anonymised match statistics may be retained for historical records.</p>
       </section>
 
       <section>
-        <h4 class="font-extrabold text-white mb-1">7. Contact</h4>
-        <p>For any privacy concerns: <a href="mailto:towncleats@gmail.com" class="text-[#1B5E3B] hover:underline">towncleats@gmail.com</a> or WhatsApp <a href="https://wa.me/923045534884" target="_blank" class="text-[#1B5E3B] hover:underline">+92 304 5534884</a>.</p>
+        <h4 class="font-extrabold mb-1" style="color:var(--clr-ink)">7. Contact</h4>
+        <p>For any privacy concerns: <a href="mailto:towncleats@gmail.com" class="hover:underline" style="color:var(--clr-green)">towncleats@gmail.com</a> or WhatsApp <a href="https://wa.me/923045534884" target="_blank" class="hover:underline" style="color:var(--clr-green)">+92 304 5534884</a>.</p>
       </section>
     </div>
 
@@ -1240,7 +1486,7 @@
   </div>
 </div>
 
-<div id="toast" class="hidden fixed z-50 right-4 bottom-6 panel rounded-2xl px-5 py-3 text-sm font-bold border border-[#2A2D3A] shadow-2xl flex items-center gap-2" role="status"></div>
+<div id="toast" class="hidden fixed z-50 right-4 bottom-6 rounded-2xl px-5 py-3 text-sm font-bold flex items-center gap-2" style="background:var(--clr-ink);color:#fff;border:var(--bw-md) solid var(--clr-ink);box-shadow:var(--sh-md)" role="status"></div>
 
 <!-- ── Mobile Bottom Navigation Bar (phones only) ── -->
 <nav id="mobile-nav" aria-label="Mobile navigation">
@@ -1265,15 +1511,15 @@
 </nav>
 
 <!-- Footer -->
-<footer class="border-t border-black/10 bg-white py-8 text-center text-xs text-[#555555]">
-  <div class="max-w-4xl mx-auto px-4 space-y-2">
-    <p class="font-bold text-white text-sm" id="footer-text">1 ON 1 SHOWDOWN FAISALABAD — Official Tournament Platform</p>
-    <p class="text-[#4A4C5E]">Hosted by Towncleats · Venue: Padel Pavilion, Faisalabad · Official WhatsApp: +92 304 5534884</p>
-    <p class="text-[10px] text-[#2E3045] mt-1">
-      <a href="#" onclick="openPrivacyModal(); return false;" class="hover:text-[#1B5E3B] transition-colors">Privacy Policy</a>
+<footer style="background:var(--clr-green);border-top:var(--bw-lg) solid var(--clr-ink);padding:2.5rem 1rem;text-align:center;">
+  <div style="max-w:48rem;margin:0 auto;display:flex;flex-direction:column;gap:.6rem;">
+    <p style="font-size:.9rem;font-weight:900;color:#FFFFFF;letter-spacing:.05em;font-family:var(--ff-display);" id="footer-text">1 ON 1 SHOWDOWN FAISALABAD — Official Tournament Platform</p>
+    <p style="font-size:.75rem;color:rgba(255,255,255,.75);">Hosted by Towncleats · Venue: Padel Pavilion, Faisalabad · Official WhatsApp: +92 304 5534884</p>
+    <p style="font-size:.65rem;color:rgba(255,255,255,.6);">
+      <a href="#" onclick="openPrivacyModal(); return false;" style="color:var(--clr-mint);text-decoration:underline;">Privacy Policy</a>
       &nbsp;·&nbsp; Your data is secure &amp; never shared
     </p>
-    <p class="text-[10px] text-[#3A3D50]">Live Match Streams on YouTube & Instagram: @FSD.1V1.SHOWDOWN</p>
+    <p style="font-size:.65rem;color:rgba(255,255,255,.55);">Live Match Streams on YouTube &amp; Instagram: @FSD.1V1.SHOWDOWN</p>
   </div>
 </footer>
 
@@ -1496,7 +1742,8 @@ const fmtTime = s => `${pad(Math.floor(s/60))}:${pad(s%60)}`;
 
 function toast(msg, isErr = false) {
   const t = $('#toast');
-  t.innerHTML = `<span class="${isErr?'text-[#FF3B30]':'text-[#1B5E3B]'}">⬤</span> ${msg}`;
+  t.style.background = isErr ? 'var(--clr-danger)' : 'var(--clr-ink)';
+  t.innerHTML = `<span style="color:${isErr?'#fff':'var(--clr-mint)'}">⬤</span> ${msg}`;
   t.classList.remove('hidden');
   setTimeout(() => t.classList.add('hidden'), 3200);
 }
@@ -1607,7 +1854,7 @@ function showSection(secId) {
 
   $$('.v-nav-btn').forEach(b => {
     const isTarget = b.dataset.target === secId;
-    b.className = isTarget ? 'v-nav-btn text-[#1B5E3B] px-3 py-1.5 rounded-lg font-bold' : 'v-nav-btn text-[#555555] hover:text-white px-3 py-1.5 rounded-lg';
+    b.classList.toggle('nav-active', isTarget);
   });
 
   // Sync mobile bottom nav active state
@@ -1754,16 +2001,16 @@ function renderVisitorFixtures() {
       <div>
         <div class="flex items-center gap-2 mb-1">
           <span class="tag ${m.state==='LIVE'?'tag-live':m.state==='FINISHED'?'tag-approved':'tag-pending'}">${m.state}</span>
-          <span class="text-xs text-[#555555]">${m.round || 'Round 1'}</span>
+          <span class="text-xs" style="color:var(--clr-ink-muted)">${m.round || 'Round 1'}</span>
         </div>
-        <h4 class="text-lg font-bold text-white">${m.playerA} <span class="text-[#1B5E3B] mx-1">${m.state==='FINISHED'?m.scoreA+' — '+m.scoreB:'vs'}</span> ${m.playerB}</h4>
-        <p class="text-xs text-[#555555] mt-1"><i data-lucide="clock" class="inline w-3 mr-1 text-[#1B5E3B]"></i>${m.time || '18:00'} · Padel Pavilion, Faisalabad</p>
+        <h4 class="text-lg font-bold" style="color:var(--clr-ink)">${m.playerA} <span style="color:var(--clr-green);margin:0 4px">${m.state==='FINISHED'?m.scoreA+' — '+m.scoreB:'vs'}</span> ${m.playerB}</h4>
+        <p class="text-xs mt-1" style="color:var(--clr-ink-muted)"><i data-lucide="clock" class="inline w-3 mr-1" style="color:var(--clr-green)"></i>${m.time || '18:00'} · Padel Pavilion, Faisalabad</p>
       </div>
       <div class="flex gap-2">
         ${m.videoUrl ? `<button class="btn btn-lime text-xs" onclick="openMatchVideoModal('${m.id}')"><i data-lucide="play-circle"></i>Watch Recording</button>` : ''}
       </div>
     </article>
-  `).join('') : '<p class="text-center text-[#555555] py-8">No matches scheduled in this category.</p>';
+  `).join('') : '<p class="text-center py-8" style="color:var(--clr-ink-muted)">No matches scheduled in this category.</p>';
 
   $$('#v-fixtures-filter button').forEach(b => {
     b.onclick = () => {
@@ -1778,19 +2025,19 @@ function renderVisitorFixtures() {
 function renderVisitorStandings() {
   const sorted = [...state.players].sort((a,b) => (b.goals||0) - (a.goals||0) || (b.matches||0) - (a.matches||0));
   $('#v-standings-table-body').innerHTML = sorted.length ? sorted.map((p, idx) => `
-    <tr class="hover:bg-[#F7F3EC] transition">
-      <td class="py-3 px-3 mono font-bold ${idx===0?'text-[#1B5E3B]':idx<3?'text-[#1B5E3B]':'text-[#555555]'}">${idx+1}</td>
+    <tr style="background:transparent" class="hover:bg-black/5 transition">
+      <td class="py-3 px-3 mono font-bold" style="color:${idx<3?'var(--clr-green)':'var(--clr-ink-muted)'}">${idx+1}</td>
       <td class="py-3 px-4">
-        <p class="font-extrabold text-white">${p.name}</p>
-        <p class="text-xs text-[#555555]">${p.seed || p.id} · ${p.city || 'Faisalabad'}</p>
+        <p class="font-extrabold" style="color:var(--clr-ink)">${p.name}</p>
+        <p class="text-xs" style="color:var(--clr-ink-muted)">${p.seed || p.id} · ${p.city || 'Faisalabad'}</p>
       </td>
-      <td class="py-3 px-3 text-center font-bold">${p.matches || 0}</td>
-      <td class="py-3 px-3 text-center font-bold text-[#1B5E3B] text-base">${p.goals || 0}</td>
-      <td class="py-3 px-3 text-center text-[#555555]">${p.shots || 0}</td>
+      <td class="py-3 px-3 text-center font-bold" style="color:var(--clr-ink)">${p.matches || 0}</td>
+      <td class="py-3 px-3 text-center font-bold text-base" style="color:var(--clr-green)">${p.goals || 0}</td>
+      <td class="py-3 px-3 text-center" style="color:var(--clr-ink-muted)">${p.shots || 0}</td>
       <td class="py-3 px-3 text-center"><span class="tag ${p.approvalStatus==='APPROVED'?'tag-approved':'tag-pending'}">${p.approvalStatus || 'Active'}</span></td>
       <td class="py-3 px-3 text-right"><button class="btn btn-dark text-xs" onclick="openPlayerViewModal('${p.id}')">Profile</button></td>
     </tr>
-  `).join('') : '<tr><td colspan="7" class="py-8 text-center text-[#555555]">No players in the tournament yet.</td></tr>';
+  `).join('') : '<tr><td colspan="7" class="py-8 text-center" style="color:var(--clr-ink-muted)">No players in the tournament yet.</td></tr>';
 }
 
 function renderVisitorPlayers() {
@@ -1802,22 +2049,22 @@ function renderVisitorPlayers() {
       <div>
         <div class="flex justify-between items-start">
           <div>
-            <h4 class="font-extrabold text-lg text-white">${p.name}</h4>
-            <p class="text-xs text-[#555555] mt-0.5">${p.seed || p.id} · ${p.city || 'Faisalabad'}</p>
+            <h4 class="font-extrabold text-lg" style="color:var(--clr-ink)">${p.name}</h4>
+            <p class="text-xs mt-0.5" style="color:var(--clr-ink-muted)">${p.seed || p.id} · ${p.city || 'Faisalabad'}</p>
           </div>
           <span class="tag ${p.approvalStatus==='APPROVED'?'tag-approved':'tag-pending'}">${p.approvalStatus||'Active'}</span>
         </div>
-        <div class="grid grid-cols-3 gap-2 my-4 text-center text-xs bg-white p-2.5 rounded-xl">
-          <div><b class="text-[#1B5E3B] text-base block">${p.matches||0}</b>Matches</div>
-          <div><b class="text-[#1B5E3B] text-base block">${p.goals||0}</b>Goals</div>
-          <div><b class="text-white text-base block">${p.shots||0}</b>Shots</div>
+        <div class="grid grid-cols-3 gap-2 my-4 text-center text-xs p-2.5 rounded-xl" style="background:var(--clr-surface)">
+          <div><b class="text-base block" style="color:var(--clr-green)">${p.matches||0}</b>Matches</div>
+          <div><b class="text-base block" style="color:var(--clr-green)">${p.goals||0}</b>Goals</div>
+          <div><b class="text-base block" style="color:var(--clr-ink)">${p.shots||0}</b>Shots</div>
         </div>
-        <p class="text-xs text-[#555555]"><b class="text-[#1B5E3B]">Keeper:</b> ${p.preferredKeeper || 'Assigned'}</p>
-        ${p.bestSkills ? `<p class="text-xs text-[#333333] mt-1"><b class="text-[#1B5E3B]">Skills:</b> ${p.bestSkills}</p>` : ''}
+        <p class="text-xs" style="color:var(--clr-ink-muted)"><b style="color:var(--clr-green)">Keeper:</b> ${p.preferredKeeper || 'Assigned'}</p>
+        ${p.bestSkills ? `<p class="text-xs mt-1" style="color:var(--clr-ink-soft)"><b style="color:var(--clr-green)">Skills:</b> ${p.bestSkills}</p>` : ''}
       </div>
-      <button class="btn btn-lime text-xs w-full mt-4" onclick="openPlayerViewModal('${p.id}')"><i data-lucide="user"></i>View Profile & Skills</button>
+      <button class="btn btn-lime text-xs w-full mt-4" onclick="openPlayerViewModal('${p.id}')"><i data-lucide="user"></i>View Profile &amp; Skills</button>
     </article>
-  `).join('') : '<p class="col-span-full text-center text-[#555555] py-8">No players found.</p>';
+  `).join('') : '<p class="col-span-full text-center py-8" style="color:var(--clr-ink-muted)">No players found.</p>';
   $('#v-player-search-input').oninput = renderVisitorPlayers;
   lucide.createIcons();
 }
@@ -1827,35 +2074,32 @@ function renderVisitorRules() {
   const rangeLabel = (rules) => `${rules[0][0]} – ${rules[rules.length-1][0]}`;
 
   $('#v-rules-list').innerHTML = rulesData.map((chapter, i) => `
-    <details ${i === 0 ? 'open' : ''} class="rounded-2xl border border-black/10 bg-white overflow-hidden mb-2">
-      <summary class="flex items-center justify-between gap-3 px-5 py-4 cursor-pointer select-none hover:bg-white/[.03] transition-colors">
+    <details ${i === 0 ? 'open' : ''} class="rounded-2xl border border-black/10 overflow-hidden mb-2" style="background:var(--clr-surface)">
+      <summary class="flex items-center justify-between gap-3 px-5 py-4 cursor-pointer select-none hover:bg-black/5 transition-colors">
         <div class="flex items-center gap-3">
-          <!-- Chapter number badge -->
-          <span class="w-7 h-7 rounded-lg bg-[#FFB800]/10 border border-black/20 text-[#1B5E3B] text-xs font-black flex items-center justify-center shrink-0">${String(i+1).padStart(2,'0')}</span>
+          <span class="w-7 h-7 rounded-lg border border-black/20 text-xs font-black flex items-center justify-center shrink-0" style="background:var(--clr-mint);color:var(--clr-green)">${String(i+1).padStart(2,'0')}</span>
           <div>
-            <p class="font-extrabold text-sm text-white leading-none">${chapter.chapter}</p>
-            <p class="text-[10px] text-[#555555] mt-0.5 mono">${rangeLabel(chapter.rules)}</p>
+            <p class="font-extrabold text-sm leading-none" style="color:var(--clr-ink)">${chapter.chapter}</p>
+            <p class="text-[10px] mt-0.5 mono" style="color:var(--clr-ink-muted)">${rangeLabel(chapter.rules)}</p>
           </div>
         </div>
         <div class="flex items-center gap-2 shrink-0">
           <span class="tag text-[10px] px-2 py-0">${chapter.rules.length} rule${chapter.rules.length !== 1 ? 's' : ''}</span>
-          <i data-lucide="chevron-down" class="w-4 h-4 text-[#1B5E3B] transition-transform details-chevron"></i>
+          <i data-lucide="chevron-down" class="w-4 h-4 transition-transform details-chevron" style="color:var(--clr-green)"></i>
         </div>
       </summary>
 
-      <!-- Rules list inside chapter -->
-      <div class="border-t border-white/[.06]">
+      <div class="border-t border-black/10">
         ${chapter.rules.map(([serial, text], ri) => `
-          <div class="flex items-start gap-3 px-5 py-3 ${ri % 2 === 0 ? '' : 'bg-white/[.02]'} border-b border-white/[.04] last:border-b-0">
-            <!-- Serial badge -->
-            <span class="mono text-[11px] font-black text-[#1B5E3B] bg-[#FFB800]/10 border border-black/15 rounded-md px-1.5 py-0.5 shrink-0 mt-0.5 leading-none">${serial}</span>
-            <p class="text-sm text-[#333333] leading-relaxed">${text}</p>
+          <div class="flex items-start gap-3 px-5 py-3 ${ri % 2 === 0 ? '' : 'bg-black/[.02]'} border-b border-black/5 last:border-b-0">
+            <span class="mono text-[11px] font-black border border-black/15 rounded-md px-1.5 py-0.5 shrink-0 mt-0.5 leading-none" style="color:var(--clr-green);background:var(--clr-mint)">${serial}</span>
+            <p class="text-sm leading-relaxed" style="color:var(--clr-ink-soft)">${text}</p>
           </div>
         `).join('')}
         ${chapter.note ? `
-          <div class="px-5 py-3 bg-[#FFB800]/[.05] border-t border-black/15 flex items-center gap-2">
-            <i data-lucide="quote" class="w-4 h-4 text-[#1B5E3B] shrink-0"></i>
-            <p class="text-sm text-[#1B5E3B] font-semibold italic">${chapter.note}</p>
+          <div class="px-5 py-3 border-t border-black/15 flex items-center gap-2" style="background:var(--clr-mint)">
+            <i data-lucide="quote" class="w-4 h-4 shrink-0" style="color:var(--clr-green)"></i>
+            <p class="text-sm font-semibold italic" style="color:var(--clr-green)">${chapter.note}</p>
           </div>
         ` : ''}
       </div>
@@ -2078,7 +2322,7 @@ function buildConnectors(matchCount, rIdx, MATCH_H, BASE_GAP) {
 
   let svgLines = '';
   const half = w / 2;
-  const stroke = 'stroke="rgba(255,255,255,.18)" stroke-width="1.5"';
+  const stroke = 'stroke="var(--clr-line)" stroke-width="1.5"';
 
   for (let i = 0; i < matchCount; i += 2) {
     const midA = i * stride + MATCH_H / 2;
@@ -2209,8 +2453,8 @@ function renderPlayerDashboard() {
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <span class="tag tag-live text-xs">${myNext.round || 'Round 1'} · ${myNext.state}</span>
-          <h4 class="text-xl font-black text-white mt-1">You vs ${opp}</h4>
-          <p class="text-xs text-[#555555] mt-1"><i data-lucide="clock" class="inline w-3 mr-1 text-[#1B5E3B]"></i>${time} · Padel Pavilion, Faisalabad</p>
+          <h4 class="text-xl font-black mt-1" style="color:var(--clr-ink)">You vs ${opp}</h4>
+          <p class="text-xs mt-1" style="color:var(--clr-ink-muted)"><i data-lucide="clock" class="inline w-3 mr-1" style="color:var(--clr-green)"></i>${time} · Padel Pavilion, Faisalabad</p>
         </div>
         <div class="flex gap-2">
           <a href="https://wa.me/${(p.whatsapp||'').replace(/\D/g,'')}?text=${reminderMsg}" target="_blank" class="btn btn-lime text-xs">
@@ -2223,7 +2467,7 @@ function renderPlayerDashboard() {
       </div>
     `;
   } else {
-    $('#p-dash-match-box').innerHTML = '<p class="text-xs text-[#555555]">No match currently scheduled for you. Tournament manager will assign fixtures soon.</p>';
+    $('#p-dash-match-box').innerHTML = '<p class="text-xs" style="color:var(--clr-ink-muted)">No match currently scheduled for you. Tournament manager will assign fixtures soon.</p>';
   }
 
   // Videos
@@ -2231,20 +2475,20 @@ function renderPlayerDashboard() {
   $('#p-my-videos-list').innerHTML = vids.length ? vids.map(v => `
     <div class="panel-soft rounded-xl p-2.5 flex justify-between items-center text-xs">
       <div>
-        <p class="font-bold text-white">${v.title}</p>
-        <a href="${v.url}" target="_blank" class="text-[11px] text-[#1B5E3B] hover:underline break-all">${v.url}</a>
+        <p class="font-bold" style="color:var(--clr-ink)">${v.title}</p>
+        <a href="${v.url}" target="_blank" class="text-[11px] hover:underline break-all" style="color:var(--clr-green)">${v.url}</a>
       </div>
       <a href="${v.url}" target="_blank" class="btn btn-lime text-[10px] py-1 px-2">Play</a>
     </div>
-  `).join('') : '<p class="text-xs text-[#555555]">No skills or highlight videos added yet.</p>';
+  `).join('') : '<p class="text-xs" style="color:var(--clr-ink-muted)">No skills or highlight videos added yet.</p>';
 
   const myMatches = state.matches.filter(m => (m.playerA === p.name || m.playerB === p.name) && m.videoUrl);
   $('#p-my-match-recordings').innerHTML = myMatches.length ? myMatches.map(m => `
     <div class="panel-soft rounded-xl p-2.5 flex justify-between items-center text-xs">
-      <span>${m.playerA} vs ${m.playerB} (${m.round})</span>
+      <span style="color:var(--clr-ink-soft)">${m.playerA} vs ${m.playerB} (${m.round})</span>
       <button class="btn btn-lime text-[10px] py-1 px-2" onclick="openMatchVideoModal('${m.id}')">Watch</button>
     </div>
-  `).join('') : '<p class="text-xs text-[#555555]">No official match recordings for your matches yet.</p>';
+  `).join('') : '<p class="text-xs" style="color:var(--clr-ink-muted)">No official match recordings for your matches yet.</p>';
   lucide.createIcons();
 }
 
@@ -2389,29 +2633,29 @@ function renderAdminPlayers() {
   // default 'seed': natural order from state
 
   $('#adm-players-tbody').innerHTML = list.length ? list.map(p => `
-    <tr class="hover:bg-[#F7F3EC] transition${_selectedPlayerIds.has(p.id) ? ' bg-[#1e2130] ring-1 ring-inset ring-[#C6F135]/30' : ''}" data-pid="${p.id}">
+    <tr class="hover:bg-black/5 transition${_selectedPlayerIds.has(p.id) ? ' ring-1 ring-inset ring-[#C6F135]/30' : ''}" style="${_selectedPlayerIds.has(p.id)?'background:var(--clr-mint)':''}" data-pid="${p.id}">
       <td class="py-3 px-3">
         <input type="checkbox" class="w-4 h-4 rounded accent-[#C6F135] cursor-pointer adm-row-cb"
           data-pid="${p.id}" ${_selectedPlayerIds.has(p.id) ? 'checked' : ''}
           onchange="window._onRowCbChange(this)">
       </td>
-      <td class="py-3 px-3 mono text-xs font-bold text-[#1B5E3B]">${p.seed || p.id}</td>
+      <td class="py-3 px-3 mono text-xs font-bold" style="color:var(--clr-green)">${p.seed || p.id}</td>
       <td class="py-3 px-4">
-        <p class="font-bold text-white text-sm">${p.name}</p>
-        <p class="text-xs text-[#555555]">${p.city || 'Faisalabad'} · Keeper: ${p.preferredKeeper || 'Assigned'}</p>
+        <p class="font-bold text-sm" style="color:var(--clr-ink)">${p.name}</p>
+        <p class="text-xs" style="color:var(--clr-ink-muted)">${p.city || 'Faisalabad'} · Keeper: ${p.preferredKeeper || 'Assigned'}</p>
       </td>
       <td class="py-3 px-3 text-xs">
-        <p class="text-[#333333]">${p.gmail || 'No email'}</p>
-        <p class="text-[#1B5E3B] font-mono mt-0.5">${p.whatsapp || p.cellPhone || 'No phone'}</p>
+        <p style="color:var(--clr-ink-soft)">${p.gmail || 'No email'}</p>
+        <p class="font-mono mt-0.5" style="color:var(--clr-green)">${p.whatsapp || p.cellPhone || 'No phone'}</p>
       </td>
       <td class="py-3 px-3 text-xs max-w-[180px]">
-        ${p.gmail ? `<p class="text-[#333333] font-mono truncate">${p.gmail}</p>` : '<p class="text-[#4A4C5E]">No email set</p>'}
+        ${p.gmail ? `<p class="font-mono truncate" style="color:var(--clr-ink-soft)">${p.gmail}</p>` : '<p style="color:var(--clr-ink-muted)">No email set</p>'}
         ${p.loginPassword
           ? `<div class="flex items-center gap-1 mt-1">
-               <span class="text-[#555555]">Pass:</span>
-               <span id="pw-${p.id}" class="font-mono text-[#1B5E3B] blur-sm hover:blur-none transition-all cursor-pointer select-all" title="Click to reveal">${p.loginPassword}</span>
+               <span style="color:var(--clr-ink-muted)">Pass:</span>
+               <span id="pw-${p.id}" class="font-mono blur-sm hover:blur-none transition-all cursor-pointer select-all" style="color:var(--clr-green)" title="Click to reveal">${p.loginPassword}</span>
              </div>`
-          : `<p class="text-[#4A4C5E] text-[10px] mt-0.5">No password saved</p>`
+          : `<p class="text-[10px] mt-0.5" style="color:var(--clr-ink-muted)">No password saved</p>`
         }
       </td>
       <td class="py-3 px-3">
@@ -2425,11 +2669,11 @@ function renderAdminPlayers() {
           <button class="btn btn-dark text-xs py-1 px-2" onclick="openAdminEditPlayerModal('${p.id}')">Edit</button>
           ${p.approvalStatus !== 'APPROVED' ? `<button class="btn btn-lime text-xs py-1 px-2" onclick="setPlayerApproval('${p.id}', 'APPROVED')">Accept</button>` : ''}
           ${p.approvalStatus !== 'SUSPENDED' ? `<button class="btn btn-danger text-xs py-1 px-2" onclick="setPlayerApproval('${p.id}', 'SUSPENDED')">Suspend</button>` : ''}
-          <button class="btn btn-dark text-xs py-1 px-2 text-[#FF3B30]" onclick="deletePlayer('${p.id}')">Delete</button>
+          <button class="btn btn-dark text-xs py-1 px-2" style="color:var(--clr-danger)" onclick="deletePlayer('${p.id}')">Delete</button>
         </div>
       </td>
     </tr>
-  `).join('') : '<tr><td colspan="8" class="py-8 text-center text-[#555555]">No players found.</td></tr>';
+  `).join('') : '<tr><td colspan="8" class="py-8 text-center" style="color:var(--clr-ink-muted)">No players found.</td></tr>';
 
   $('#adm-p-search').oninput = renderAdminPlayers;
   $('#adm-p-filter').onchange = renderAdminPlayers;
@@ -2591,10 +2835,10 @@ function renderAdminMatches() {
       <div>
         <div class="flex items-center gap-2">
           <span class="tag ${m.state==='LIVE'?'tag-live':m.state==='FINISHED'?'tag-approved':'tag-pending'}">${m.state}</span>
-          <span class="text-xs text-[#555555]">${m.round} · ${m.time}</span>
+          <span class="text-xs" style="color:var(--clr-ink-muted)">${m.round} · ${m.time}</span>
         </div>
-        <h4 class="font-extrabold text-lg text-white mt-1">${m.playerA} <span class="text-[#1B5E3B] mx-1">${m.state==='FINISHED'?m.scoreA+' — '+m.scoreB:'vs'}</span> ${m.playerB}</h4>
-        ${m.videoUrl ? `<p class="text-xs text-[#1B5E3B] mt-1"><i data-lucide="video" class="inline w-3 mr-1"></i>Video Linked: ${m.videoTitle || 'Match Recording'}</p>` : ''}
+        <h4 class="font-extrabold text-lg mt-1" style="color:var(--clr-ink)">${m.playerA} <span style="color:var(--clr-green);margin:0 4px">${m.state==='FINISHED'?m.scoreA+' — '+m.scoreB:'vs'}</span> ${m.playerB}</h4>
+        ${m.videoUrl ? `<p class="text-xs mt-1" style="color:var(--clr-green)"><i data-lucide="video" class="inline w-3 mr-1"></i>Video Linked: ${m.videoTitle || 'Match Recording'}</p>` : ''}
       </div>
       <div class="flex gap-2 flex-wrap">
         <button class="btn btn-lime text-xs" onclick="loadMatchToLiveConsole('${m.id}')"><i data-lucide="play"></i>Live Console</button>
@@ -2602,7 +2846,7 @@ function renderAdminMatches() {
         <button class="btn btn-danger text-xs" onclick="deleteMatch('${m.id}')"><i data-lucide="trash"></i>Delete</button>
       </div>
     </article>
-  `).join('') : '<p class="text-center text-[#555555] py-8">No matches scheduled.</p>';
+  `).join('') : '<p class="text-center py-8" style="color:var(--clr-ink-muted)">No matches scheduled.</p>';
 
   // Select options for player A & B
   const opts = state.players.map(p => `<option value="${p.name}">${p.name} (${p.seed || p.id})</option>`).join('');
@@ -2702,10 +2946,10 @@ function renderAdminLiveConsole() {
 
   $('#adm-event-log-box').innerHTML = st.events.slice().reverse().slice(0, 15).map(e => `
     <div class="panel rounded-lg p-2 text-xs">
-      <b class="text-[#1B5E3B]">${e.time}</b> · Try ${e.try} · ${e.player}<br>
-      <span class="text-[#333333]">${e.text}</span>
+      <b style="color:var(--clr-green)">${e.time}</b> · Try ${e.try} · ${e.player}<br>
+      <span style="color:var(--clr-ink-soft)">${e.text}</span>
     </div>
-  `).join('') || '<p class="text-[#555555]">No events logged yet.</p>';
+  `).join('') || '<p style="color:var(--clr-ink-muted)">No events logged yet.</p>';
   lucide.createIcons();
 }
 
@@ -3020,20 +3264,20 @@ window.openPlayerViewModal = id => {
   $('#pv-videos-list').innerHTML = vids.length ? vids.map(v => `
     <div class="panel rounded-xl p-2.5 flex justify-between items-center text-xs">
       <div>
-        <p class="font-bold text-white">${v.title}</p>
-        <a href="${v.url}" target="_blank" class="text-[11px] text-[#1B5E3B] hover:underline break-all">${v.url}</a>
+        <p class="font-bold" style="color:var(--clr-ink)">${v.title}</p>
+        <a href="${v.url}" target="_blank" class="text-[11px] hover:underline break-all" style="color:var(--clr-green)">${v.url}</a>
       </div>
       <a href="${v.url}" target="_blank" class="btn btn-lime text-[10px] py-1 px-2">Play</a>
     </div>
-  `).join('') : '<p class="text-xs text-[#555555]">No game highlight reels uploaded yet.</p>';
+  `).join('') : '<p class="text-xs" style="color:var(--clr-ink-muted)">No game highlight reels uploaded yet.</p>';
 
   const matchVids = state.matches.filter(m => (m.playerA === p.name || m.playerB === p.name) && m.videoUrl);
   $('#pv-match-recordings').innerHTML = matchVids.length ? matchVids.map(m => `
     <div class="panel rounded-xl p-2.5 flex justify-between items-center text-xs">
-      <span>${m.playerA} vs ${m.playerB} (${m.round})</span>
+      <span style="color:var(--clr-ink-soft)">${m.playerA} vs ${m.playerB} (${m.round})</span>
       <button class="btn btn-lime text-[10px] py-1 px-2" onclick="closePlayerViewModal(); openMatchVideoModal('${m.id}')">Watch Match</button>
     </div>
-  `).join('') : '<p class="text-xs text-[#555555]">No match recordings featuring this player yet.</p>';
+  `).join('') : '<p class="text-xs" style="color:var(--clr-ink-muted)">No match recordings featuring this player yet.</p>';
 
   $('#player-view-modal').classList.remove('hidden');
   $('#player-view-modal').classList.add('flex');
@@ -3046,7 +3290,7 @@ function closePlayerViewModal() {
 }
 
 function formatVideoEmbed(url) {
-  if (!url) return '<p class="text-xs text-[#555555]">No video attached.</p>';
+  if (!url) return '<p class="text-xs" style="color:var(--clr-ink-muted)">No video attached.</p>';
   const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
   if (ytMatch) {
     return `<iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/${ytMatch[1]}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
@@ -3148,6 +3392,48 @@ loadTournamentState();
   }
 
   update();
+})();
+
+// ── Goal-Net Atmosphere Canvas ─────────────────────────────────────────────
+(function() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const canvas = document.getElementById('goal-net-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const CELL = 32;   // px between net lines
+  let W, H;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.strokeStyle = 'rgba(15,15,15,0.045)';
+    ctx.lineWidth = 1;
+
+    // Vertical lines
+    for (let x = 0; x <= W; x += CELL) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, H);
+      ctx.stroke();
+    }
+    // Horizontal lines
+    for (let y = 0; y <= H; y += CELL) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(W, y);
+      ctx.stroke();
+    }
+  }
+
+  draw();
+  window.addEventListener('resize', draw, { passive: true });
 })();
 </script>
 </body>
