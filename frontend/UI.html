@@ -2892,7 +2892,29 @@ function closeMatchVideoModal() {
 }
 
 // ── Initialization ─────────────────────────────────────────────────────────
-// self-rescheduling via setTimeout inside loadTournamentState (with backoff)
+// Restore the correct view immediately from localStorage before first API call
+function restoreSession() {
+  loadLocal(); // loads currentAuth and state from localStorage
+  if (currentAuth.role === 'ADMIN') {
+    $('#visitor-root').classList.add('hidden');
+    $('#player-portal-view').classList.add('hidden');
+    $('#admin-panel-view').classList.remove('hidden');
+    renderAuthPills();
+    renderAdminWorkspace();
+  } else if (currentAuth.role === 'PLAYER') {
+    $('#visitor-root').classList.add('hidden');
+    $('#admin-panel-view').classList.add('hidden');
+    $('#player-portal-view').classList.remove('hidden');
+    renderAuthPills();
+    renderPlayerDashboard();
+  } else {
+    renderAuthPills();
+  }
+  lucide.createIcons();
+}
+restoreSession();
+
+// Then fetch fresh data from server (self-rescheduling with backoff)
 loadTournamentState();
 
 // ── Tournament Countdown Timer ──────────────────────────────────────────────
