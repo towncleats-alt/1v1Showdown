@@ -1402,8 +1402,14 @@ async function loadTournamentState() {
     _pollFailCount++;
     _pollBackoff = Math.min(7000 * Math.pow(2, Math.min(_pollFailCount - 1, 2)), 30000);
     loadLocal();
-    $('#backend-status-badge').textContent = '⬤ Local Mode (Offline)';
-    $('#backend-status-badge').className = 'tag tag-pending text-[11px]';
+    // First 2 failures are likely a cold-start — show "Connecting…" not "Offline"
+    if (_pollFailCount <= 2) {
+      $('#backend-status-badge').textContent = '⬤ Connecting…';
+      $('#backend-status-badge').className = 'tag tag-pending text-[11px]';
+    } else {
+      $('#backend-status-badge').textContent = '⬤ Local Mode (Offline)';
+      $('#backend-status-badge').className = 'tag tag-pending text-[11px]';
+    }
     renderAll();
   } finally {
     // Reschedule with current backoff (clears previous timer)
