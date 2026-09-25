@@ -11,26 +11,32 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
   <style>
+    /* ═══════════════════════════════════════════════════════════════
+       DVM-STYLE THEME — cream bg · dark green header · white cards
+       hard black borders · black offset shadows · bold black type
+       ═══════════════════════════════════════════════════════════════ */
     :root {
-      --bg:           #0A0A0F;
-      --surface:      #13141A;
-      --surface-soft: #1A1D27;
-      --border:       rgba(255,255,255,.08);
-      --border-mid:   rgba(255,255,255,.15);
-      --accent:       #FFB800;
-      --accent-dim:   #CC9200;
-      --live:         #00C853;
-      --danger:       #FF3B30;
-      --text:         #F5F5F7;
-      --muted:        #8B8D98;
-      --panel-border: rgba(255,255,255,.12);
-      /* ── Neobrutalist tokens ── */
-      --nb-shadow:    4px 4px 0px 0px rgba(255,184,0,.18);
-      --nb-shadow-sm: 2px 2px 0px 0px rgba(255,184,0,.14);
-      --nb-shadow-lg: 6px 6px 0px 0px rgba(255,184,0,.2);
-      --nb-border:    rgba(255,184,0,.28);
+      --bg:           #F0EBE0;
+      --surface:      #FFFFFF;
+      --surface-soft: #F7F3EC;
+      --border:       #111111;
+      --border-mid:   #333333;
+      --accent:       #1B5E3B;        /* dark green — primary action */
+      --accent-light: #2D7A52;        /* hover state */
+      --accent-gold:  #FFB800;        /* gold for LIVE / urgent */
+      --live:         #1B5E3B;
+      --danger:       #C0392B;
+      --text:         #111111;
+      --muted:        #555555;
+      --panel-border: #111111;
+      /* ── Hard offset shadow tokens ── */
+      --nb-shadow:    4px 4px 0px 0px #111111;
+      --nb-shadow-sm: 3px 3px 0px 0px #111111;
+      --nb-shadow-lg: 6px 6px 0px 0px #111111;
     }
+
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: "DM Sans", sans-serif;
@@ -38,189 +44,195 @@
       color: var(--text);
       overflow-x: hidden;
     }
-    /* ── Neobrutalist: tighter, heavier display font ── */
+
+    /* ── Cream dotted background ── */
+    .sports-grid {
+      background-color: #F0EBE0;
+      background-image: radial-gradient(circle, #999 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+
+    /* ── Typography ── */
     .display { font-family: "Rajdhani", sans-serif; letter-spacing: .04em; font-weight: 800; }
     .mono { font-family: "Space Mono", monospace; }
-    .sports-grid {
-      background-image: linear-gradient(rgba(255,184,0,.03) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255,184,0,.03) 1px, transparent 1px);
-      background-size: 38px 38px;
-    }
-    /* ── Neobrutalist panels: hard border + offset shadow ── */
+
+    /* ── Panels: white card, hard black border, hard shadow ── */
     .panel {
-      background: rgba(19,20,26,.97);
-      border: 2px solid rgba(255,184,0,.2);
+      background: #FFFFFF;
+      border: 2px solid #111111;
       box-shadow: var(--nb-shadow);
     }
     .panel-soft {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,.12);
+      background: #F7F3EC;
+      border: 2px solid #111111;
       box-shadow: var(--nb-shadow-sm);
     }
-    /* ── Neobrutalist buttons: thicker border, hard shadow, translate on hover ── */
+
+    /* ── Buttons ── */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
-      border-radius: .5rem; padding: .6rem .9rem; font-weight: 800; font-size: .84rem;
-      letter-spacing: .03em; text-transform: uppercase;
-      transition: transform .12s ease, box-shadow .12s ease, background .15s ease;
-      cursor: pointer; border: 2px solid transparent;
+      border-radius: 6px; padding: .55rem .9rem; font-weight: 800; font-size: .82rem;
+      letter-spacing: .05em; text-transform: uppercase;
+      transition: transform .1s ease, box-shadow .1s ease;
+      cursor: pointer; border: 2px solid #111111;
     }
-    .btn:active { transform: translate(2px, 2px) !important; box-shadow: none !important; }
-    .btn:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-    /* Primary CTA */
+    .btn:active { transform: translate(3px,3px) !important; box-shadow: none !important; }
+    .btn:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 3px solid var(--accent); outline-offset: 2px;
+    }
+
+    /* Primary — dark green */
     .btn-lime {
-      color: #0A0A0F; background: var(--accent); border-color: var(--accent);
-      box-shadow: 3px 3px 0px 0px rgba(255,184,0,.5);
+      color: #FFFFFF; background: var(--accent); border-color: #111111;
+      box-shadow: 3px 3px 0px 0px #111111;
     }
-    .btn-lime:hover { background: #FFCA33; border-color: #FFCA33; transform: translate(-1px,-1px); box-shadow: 4px 4px 0px 0px rgba(255,184,0,.6); }
-    /* Secondary dark button */
+    .btn-lime:hover { background: var(--accent-light); transform: translate(-1px,-1px); box-shadow: 4px 4px 0px 0px #111111; }
+
+    /* Secondary — white/cream */
     .btn-dark {
-      background: var(--surface-soft); border-color: rgba(255,255,255,.18); color: var(--text);
-      box-shadow: 3px 3px 0px 0px rgba(255,255,255,.06);
+      background: #FFFFFF; border-color: #111111; color: #111111;
+      box-shadow: 3px 3px 0px 0px #111111;
     }
-    .btn-dark:hover { background: #22253A; border-color: rgba(255,255,255,.28); transform: translate(-1px,-1px); box-shadow: 4px 4px 0px 0px rgba(255,255,255,.08); }
-    /* Danger */
+    .btn-dark:hover { background: #F0EBE0; transform: translate(-1px,-1px); box-shadow: 4px 4px 0px 0px #111111; }
+
+    /* Danger — red */
     .btn-danger {
-      background: #2A1212; border-color: #7A2020; color: #FCA5A5;
-      box-shadow: 3px 3px 0px 0px rgba(255,59,48,.25);
+      background: #FEE2E2; border-color: #C0392B; color: #C0392B;
+      box-shadow: 3px 3px 0px 0px #C0392B;
     }
-    .btn-danger:hover { background: #3D1818; transform: translate(-1px,-1px); box-shadow: 4px 4px 0px 0px rgba(255,59,48,.35); }
-    /* Sky */
+    .btn-danger:hover { background: #FECACA; transform: translate(-1px,-1px); box-shadow: 4px 4px 0px 0px #C0392B; }
+
+    /* Sky — blue outline (admin neutral) */
     .btn-sky {
-      background: #0D1F35; border-color: #1A3A5C; color: #7DD3FC;
-      box-shadow: 3px 3px 0px 0px rgba(125,211,252,.15);
+      background: #EFF6FF; border-color: #1D4ED8; color: #1D4ED8;
+      box-shadow: 3px 3px 0px 0px #1D4ED8;
     }
-    .btn-sky:hover { background: #152D47; transform: translate(-1px,-1px); box-shadow: 4px 4px 0px 0px rgba(125,211,252,.2); }
+    .btn-sky:hover { background: #DBEAFE; transform: translate(-1px,-1px); box-shadow: 4px 4px 0px 0px #1D4ED8; }
+
     /* Gold — admin badge */
     .btn-gold {
-      background: #1F1805; border-color: rgba(255,184,0,.5); color: var(--accent);
-      box-shadow: 3px 3px 0px 0px rgba(255,184,0,.2);
+      background: #FFFBEB; border-color: #B45309; color: #B45309;
+      box-shadow: 3px 3px 0px 0px #B45309;
     }
-    .btn-gold:hover { background: #2C2108; transform: translate(-1px,-1px); box-shadow: 4px 4px 0px 0px rgba(255,184,0,.3); }
-    /* ── Neobrutalist inputs: thicker border, hard focus ── */
+    .btn-gold:hover { background: #FEF3C7; transform: translate(-1px,-1px); box-shadow: 4px 4px 0px 0px #B45309; }
+
+    /* ── Inputs ── */
     .input {
-      width: 100%; border-radius: .5rem; background: var(--surface);
-      border: 2px solid rgba(255,255,255,.12);
-      color: var(--text); padding: .65rem .85rem; font-family: inherit; font-size: .875rem;
-      transition: border-color .15s, box-shadow .15s;
+      width: 100%; border-radius: 6px; background: #FFFFFF;
+      border: 2px solid #111111;
+      color: #111111; padding: .65rem .85rem; font-family: inherit; font-size: .875rem;
+      transition: box-shadow .12s;
+      box-shadow: 2px 2px 0px 0px #111111;
     }
-    .input:focus { border-color: var(--accent); box-shadow: 3px 3px 0px 0px rgba(255,184,0,.2); outline: none; }
-    .input::placeholder { color: var(--muted); }
-    /* ── Neobrutalist tags: square-ish, bold border ── */
+    .input:focus { box-shadow: 3px 3px 0px 0px var(--accent); border-color: var(--accent); outline: none; }
+    .input::placeholder { color: #888888; }
+
+    /* ── Tags ── */
     .tag {
-      border: 2px solid rgba(255,255,255,.14); background: var(--surface-soft); color: #A0A3B1;
-      border-radius: 6px; padding: .18rem .55rem; font-size: .72rem; font-weight: 800;
-      letter-spacing: .06em; text-transform: uppercase;
+      border: 2px solid #111111; background: #F7F3EC; color: #111111;
+      border-radius: 5px; padding: .18rem .6rem; font-size: .7rem; font-weight: 800;
+      letter-spacing: .07em; text-transform: uppercase;
       display: inline-flex; align-items: center; gap: .35rem;
+      box-shadow: 2px 2px 0px 0px #111111;
     }
-    /* Functional status tags */
-    .tag-live    { color: #A7F5C0; border-color: rgba(0,200,83,.5);  background: rgba(0,200,83,.12); }
-    .tag-approved { color: #86EFAC; border-color: rgba(34,197,94,.5); background: rgba(34,197,94,.1); }
-    .tag-pending  { color: var(--accent); border-color: rgba(255,184,0,.5); background: rgba(255,184,0,.1); }
-    .tag-suspended { color: #FCA5A5; border-color: rgba(255,59,48,.5); background: rgba(255,59,48,.1); }
-    /* Try progress dots */
+    /* Status variants — keep readable on light bg */
+    .tag-live     { color: #FFFFFF; border-color: var(--accent); background: var(--accent); box-shadow: 2px 2px 0px 0px var(--accent); }
+    .tag-approved { color: #FFFFFF; border-color: #1B5E3B; background: #1B5E3B; box-shadow: 2px 2px 0px 0px #1B5E3B; }
+    .tag-pending  { color: #111111; border-color: #B45309; background: #FEF3C7; box-shadow: 2px 2px 0px 0px #B45309; }
+    .tag-suspended{ color: #FFFFFF; border-color: #C0392B; background: #C0392B; box-shadow: 2px 2px 0px 0px #C0392B; }
+
+    /* ── Try progress dots ── */
     .try-dot {
-      width: 22px; height: 22px; border-radius: 4px; border: 2px solid rgba(255,255,255,.2);
-      display: inline-grid; place-items: center; font-size: 10px; font-weight: 800; font-family: "Space Mono", monospace;
+      width: 22px; height: 22px; border-radius: 4px; border: 2px solid #AAAAAA;
+      display: inline-grid; place-items: center; font-size: 10px; font-weight: 800;
+      font-family: "Space Mono", monospace; background: #FFFFFF;
     }
-    .try-dot.done    { background: var(--accent); border-color: var(--accent); color: #0A0A0F; box-shadow: 2px 2px 0px 0px rgba(255,184,0,.4); }
-    .try-dot.current { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255,184,0,.25), 2px 2px 0px 0px rgba(255,184,0,.3); background: rgba(255,184,0,.1); }
+    .try-dot.done    { background: var(--accent); border-color: #111111; color: #FFFFFF; box-shadow: 2px 2px 0px 0px #111111; }
+    .try-dot.current { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(27,94,59,.2), 2px 2px 0px 0px var(--accent); background: #D1FAE5; }
+
     .score-number, .timer { font-family: "Space Mono", monospace; letter-spacing: -.05em; }
-    /* ── Countdown timer units — neobrutalist border ── */
+
+    /* ── Countdown units ── */
     .countdown-unit {
       display: flex; flex-direction: column; align-items: center; min-width: 3.2rem;
-      background: rgba(255,184,0,.06); border: 2px solid rgba(255,184,0,.35);
+      background: #FFFFFF; border: 2px solid #111111;
       border-radius: 8px; padding: .35rem .5rem .25rem;
-      box-shadow: 3px 3px 0px 0px rgba(255,184,0,.15);
+      box-shadow: 3px 3px 0px 0px #111111;
     }
-    .countdown-num  { font-family: "Space Mono", monospace; font-size: 1.6rem; font-weight: 700; color: #FFB800; line-height: 1; letter-spacing: -.04em; }
-    .countdown-lbl  { font-size: .55rem; font-weight: 800; color: #8B8D98; letter-spacing: .14em; margin-top: .15rem; text-transform: uppercase; }
-    #cd-days.cd-done { color: #4ade80; border-color: rgba(74,222,128,.5); background: rgba(74,222,128,.06); box-shadow: 3px 3px 0px 0px rgba(74,222,128,.15); }
+    .countdown-num  { font-family: "Space Mono", monospace; font-size: 1.6rem; font-weight: 700; color: var(--accent); line-height: 1; letter-spacing: -.04em; }
+    .countdown-lbl  { font-size: .55rem; font-weight: 800; color: #555; letter-spacing: .14em; margin-top: .15rem; text-transform: uppercase; }
+    #cd-days.cd-done { color: var(--accent); border-color: var(--accent); background: #D1FAE5; box-shadow: 3px 3px 0px 0px var(--accent); }
+
     @keyframes cd-tick { 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(.88)} }
     .cd-tick { animation: cd-tick .12s ease; }
     .timer.urgent { color: var(--danger); animation: pulse .8s infinite; }
-    @keyframes pulse { 50% { opacity: .45; transform: scale(1.03); } }
-    .modal-backdrop { background: rgba(4,4,8,.9); backdrop-filter: blur(10px); }
-    details { border-bottom: 2px solid rgba(255,184,0,.12); } details:last-child { border-bottom: 0; }
-    summary { cursor: pointer; list-style: none; } summary::-webkit-details-marker { display: none; }
-    .poster-card { transition: transform .2s ease, box-shadow .2s ease; }
-    .poster-card:hover { transform: translate(-3px,-3px); box-shadow: 5px 5px 0px 0px rgba(255,184,0,.25); }
+    @keyframes pulse { 50% { opacity: .5; transform: scale(1.03); } }
+
+    /* ── Modal backdrop ── */
+    .modal-backdrop { background: rgba(10,10,10,.75); backdrop-filter: blur(6px); }
+
+    /* ── Rulebook details ── */
+    details { border-bottom: 2px solid #DDDDDD; }
+    details:last-child { border-bottom: 0; }
+    summary { cursor: pointer; list-style: none; color: #111111; }
+    summary::-webkit-details-marker { display: none; }
+
+    /* ── Poster card ── */
+    .poster-card { transition: transform .18s ease, box-shadow .18s ease; }
+    .poster-card:hover { transform: translate(-3px,-3px); box-shadow: 5px 5px 0px 0px #111111; }
 
     /* ═══════════════════════════════════════════════════════════════
-       MOBILE-FIRST RESPONSIVE OVERRIDES  (≤ 639px = phone)
+       MOBILE OVERRIDES  (≤ 639px)
        ═══════════════════════════════════════════════════════════════ */
     @media (max-width: 639px) {
-
-      /* ── Layout ── */
       main { padding: .75rem !important; }
 
-      /* ── Header ── */
       header .max-w-\[1600px\] { flex-wrap: nowrap; gap: .5rem; padding: .5rem .75rem; }
-      #brand-sub { display: none; }               /* hide long subtitle on tiny screens */
+      #brand-sub { display: none; }
       #brand-title { font-size: 1rem; }
       header img { width: 2.25rem; height: 2.25rem; }
 
-      /* keep login / admin badge visible but compact */
       #unauthenticated-buttons .btn,
       #player-session-badge .btn,
       #admin-session-badge .btn { padding: .4rem .65rem; font-size: .72rem; gap: .3rem; }
       #player-session-name { max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-      #admin-session-label { display: none; }     /* show only the shield icon on phones */
-      #backend-status-badge { display: none !important; } /* status badge always hidden on mobile */
+      #admin-session-label { display: none; }
+      #backend-status-badge { display: none !important; }
 
-      /* ── Mobile bottom nav ── */
       #mobile-nav { display: flex !important; }
-
-      /* ── Section spacing ── */
       #visitor-root { gap: 1.5rem; }
 
-      /* ── Prize / hero bar ── */
-      .rounded-2xl.border.border-\[#FFB800\]\/25 { flex-direction: column; align-items: stretch; }
-      /* countdown units smaller */
       .countdown-unit { min-width: 2.6rem; padding: .25rem .35rem .2rem; }
       .countdown-num  { font-size: 1.25rem; }
       .countdown-lbl  { font-size: .48rem; }
 
-      /* ── Hero banner ── */
       .panel.rounded-3xl h2 { font-size: 1.75rem !important; }
-
-      /* ── Poster grid — single column ── */
       .grid.grid-cols-2.gap-4 .poster-card img { height: 14rem; }
 
-      /* ── Live arena score — smaller on phone ── */
       #v-score-a-num, #v-score-b-num { font-size: 4.5rem !important; }
       #v-score-a-name, #v-score-b-name { font-size: 1.25rem !important; }
 
-      /* ── Standings table — make it scrollable & readable ── */
       #v-standings-table-body td:nth-child(5),
-      #v-standings-table-body td:nth-child(6) { display: none; }   /* hide Shots & Status cols */
-      thead th:nth-child(5),
-      thead th:nth-child(6) { display: none; }
+      #v-standings-table-body td:nth-child(6) { display: none; }
+      thead th:nth-child(5), thead th:nth-child(6) { display: none; }
 
-      /* ── Modals ── */
       .panel.rounded-3xl.max-w-md,
       .panel.rounded-3xl.max-w-xl,
       .panel.rounded-3xl.max-w-2xl,
       .panel.rounded-3xl.max-w-3xl { border-radius: 1.25rem; padding: 1.1rem !important; max-height: 94vh; }
       [id$="-modal"] > div { margin: 0; width: 100% !important; max-width: 100% !important; }
 
-      /* ── Admin panel tabs — wrap & smaller ── */
       #admin-panel-view .panel .flex.flex-wrap.gap-2 { gap: .35rem; }
       .adm-tab, #admin-panel-view .btn { font-size: .7rem !important; padding: .4rem .6rem !important; }
 
-      /* ── Admin live console scores ── */
       #adm-live-a-score, #adm-live-b-score { font-size: 3.5rem !important; }
       #adm-live-a-name,  #adm-live-b-name  { font-size: 1.1rem !important; }
       #adm-live-timer { font-size: 3rem !important; }
 
-      /* ── Admin players table — horizontal scroll only, never wraps ── */
       #adm-players-tbody td, #adm-players-tbody th { white-space: nowrap; }
-
-      /* ── Player portal ── */
       #player-portal-view .panel.rounded-3xl { border-radius: 1.25rem; }
-      #p-dash-checkin-btn span { display: none; } /* icon only on tiny */
+      #p-dash-checkin-btn span { display: none; }
 
-      /* ── Footer ── */
       footer { padding: 1.25rem .75rem; }
       footer p { font-size: .68rem; }
     }
@@ -229,77 +241,64 @@
     #mobile-nav {
       display: none;
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 45;
-      background: rgba(13,14,20,.98); border-top: 2px solid rgba(255,184,0,.2);
-      backdrop-filter: blur(14px);
+      background: #FFFFFF; border-top: 3px solid #111111;
       padding: .4rem .25rem calc(.4rem + env(safe-area-inset-bottom));
       justify-content: space-around; align-items: center;
       gap: .1rem;
-      box-shadow: 0 -3px 0 0 rgba(255,184,0,.08);
+      box-shadow: 0 -3px 0 0 #111111;
     }
     #mobile-nav button {
       display: flex; flex-direction: column; align-items: center; gap: .15rem;
       background: none; border: none; cursor: pointer;
-      color: #8B8D98; font-size: .58rem; font-weight: 800; font-family: "DM Sans", sans-serif;
-      padding: .3rem .5rem; border-radius: .4rem; transition: color .15s;
+      color: #555555; font-size: .58rem; font-weight: 800; font-family: "DM Sans", sans-serif;
+      padding: .3rem .5rem; border-radius: 4px; transition: color .12s;
       min-width: 3.2rem; letter-spacing: .06em; text-transform: uppercase;
     }
     #mobile-nav button svg { width: 1.2rem; height: 1.2rem; }
-    #mobile-nav button.mob-active { color: #FFB800; }
-    #mobile-nav button:active { background: rgba(255,184,0,.1); }
+    #mobile-nav button.mob-active { color: var(--accent); }
+    #mobile-nav button:active { background: #D1FAE5; }
 
-    /* add bottom padding to main when mobile nav is visible */
-    @media (max-width: 639px) {
-      body { padding-bottom: 4rem; }
-    }
+    @media (max-width: 639px) { body { padding-bottom: 4rem; } }
 
-    /* ── Bracket ──────────────────────────────────────────────────────────── */
-    .bk-col {
-      display: flex; flex-direction: column; justify-content: space-around;
-      min-width: 168px; padding: 0 0;
-    }
+    /* ── Bracket ── */
+    .bk-col { display: flex; flex-direction: column; justify-content: space-around; min-width: 168px; }
     .bk-col:first-child { min-width: 180px; }
-    /* connector column between rounds */
-    .bk-connector {
-      display: flex; flex-direction: column; justify-content: space-around;
-      width: 36px; flex-shrink: 0;
-    }
+    .bk-connector { display: flex; flex-direction: column; justify-content: space-around; width: 36px; flex-shrink: 0; }
     .bk-match {
       position: relative; margin: 6px 0;
-      border: 2px solid rgba(255,255,255,.14);
-      border-radius: 8px; overflow: hidden;
-      background: var(--surface);
-      transition: border-color .15s, box-shadow .15s, transform .15s;
-      box-shadow: 3px 3px 0px 0px rgba(255,184,0,.1);
+      border: 2px solid #111111; border-radius: 6px; overflow: hidden;
+      background: #FFFFFF;
+      transition: box-shadow .12s, transform .12s;
+      box-shadow: 3px 3px 0px 0px #111111;
     }
-    .bk-match:hover { border-color: rgba(255,184,0,.55); box-shadow: 4px 4px 0px 0px rgba(255,184,0,.22); transform: translate(-1px,-1px); }
+    .bk-match:hover { box-shadow: 5px 5px 0px 0px #111111; transform: translate(-1px,-1px); }
     .bk-slot {
       padding: 6px 10px; font-size: 12px; font-weight: 800;
       display: flex; align-items: center; justify-content: space-between; gap: 6px;
-      min-height: 34px; color: #C8CBD6; letter-spacing: .02em; text-transform: uppercase;
+      min-height: 34px; color: #111111; letter-spacing: .03em; text-transform: uppercase;
     }
-    .bk-slot + .bk-slot { border-top: 2px solid rgba(255,255,255,.08); }
-    .bk-slot.winner { background: rgba(255,184,0,.12); color: #FFB800; }
-    .bk-slot.tbd { color: rgba(255,255,255,.28); font-style: italic; text-transform: none; }
+    .bk-slot + .bk-slot { border-top: 2px solid #EEEEEE; }
+    .bk-slot.winner { background: #D1FAE5; color: var(--accent); }
+    .bk-slot.tbd { color: #AAAAAA; font-style: italic; text-transform: none; }
     .bk-score {
       font-family: "Space Mono", monospace; font-size: 11px;
-      background: rgba(255,184,0,.1); border: 1px solid rgba(255,184,0,.3); border-radius: 4px;
+      background: #F0EBE0; border: 2px solid #111111; border-radius: 4px;
       padding: 1px 5px; min-width: 22px; text-align: center;
-      flex-shrink: 0; color: #FFB800; font-weight: 800;
+      flex-shrink: 0; color: #111111; font-weight: 800;
     }
     .bk-round-label {
       text-align: center; font-size: 10px; font-weight: 800;
       letter-spacing: .14em; text-transform: uppercase;
-      color: #FFB800; padding-bottom: 8px; opacity: .7;
+      color: var(--accent); padding-bottom: 8px;
     }
     .bk-final-slot {
-      min-width: 160px; border: 3px solid rgba(255,184,0,.6);
-      border-radius: 8px; background: rgba(255,184,0,.07);
+      min-width: 160px; border: 3px solid #111111;
+      border-radius: 6px; background: #D1FAE5;
       padding: 12px 14px; text-align: center;
-      box-shadow: 5px 5px 0px 0px rgba(255,184,0,.2);
+      box-shadow: 5px 5px 0px 0px #111111;
     }
-    .bk-final-slot .name { font-size: 15px; font-weight: 800; color: #FFB800; letter-spacing: .04em; text-transform: uppercase; }
-    .bk-final-slot .label { font-size: 10px; color: #8B8D98; text-transform: uppercase; letter-spacing: .14em; margin-bottom: 4px; }
-    /* SVG connector lines */
+    .bk-final-slot .name { font-size: 15px; font-weight: 800; color: var(--accent); letter-spacing: .04em; text-transform: uppercase; }
+    .bk-final-slot .label { font-size: 10px; color: #555555; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 4px; }
     .bk-svg { overflow: visible; }
   </style>
 </head>
@@ -308,28 +307,28 @@
 <!-- ===================================================================== -->
 <!-- TOP HEADER BAR (Always Visitor by Default — Login on Top Right)      -->
 <!-- ===================================================================== -->
-<header class="border-b-2 border-[#FFB800]/25 bg-[#0A0A0F]/97 sticky top-0 z-40 backdrop-blur" style="box-shadow:0 3px 0 0 rgba(255,184,0,.1)">
+<header class="sticky top-0 z-40" style="background:#1B5E3B;border-bottom:3px solid #111111;box-shadow:0 4px 0 0 #111111;">
   <div class="max-w-[1600px] mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
     <!-- Brand & Official Logo -->
     <a href="#" onclick="showSection('overview'); return false;" class="flex items-center gap-3">
-      <img src="assets/logo.png" alt="1 ON 1 Showdown Logo" class="h-11 w-11 object-contain rounded-lg border-2 border-[#FFB800]/25 bg-[#16171E] p-0.5" style="box-shadow:2px 2px 0 0 rgba(255,184,0,.2)">
+      <img src="assets/logo.png" alt="1 ON 1 Showdown Logo" class="h-11 w-11 object-contain rounded-lg p-0.5" style="border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);box-shadow:2px 2px 0 0 #111111;">
       <div>
         <div class="flex items-center gap-2">
           <span class="font-extrabold text-lg leading-none tracking-tight display text-white" id="brand-title">1 ON 1 SHOWDOWN</span>
           <span class="tag tag-live text-[10px] py-0 px-2">FAISALABAD</span>
         </div>
-        <p class="text-[11px] text-[#8B8D98] mt-0.5" id="brand-sub">Sunday, Oct 11, 2026 · Padel Pavilion, Faisalabad</p>
+        <p class="text-[11px] mt-0.5" style="color:rgba(255,255,255,.65);" id="brand-sub">Sunday, Oct 11, 2026 · Padel Pavilion, Faisalabad</p>
       </div>
     </a>
 
     <!-- Visitor Navigation Links -->
     <nav class="hidden lg:flex items-center gap-1 text-sm font-semibold">
-      <button class="v-nav-btn text-[#FFB800] px-3 py-1.5 rounded-lg" data-target="overview">Tournament Info</button>
-      <button class="v-nav-btn text-[#8B8D98] hover:text-white px-3 py-1.5 rounded-lg" data-target="live">Live Arena</button>
-      <button class="v-nav-btn text-[#8B8D98] hover:text-white px-3 py-1.5 rounded-lg" data-target="fixtures">Fixtures & Results</button>
-      <button class="v-nav-btn text-[#8B8D98] hover:text-white px-3 py-1.5 rounded-lg" data-target="standings">Leaderboard</button>
-      <button class="v-nav-btn text-[#8B8D98] hover:text-white px-3 py-1.5 rounded-lg" data-target="players">Players Roster</button>
-      <button class="v-nav-btn text-[#8B8D98] hover:text-white px-3 py-1.5 rounded-lg" data-target="rules">Official Rules</button>
+      <button class="v-nav-btn text-white px-3 py-1.5 rounded-md font-bold uppercase tracking-wide" data-target="overview">Tournament Info</button>
+      <button class="v-nav-btn px-3 py-1.5 rounded-md font-bold uppercase tracking-wide" style="color:rgba(255,255,255,.7)" data-target="live">Live Arena</button>
+      <button class="v-nav-btn px-3 py-1.5 rounded-md font-bold uppercase tracking-wide" style="color:rgba(255,255,255,.7)" data-target="fixtures">Fixtures & Results</button>
+      <button class="v-nav-btn px-3 py-1.5 rounded-md font-bold uppercase tracking-wide" style="color:rgba(255,255,255,.7)" data-target="standings">Leaderboard</button>
+      <button class="v-nav-btn px-3 py-1.5 rounded-md font-bold uppercase tracking-wide" style="color:rgba(255,255,255,.7)" data-target="players">Players Roster</button>
+      <button class="v-nav-btn px-3 py-1.5 rounded-md font-bold uppercase tracking-wide" style="color:rgba(255,255,255,.7)" data-target="rules">Official Rules</button>
     </nav>
 
     <!-- Top Right Controls: Status & Login/Profile State -->
@@ -375,36 +374,36 @@
     <section id="sec-overview" class="visitor-section space-y-6">
 
       <!-- ── PRIZE POOL HIGHLIGHT BAR ── -->
-      <div class="rounded-2xl border border-[#FFB800]/25 bg-gradient-to-r from-[#1A1805] via-[#1A1D27] to-[#0A0A0F] px-4 py-4 sm:px-6 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div class="rounded-2xl border border-black/20 bg-white px-4 py-4 sm:px-6 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div class="flex items-center gap-3 sm:gap-4">
-          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#FFB800]/10 border border-[#FFB800]/25 flex items-center justify-center shrink-0 text-xl sm:text-2xl">🏆</div>
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#FFB800]/10 border border-black/20 flex items-center justify-center shrink-0 text-xl sm:text-2xl">🏆</div>
           <div>
-            <p class="text-[10px] font-bold text-[#8B8D98] uppercase tracking-widest">Winner Takes</p>
-            <p class="text-2xl sm:text-4xl font-black display text-[#FFB800] leading-none">PKR 20,000</p>
-            <p class="text-xs text-[#C8CBD6] mt-0.5">+ Official Champion Trophy · One-Day 1 v 1 Football</p>
+            <p class="text-[10px] font-bold text-[#555555] uppercase tracking-widest">Winner Takes</p>
+            <p class="text-2xl sm:text-4xl font-black display text-[#1B5E3B] leading-none">PKR 20,000</p>
+            <p class="text-xs text-[#333333] mt-0.5">+ Official Champion Trophy · One-Day 1 v 1 Football</p>
           </div>
         </div>
         <div class="flex items-center justify-between sm:justify-end gap-2 sm:gap-3">
-          <div class="text-center px-3 py-2 sm:px-4 rounded-xl bg-[#13141A] border border-white/[.08]">
-            <p class="text-[10px] text-[#8B8D98] font-bold uppercase">Entry Fee</p>
-            <p class="text-lg sm:text-xl font-black text-[#FFB800]">PKR 1,000</p>
+          <div class="text-center px-3 py-2 sm:px-4 rounded-xl bg-white border border-black/10">
+            <p class="text-[10px] text-[#555555] font-bold uppercase">Entry Fee</p>
+            <p class="text-lg sm:text-xl font-black text-[#1B5E3B]">PKR 1,000</p>
           </div>
-          <a href="https://forms.gle/b7nFBif7d65v94op8" target="_blank" rel="noopener" class="btn btn-dark text-xs sm:text-sm px-4 py-2.5 sm:px-5 sm:py-3 border-[#FFB800]/40 text-[#FFB800] hover:bg-[#1F1805]">
+          <a href="https://forms.gle/b7nFBif7d65v94op8" target="_blank" rel="noopener" class="btn btn-dark text-xs sm:text-sm px-4 py-2.5 sm:px-5 sm:py-3 border-[#1B5E3B]/50 text-[#1B5E3B] hover:bg-[#F7F3EC]">
             <i data-lucide="clipboard-list"></i>Register Here
           </a>
-          <button onclick="openLoginModal()" class="btn btn-lime text-xs sm:text-sm px-4 py-2.5 sm:px-5 sm:py-3 shadow-lg shadow-[#FFB800]/20">
+          <button onclick="openLoginModal()" class="btn btn-lime text-xs sm:text-sm px-4 py-2.5 sm:px-5 sm:py-3 shadow-lg shadow-black/10">
             <i data-lucide="log-in"></i>Player Login
           </button>
         </div>
       </div>
 
       <!-- ── COUNTDOWN TIMER ── -->
-      <div class="rounded-2xl border border-[#FFB800]/20 bg-gradient-to-r from-[#1A1805] via-[#13141A] to-[#0A0A0F] px-4 py-3 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div class="rounded-2xl border border-black/15 bg-white px-4 py-3 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div class="flex items-center gap-2 sm:gap-3">
-          <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#FFB800]/10 border border-[#FFB800]/25 flex items-center justify-center shrink-0 text-base sm:text-lg">⏳</div>
+          <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#FFB800]/10 border border-black/20 flex items-center justify-center shrink-0 text-base sm:text-lg">⏳</div>
           <div>
-            <p class="text-[10px] font-bold text-[#8B8D98] uppercase tracking-widest">Tournament Starts</p>
-            <p class="text-[11px] sm:text-xs text-[#C8CBD6] font-semibold">October 11, 2026 · 4:00 PM — Padel Pavilion</p>
+            <p class="text-[10px] font-bold text-[#555555] uppercase tracking-widest">Tournament Starts</p>
+            <p class="text-[11px] sm:text-xs text-[#333333] font-semibold">October 11, 2026 · 4:00 PM — Padel Pavilion</p>
           </div>
         </div>
         <div id="countdown-wrap" class="flex items-center gap-1.5 sm:gap-3">
@@ -412,17 +411,17 @@
             <span id="cd-days" class="countdown-num">--</span>
             <span class="countdown-lbl">DAYS</span>
           </div>
-          <span class="text-[#FFB800] font-black text-xl leading-none mb-3">:</span>
+          <span class="text-[#1B5E3B] font-black text-xl leading-none mb-3">:</span>
           <div class="countdown-unit">
             <span id="cd-hours" class="countdown-num">--</span>
             <span class="countdown-lbl">HRS</span>
           </div>
-          <span class="text-[#FFB800] font-black text-xl leading-none mb-3">:</span>
+          <span class="text-[#1B5E3B] font-black text-xl leading-none mb-3">:</span>
           <div class="countdown-unit">
             <span id="cd-mins" class="countdown-num">--</span>
             <span class="countdown-lbl">MIN</span>
           </div>
-          <span class="text-[#FFB800] font-black text-xl leading-none mb-3">:</span>
+          <span class="text-[#1B5E3B] font-black text-xl leading-none mb-3">:</span>
           <div class="countdown-unit">
             <span id="cd-secs" class="countdown-num">--</span>
             <span class="countdown-lbl">SEC</span>
@@ -431,35 +430,35 @@
       </div>
 
       <!-- ── MAIN HERO BANNER ── -->
-      <div class="panel rounded-3xl p-4 sm:p-6 md:p-10 border border-white/[.1] relative overflow-hidden bg-gradient-to-br from-[#1A1D27] via-[#13141A] to-[#0A0A0F]">
+      <div class="panel rounded-3xl p-4 sm:p-6 md:p-10 border border-black/15 relative overflow-hidden bg-gradient-to-br from-[#F0EBE0] via-white to-[#F0EBE0]">
         <div class="grid lg:grid-cols-[1.25fr_1fr] gap-6 md:gap-8 items-center">
           <div class="space-y-4 sm:space-y-5">
             <span class="tag tag-live text-[10px] sm:text-xs">ONE-DAY FOOTBALL EXPERIENCE · FAISALABAD</span>
 
             <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black display tracking-tight text-white leading-none">
-              READY TO PUT YOUR SKILLS <span class="text-[#FFB800]">ON THE LINE?</span>
+              READY TO PUT YOUR SKILLS <span class="text-[#1B5E3B]">ON THE LINE?</span>
             </h2>
 
-            <p class="text-sm sm:text-lg text-[#C8CBD6] font-medium leading-relaxed max-w-2xl">
+            <p class="text-sm sm:text-lg text-[#333333] font-medium leading-relaxed max-w-2xl">
               No team to hide behind. Just you. Your ball. Your skills. One day. Every skill you have. Pakistan, your 1 v 1 era starts here.
             </p>
 
             <!-- Event Snapshot -->
             <div class="grid grid-cols-3 gap-2 sm:gap-3 pt-1 text-xs">
-              <div class="panel-soft rounded-xl p-2.5 sm:p-3.5 border border-white/[.08]">
-                <p class="text-[#8B8D98] font-bold text-[10px] sm:text-xs">DATE & TIME</p>
+              <div class="panel-soft rounded-xl p-2.5 sm:p-3.5 border border-black/10">
+                <p class="text-[#555555] font-bold text-[10px] sm:text-xs">DATE & TIME</p>
                 <p class="font-extrabold text-white text-[11px] sm:text-sm mt-1">Oct 11, 2026</p>
-                <p class="text-[#FFB800] mt-0.5 text-[10px] sm:text-xs">4:00–10:00 PM</p>
+                <p class="text-[#1B5E3B] mt-0.5 text-[10px] sm:text-xs">4:00–10:00 PM</p>
               </div>
-              <div class="panel-soft rounded-xl p-2.5 sm:p-3.5 border border-white/[.08]">
-                <p class="text-[#8B8D98] font-bold text-[10px] sm:text-xs">LOCATION</p>
+              <div class="panel-soft rounded-xl p-2.5 sm:p-3.5 border border-black/10">
+                <p class="text-[#555555] font-bold text-[10px] sm:text-xs">LOCATION</p>
                 <p class="font-extrabold text-white text-[11px] sm:text-sm mt-1">Padel Pavilion</p>
-                <p class="text-[#FFB800] mt-0.5 text-[10px] sm:text-xs">Faisalabad</p>
+                <p class="text-[#1B5E3B] mt-0.5 text-[10px] sm:text-xs">Faisalabad</p>
               </div>
-              <div class="panel-soft rounded-xl p-2.5 sm:p-3.5 border border-white/[.08]">
-                <p class="text-[#8B8D98] font-bold text-[10px] sm:text-xs">BROADCAST</p>
+              <div class="panel-soft rounded-xl p-2.5 sm:p-3.5 border border-black/10">
+                <p class="text-[#555555] font-bold text-[10px] sm:text-xs">BROADCAST</p>
                 <p class="font-extrabold text-white text-[11px] sm:text-sm mt-1">Towncleats</p>
-                <p class="text-[#FFB800] mt-0.5 text-[10px] sm:text-xs">YT + IG Live</p>
+                <p class="text-[#1B5E3B] mt-0.5 text-[10px] sm:text-xs">YT + IG Live</p>
               </div>
             </div>
 
@@ -469,28 +468,28 @@
                 <i data-lucide="message-circle" class="text-[#25D366]"></i>WhatsApp
               </a>
               <button onclick="showSection('live')" class="btn btn-dark text-xs sm:text-sm px-3 py-2.5 sm:px-4 sm:py-3">
-                <i data-lucide="radio" class="text-[#FFB800]"></i>Live Arena
+                <i data-lucide="radio" class="text-[#1B5E3B]"></i>Live Arena
               </button>
               <button onclick="openLoginModal()" class="btn btn-dark text-xs sm:text-sm px-3 py-2.5 sm:px-4 sm:py-3">
-                <i data-lucide="log-in" class="text-[#FFB800]"></i>Player Login
+                <i data-lucide="log-in" class="text-[#1B5E3B]"></i>Player Login
               </button>
             </div>
           </div>
 
           <!-- Official Posters -->
           <div class="grid grid-cols-2 gap-3 sm:gap-4 mt-2 lg:mt-0">
-            <div class="poster-card rounded-2xl overflow-hidden border border-white/[.1] bg-[#13141A] cursor-pointer group" onclick="openLightbox('assets/poster_skills.png', '1 v 1 Showdown — Official Tournament Flyer')">
+            <div class="poster-card rounded-2xl overflow-hidden border border-black/15 bg-white cursor-pointer group" onclick="openLightbox('assets/poster_skills.png', '1 v 1 Showdown — Official Tournament Flyer')">
               <img src="assets/poster_skills.png" alt="1 v 1 Showdown Skills Poster" class="w-full h-44 sm:h-72 object-cover object-top group-hover:scale-105 transition duration-300">
-              <div class="p-2 sm:p-2.5 flex items-center justify-center gap-1.5 bg-[#13141A] border-t border-white/[.08]">
-                <i data-lucide="zoom-in" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#FFB800]"></i>
-                <span class="text-[10px] font-bold text-[#FFB800] tracking-wide">Full Flyer</span>
+              <div class="p-2 sm:p-2.5 flex items-center justify-center gap-1.5 bg-white border-t border-black/10">
+                <i data-lucide="zoom-in" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#1B5E3B]"></i>
+                <span class="text-[10px] font-bold text-[#1B5E3B] tracking-wide">Full Flyer</span>
               </div>
             </div>
-            <div class="poster-card rounded-2xl overflow-hidden border border-white/[.1] bg-[#13141A] cursor-pointer group" onclick="openLightbox('assets/poster_moment.png', 'The Game. Your Moment.')">
+            <div class="poster-card rounded-2xl overflow-hidden border border-black/15 bg-white cursor-pointer group" onclick="openLightbox('assets/poster_moment.png', 'The Game. Your Moment.')">
               <img src="assets/poster_moment.png" alt="The Game. Your Moment." class="w-full h-44 sm:h-72 object-cover object-top group-hover:scale-105 transition duration-300">
-              <div class="p-2 sm:p-2.5 flex items-center justify-center gap-1.5 bg-[#13141A] border-t border-white/[.08]">
-                <i data-lucide="zoom-in" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#FFB800]"></i>
-                <span class="text-[10px] font-bold text-[#FFB800] tracking-wide">Full Flyer</span>
+              <div class="p-2 sm:p-2.5 flex items-center justify-center gap-1.5 bg-white border-t border-black/10">
+                <i data-lucide="zoom-in" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#1B5E3B]"></i>
+                <span class="text-[10px] font-bold text-[#1B5E3B] tracking-wide">Full Flyer</span>
               </div>
             </div>
           </div>
@@ -499,25 +498,25 @@
 
       <!-- ── PERKS ROW ── -->
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <article class="panel rounded-2xl p-5 border border-white/[.08]">
-          <div class="w-9 h-9 rounded-lg bg-[#FFB800]/15 text-[#FFB800] flex items-center justify-center mb-3"><i data-lucide="video"></i></div>
+        <article class="panel rounded-2xl p-5 border border-black/10">
+          <div class="w-9 h-9 rounded-lg bg-[#FFB800]/15 text-[#1B5E3B] flex items-center justify-center mb-3"><i data-lucide="video"></i></div>
           <h4 class="font-extrabold text-base text-white">Full Match Recording</h4>
-          <p class="text-xs text-[#8B8D98] mt-1.5 leading-relaxed">Every match captured from first touch to last, linked to your player profile.</p>
+          <p class="text-xs text-[#555555] mt-1.5 leading-relaxed">Every match captured from first touch to last, linked to your player profile.</p>
         </article>
-        <article class="panel rounded-2xl p-5 border border-white/[.08]">
-          <div class="w-9 h-9 rounded-lg bg-[#FFB800]/15 text-[#FFB800] flex items-center justify-center mb-3"><i data-lucide="users"></i></div>
+        <article class="panel rounded-2xl p-5 border border-black/10">
+          <div class="w-9 h-9 rounded-lg bg-[#FFB800]/15 text-[#1B5E3B] flex items-center justify-center mb-3"><i data-lucide="users"></i></div>
           <h4 class="font-extrabold text-base text-white">Bring Your People</h4>
-          <p class="text-xs text-[#8B8D98] mt-1.5 leading-relaxed">Friends, teammates, family — make a memorable day of competitive football.</p>
+          <p class="text-xs text-[#555555] mt-1.5 leading-relaxed">Friends, teammates, family — make a memorable day of competitive football.</p>
         </article>
-        <article class="panel rounded-2xl p-5 border border-white/[.08]">
-          <div class="w-9 h-9 rounded-lg bg-[#FFB800]/15 text-[#FFB800] flex items-center justify-center mb-3"><i data-lucide="car"></i></div>
+        <article class="panel rounded-2xl p-5 border border-black/10">
+          <div class="w-9 h-9 rounded-lg bg-[#FFB800]/15 text-[#1B5E3B] flex items-center justify-center mb-3"><i data-lucide="car"></i></div>
           <h4 class="font-extrabold text-base text-white">1000+ Car Parking</h4>
-          <p class="text-xs text-[#8B8D98] mt-1.5 leading-relaxed">Convenient, secure on-site parking for all players, coaches, and guests.</p>
+          <p class="text-xs text-[#555555] mt-1.5 leading-relaxed">Convenient, secure on-site parking for all players, coaches, and guests.</p>
         </article>
-        <article class="panel rounded-2xl p-5 border border-white/[.08]">
-          <div class="w-9 h-9 rounded-lg bg-[#FFB800]/15 text-[#FFB800] flex items-center justify-center mb-3"><i data-lucide="shield"></i></div>
+        <article class="panel rounded-2xl p-5 border border-black/10">
+          <div class="w-9 h-9 rounded-lg bg-[#FFB800]/15 text-[#1B5E3B] flex items-center justify-center mb-3"><i data-lucide="shield"></i></div>
           <h4 class="font-extrabold text-base text-white">Secure Venue & Drinks</h4>
-          <p class="text-xs text-[#8B8D98] mt-1.5 leading-relaxed">Professional security and on-site refreshments available throughout the day.</p>
+          <p class="text-xs text-[#555555] mt-1.5 leading-relaxed">Professional security and on-site refreshments available throughout the day.</p>
         </article>
       </div>
     </section>
@@ -527,54 +526,54 @@
       <div class="flex justify-between items-center">
         <div>
           <h3 class="text-2xl font-black display text-white">LIVE MATCH ARENA</h3>
-          <p class="text-xs text-[#8B8D98]">Real-time official scoreline, try sequence, and event commentary.</p>
+          <p class="text-xs text-[#555555]">Real-time official scoreline, try sequence, and event commentary.</p>
         </div>
         <span id="v-live-tag" class="tag tag-live animate-pulse">MATCH IN PROGRESS</span>
       </div>
 
-      <article class="panel rounded-3xl overflow-hidden border border-white/[.1]">
-        <div class="bg-[#1A1D27] px-4 sm:px-6 py-3 flex justify-between items-center border-b border-white/[.08]">
+      <article class="panel rounded-3xl overflow-hidden border border-black/15">
+        <div class="bg-[#F7F3EC] px-4 sm:px-6 py-3 flex justify-between items-center border-b border-black/10">
           <div class="flex items-center gap-2">
             <span class="tag tag-live text-[10px]">PITCH ALPHA</span>
-            <span id="v-live-round-title" class="font-bold text-xs text-[#FFB800]">Round 1</span>
+            <span id="v-live-round-title" class="font-bold text-xs text-[#1B5E3B]">Round 1</span>
           </div>
-          <span id="v-live-clock-pill" class="mono text-xs text-[#8B8D98]">45s Try Clock</span>
+          <span id="v-live-clock-pill" class="mono text-xs text-[#555555]">45s Try Clock</span>
         </div>
 
         <div class="grid grid-cols-[1fr_auto_1fr] gap-3 sm:gap-6 p-4 sm:p-6 md:p-12 text-center items-center">
           <div>
-            <p class="text-[10px] sm:text-xs text-[#8B8D98] font-bold">PLAYER A</p>
+            <p class="text-[10px] sm:text-xs text-[#555555] font-bold">PLAYER A</p>
             <h4 id="v-score-a-name" class="text-lg sm:text-3xl md:text-5xl font-extrabold text-white mt-1 break-words leading-tight">—</h4>
-            <p id="v-score-a-num" class="score-number text-6xl sm:text-7xl md:text-9xl font-black text-[#FFB800] mt-1 sm:mt-2">0</p>
+            <p id="v-score-a-num" class="score-number text-6xl sm:text-7xl md:text-9xl font-black text-[#1B5E3B] mt-1 sm:mt-2">0</p>
             <span id="v-score-a-gd" class="tag mt-1 sm:mt-2 text-[10px]">GD +0</span>
           </div>
-          <div class="text-2xl sm:text-4xl font-black italic text-[#2A2D3A]">:</div>
+          <div class="text-2xl sm:text-4xl font-black italic text-[#DDDDDD]">:</div>
           <div>
-            <p class="text-[10px] sm:text-xs text-[#8B8D98] font-bold">PLAYER B</p>
+            <p class="text-[10px] sm:text-xs text-[#555555] font-bold">PLAYER B</p>
             <h4 id="v-score-b-name" class="text-lg sm:text-3xl md:text-5xl font-extrabold text-white mt-1 break-words leading-tight">—</h4>
-            <p id="v-score-b-num" class="score-number text-6xl sm:text-7xl md:text-9xl font-black text-[#FFB800] mt-1 sm:mt-2">0</p>
+            <p id="v-score-b-num" class="score-number text-6xl sm:text-7xl md:text-9xl font-black text-[#1B5E3B] mt-1 sm:mt-2">0</p>
             <span id="v-score-b-gd" class="tag mt-1 sm:mt-2 text-[10px]">GD +0</span>
           </div>
         </div>
 
-        <div class="border-t border-white/[.08] bg-[#13141A] p-3 sm:p-5 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-sm">
+        <div class="border-t border-black/10 bg-white p-3 sm:p-5 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-sm">
           <div class="panel-soft rounded-xl p-3.5">
-            <p class="text-xs text-[#8B8D98]">ATTACKING TURN</p>
-            <p id="v-live-turn-txt" class="font-extrabold text-[#FFB800] mt-1">Waiting for match kick-off…</p>
+            <p class="text-xs text-[#555555]">ATTACKING TURN</p>
+            <p id="v-live-turn-txt" class="font-extrabold text-[#1B5E3B] mt-1">Waiting for match kick-off…</p>
           </div>
           <div class="panel-soft rounded-xl p-3.5">
-            <p class="text-xs text-[#8B8D98]">VENUE</p>
+            <p class="text-xs text-[#555555]">VENUE</p>
             <p class="font-bold text-white mt-1">Padel Pavilion, Faisalabad</p>
           </div>
           <div class="panel-soft rounded-xl p-3.5">
-            <p class="text-xs text-[#8B8D98]">CURRENT TRY CLOCK</p>
-            <p id="v-live-timer-txt" class="mono font-bold text-[#FFB800] mt-1 text-base">00:45</p>
+            <p class="text-xs text-[#555555]">CURRENT TRY CLOCK</p>
+            <p id="v-live-timer-txt" class="mono font-bold text-[#1B5E3B] mt-1 text-base">00:45</p>
           </div>
         </div>
 
         <!-- Embedded match video if attached -->
-        <div id="v-match-video-embed" class="p-6 border-t border-white/[.08] hidden">
-          <p class="text-xs font-bold text-[#FFB800] mb-2">OFFICIAL MATCH VIDEO STREAM</p>
+        <div id="v-match-video-embed" class="p-6 border-t border-black/10 hidden">
+          <p class="text-xs font-bold text-[#1B5E3B] mb-2">OFFICIAL MATCH VIDEO STREAM</p>
           <div id="v-match-video-frame" class="aspect-video w-full rounded-2xl overflow-hidden bg-black flex items-center justify-center"></div>
         </div>
       </article>
@@ -585,9 +584,9 @@
       <div class="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h3 class="text-2xl font-black display text-white">MATCH FIXTURES & RESULTS</h3>
-          <p class="text-xs text-[#8B8D98]">Explore scheduled, live, and completed tournament matches.</p>
+          <p class="text-xs text-[#555555]">Explore scheduled, live, and completed tournament matches.</p>
         </div>
-        <div class="flex gap-1 bg-[#1A1D27] p-1 rounded-xl border border-white/[.08]" id="v-fixtures-filter">
+        <div class="flex gap-1 bg-[#F7F3EC] p-1 rounded-xl border border-black/10" id="v-fixtures-filter">
           <button class="btn btn-lime text-xs" data-f="All">All</button>
           <button class="btn btn-dark text-xs" data-f="UPCOMING">Upcoming</button>
           <button class="btn btn-dark text-xs" data-f="LIVE">Live</button>
@@ -608,28 +607,28 @@
 
     <!-- 4. LEADERBOARD & TOP SCORERS -->
     <section id="sec-standings" class="visitor-section space-y-6">
-      <div class="panel rounded-3xl p-6 md:p-8 border border-white/[.08]">
+      <div class="panel rounded-3xl p-6 md:p-8 border border-black/10">
         <div class="flex justify-between items-center mb-6">
           <div>
             <h3 class="text-2xl font-black display text-white">STANDINGS & TOP SCORERS</h3>
-            <p class="text-xs text-[#8B8D98] mt-0.5">Live standings computed from goals, shots, and match wins.</p>
+            <p class="text-xs text-[#555555] mt-0.5">Live standings computed from goals, shots, and match wins.</p>
           </div>
           <span class="tag tag-approved">AUTHORITATIVE</span>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-left text-sm">
-            <thead class="border-b border-white/[.08] text-xs text-[#8B8D98] uppercase">
+            <thead class="border-b border-black/10 text-xs text-[#555555] uppercase">
               <tr>
                 <th class="py-3 px-3">#</th>
                 <th class="py-3 px-4">Player</th>
                 <th class="py-3 px-3 text-center">Matches</th>
-                <th class="py-3 px-3 text-center text-[#FFB800]">Goals</th>
+                <th class="py-3 px-3 text-center text-[#1B5E3B]">Goals</th>
                 <th class="py-3 px-3 text-center">Shots</th>
                 <th class="py-3 px-3 text-center">Status</th>
                 <th class="py-3 px-3 text-right">Profile</th>
               </tr>
             </thead>
-            <tbody id="v-standings-table-body" class="divide-y divide-white/[.06]"></tbody>
+            <tbody id="v-standings-table-body" class="divide-y divide-black/10"></tbody>
           </table>
         </div>
       </div>
@@ -637,11 +636,11 @@
 
     <!-- 5. PLAYERS ROSTER & SKILL REELS -->
     <section id="sec-players" class="visitor-section space-y-6">
-      <div class="panel rounded-3xl p-6 md:p-8 border border-white/[.08]">
+      <div class="panel rounded-3xl p-6 md:p-8 border border-black/10">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <h3 class="text-2xl font-black display text-white">TOURNAMENT PLAYERS ROSTER</h3>
-            <p class="text-xs text-[#8B8D98] mt-0.5">Click any player profile to inspect signature skills and game highlight reels.</p>
+            <p class="text-xs text-[#555555] mt-0.5">Click any player profile to inspect signature skills and game highlight reels.</p>
           </div>
           <input id="v-player-search-input" class="input sm:max-w-xs" placeholder="Search player name, keeper, city…">
         </div>
@@ -651,13 +650,13 @@
 
     <!-- 6. OFFICIAL RULES -->
     <section id="sec-rules" class="visitor-section space-y-6">
-      <div class="panel rounded-3xl p-6 md:p-8 max-w-4xl mx-auto border border-white/[.08]">
+      <div class="panel rounded-3xl p-6 md:p-8 max-w-4xl mx-auto border border-black/10">
         <!-- Rulebook header -->
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
           <div>
-            <p class="text-xs font-bold text-[#FFB800] tracking-widest uppercase mb-1">Official Rulebook</p>
+            <p class="text-xs font-bold text-[#1B5E3B] tracking-widest uppercase mb-1">Official Rulebook</p>
             <h3 class="text-2xl font-black display text-white leading-tight">1 V 1 SHOWDOWN — MASTER SERIALS</h3>
-            <p class="text-xs text-[#8B8D98] mt-1">82 rules across 14 chapters · Issued by Tournament Management · Final &amp; Binding</p>
+            <p class="text-xs text-[#555555] mt-1">82 rules across 14 chapters · Issued by Tournament Management · Final &amp; Binding</p>
           </div>
           <div class="flex items-center gap-2 shrink-0">
             <span class="tag tag-approved text-xs">R01 – R82</span>
@@ -675,13 +674,13 @@
   <!-- =================================================================== -->
   <div id="player-portal-view" class="space-y-4 sm:space-y-6 hidden">
     <!-- Header Banner -->
-    <div class="panel rounded-3xl p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-white/[.1]">
+    <div class="panel rounded-3xl p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-black/15">
       <div>
         <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
           <h2 id="p-dash-name" class="text-xl sm:text-2xl md:text-3xl font-extrabold text-white">Welcome, Player</h2>
           <span id="p-dash-status-pill" class="tag tag-approved">Active</span>
         </div>
-        <p class="text-xs text-[#8B8D98] mt-1">Seed: <span id="p-dash-seed" class="text-[#FFB800] mono font-bold">—</span> · Faisalabad 1v1 Showdown</p>
+        <p class="text-xs text-[#555555] mt-1">Seed: <span id="p-dash-seed" class="text-[#1B5E3B] mono font-bold">—</span> · Faisalabad 1v1 Showdown</p>
       </div>
       <div class="flex gap-2">
         <button id="p-dash-checkin-btn" class="btn btn-lime text-xs"><i data-lucide="map-pin"></i><span>I'm On Spot</span></button>
@@ -690,12 +689,12 @@
     </div>
 
     <!-- 30-Minute Mandatory Arrival Reminder Alert -->
-    <div class="rounded-2xl border border-[#FFB800]/40 bg-[#1F1805] p-5 text-[#FFF4CC]">
+    <div class="rounded-2xl border border-[#1B5E3B]/50 bg-[#F7F3EC] p-5 text-[#111111]">
       <div class="flex items-start gap-3">
-        <i data-lucide="alert-triangle" class="w-6 h-6 text-[#FFB800] shrink-0 mt-0.5"></i>
+        <i data-lucide="alert-triangle" class="w-6 h-6 text-[#1B5E3B] shrink-0 mt-0.5"></i>
         <div>
-          <h4 class="font-extrabold text-base text-[#FFB800]">MANDATORY: BE ON SPOT 30 MINUTES BEFORE MATCH</h4>
-          <p class="text-xs leading-relaxed mt-1 text-[#FFCA33]">
+          <h4 class="font-extrabold text-base text-[#1B5E3B]">MANDATORY: BE ON SPOT 30 MINUTES BEFORE MATCH</h4>
+          <p class="text-xs leading-relaxed mt-1 text-[#2D7A52]">
             Tournament rules require you to report directly to the pitch referee <b>at least 30 minutes before your scheduled kick-off time</b>.
             Late arrival deducts time from your 45-second attacking tries or awards goals to your opponent.
           </p>
@@ -704,61 +703,61 @@
     </div>
 
     <!-- Next Match Card with WhatsApp/SMS Reminders -->
-    <article class="panel rounded-3xl p-6 border border-white/[.08]">
+    <article class="panel rounded-3xl p-6 border border-black/10">
       <h3 class="font-extrabold text-lg flex items-center gap-2 mb-4 text-white">
-        <i data-lucide="bell" class="text-[#FFB800] w-5"></i>Your Scheduled Match
+        <i data-lucide="bell" class="text-[#1B5E3B] w-5"></i>Your Scheduled Match
       </h3>
       <div id="p-dash-match-box" class="panel-soft rounded-2xl p-5">
-        <p class="text-sm text-[#8B8D98]">Fetching your match schedule…</p>
+        <p class="text-sm text-[#555555]">Fetching your match schedule…</p>
       </div>
     </article>
 
     <!-- Profile Editor + Best Skills & Game Videos -->
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_.9fr] gap-4 sm:gap-6">
-      <article class="panel rounded-3xl p-6 space-y-4 border border-white/[.08]">
+      <article class="panel rounded-3xl p-6 space-y-4 border border-black/10">
         <h3 class="font-extrabold text-lg flex items-center gap-2 text-white">
-          <i data-lucide="user-check" class="text-[#FFB800] w-5"></i>Setup Player Profile
+          <i data-lucide="user-check" class="text-[#1B5E3B] w-5"></i>Setup Player Profile
         </h3>
         <form id="player-self-profile-form" class="space-y-3 text-sm">
-          <div><label class="text-xs font-bold text-[#8B8D98]">FULL NAME</label><input id="p-self-name" class="input mt-1"></div>
+          <div><label class="text-xs font-bold text-[#555555]">FULL NAME</label><input id="p-self-name" class="input mt-1"></div>
           <div class="grid sm:grid-cols-2 gap-3">
-            <div><label class="text-xs font-bold text-[#8B8D98]">PHONE NUMBER</label><input id="p-self-phone" class="input mt-1"></div>
-            <div><label class="text-xs font-bold text-[#8B8D98]">WHATSAPP NUMBER</label><input id="p-self-whatsapp" class="input mt-1"></div>
+            <div><label class="text-xs font-bold text-[#555555]">PHONE NUMBER</label><input id="p-self-phone" class="input mt-1"></div>
+            <div><label class="text-xs font-bold text-[#555555]">WHATSAPP NUMBER</label><input id="p-self-whatsapp" class="input mt-1"></div>
           </div>
           <div class="grid sm:grid-cols-2 gap-3">
-            <div><label class="text-xs font-bold text-[#8B8D98]">PREFERRED GOALKEEPER</label><input id="p-self-keeper" class="input mt-1"></div>
-            <div><label class="text-xs font-bold text-[#8B8D98]">DOMINANT FOOT</label>
+            <div><label class="text-xs font-bold text-[#555555]">PREFERRED GOALKEEPER</label><input id="p-self-keeper" class="input mt-1"></div>
+            <div><label class="text-xs font-bold text-[#555555]">DOMINANT FOOT</label>
               <select id="p-self-foot" class="input mt-1"><option>Right</option><option>Left</option><option>Both</option></select>
             </div>
           </div>
-          <div><label class="text-xs font-bold text-[#8B8D98]">CITY / AREA</label><input id="p-self-city" class="input mt-1"></div>
-          <div><label class="text-xs font-bold text-[#8B8D98]">BIO / PLAYER TAGLINE</label><textarea id="p-self-bio" rows="2" class="input mt-1"></textarea></div>
+          <div><label class="text-xs font-bold text-[#555555]">CITY / AREA</label><input id="p-self-city" class="input mt-1"></div>
+          <div><label class="text-xs font-bold text-[#555555]">BIO / PLAYER TAGLINE</label><textarea id="p-self-bio" rows="2" class="input mt-1"></textarea></div>
           <div>
-            <label class="text-xs font-bold text-[#FFB800]">SIGNATURE SKILLS (e.g. Nutmeg, Step-over, Curve shot)</label>
+            <label class="text-xs font-bold text-[#1B5E3B]">SIGNATURE SKILLS (e.g. Nutmeg, Step-over, Curve shot)</label>
             <input id="p-self-skills" class="input mt-1" placeholder="Rapid Turns, Low Drive, Long Curver">
           </div>
           <button type="submit" class="btn btn-lime w-full mt-2"><i data-lucide="save"></i>Save Profile & Skills</button>
         </form>
       </article>
 
-      <article class="panel rounded-3xl p-6 space-y-4 border border-white/[.08]">
+      <article class="panel rounded-3xl p-6 space-y-4 border border-black/10">
         <h3 class="font-extrabold text-lg flex items-center gap-2 text-white">
-          <i data-lucide="video" class="text-[#FFB800] w-5"></i>My Skills & Game Videos
+          <i data-lucide="video" class="text-[#1B5E3B] w-5"></i>My Skills & Game Videos
         </h3>
-        <p class="text-xs text-[#8B8D98]">Attach your highlight reels and skill clips. Saved directly to the database.</p>
+        <p class="text-xs text-[#555555]">Attach your highlight reels and skill clips. Saved directly to the database.</p>
 
         <form id="p-add-video-form" class="panel-soft rounded-2xl p-4 space-y-3">
-          <p class="text-xs font-bold text-[#FFB800]">ADD NEW VIDEO REEL</p>
-          <div><label class="text-xs text-[#8B8D98]">Video Title</label><input required id="p-v-title" class="input mt-1" placeholder="Best Qualifier Goals"></div>
-          <div><label class="text-xs text-[#8B8D98]">Video URL (YouTube, TikTok, Drive, MP4)</label><input required id="p-v-url" class="input mt-1" placeholder="https://youtube.com/watch?v=…"></div>
+          <p class="text-xs font-bold text-[#1B5E3B]">ADD NEW VIDEO REEL</p>
+          <div><label class="text-xs text-[#555555]">Video Title</label><input required id="p-v-title" class="input mt-1" placeholder="Best Qualifier Goals"></div>
+          <div><label class="text-xs text-[#555555]">Video URL (YouTube, TikTok, Drive, MP4)</label><input required id="p-v-url" class="input mt-1" placeholder="https://youtube.com/watch?v=…"></div>
           <button type="submit" class="btn btn-lime w-full text-xs"><i data-lucide="plus"></i>Save Video to Profile</button>
         </form>
 
         <div id="p-my-videos-list" class="space-y-2 max-h-64 overflow-y-auto"></div>
 
-        <div class="border-t border-white/[.08] pt-3">
-          <p class="text-xs font-bold text-[#FFB800] mb-2">OFFICIAL MATCH RECORDINGS OF YOUR MATCHES</p>
-          <div id="p-my-match-recordings" class="space-y-2 text-xs text-[#8B8D98]"></div>
+        <div class="border-t border-black/10 pt-3">
+          <p class="text-xs font-bold text-[#1B5E3B] mb-2">OFFICIAL MATCH RECORDINGS OF YOUR MATCHES</p>
+          <div id="p-my-match-recordings" class="space-y-2 text-xs text-[#555555]"></div>
         </div>
       </article>
     </div>
@@ -769,14 +768,14 @@
   <!-- =================================================================== -->
   <div id="admin-panel-view" class="space-y-6 hidden">
     <!-- Admin Sub-Navigation & Header -->
-    <div class="panel rounded-3xl p-4 sm:p-6 border border-white/[.1] flex flex-col gap-3 sm:gap-4">
+    <div class="panel rounded-3xl p-4 sm:p-6 border border-black/15 flex flex-col gap-3 sm:gap-4">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div>
           <div class="flex items-center gap-2">
             <span class="tag tag-live text-[10px] sm:text-xs">SUPER ADMIN</span>
             <h2 class="text-lg sm:text-2xl font-black display text-white">TOURNAMENT CONTROL</h2>
           </div>
-          <p class="text-[11px] text-[#8B8D98] mt-0.5">Logged in as: <b class="text-[#FFB800] mono" id="adm-email-badge">towncleats@gmail.com</b></p>
+          <p class="text-[11px] text-[#555555] mt-0.5">Logged in as: <b class="text-[#1B5E3B] mono" id="adm-email-badge">towncleats@gmail.com</b></p>
         </div>
         <button onclick="showSection('overview')" class="btn btn-dark text-xs self-start sm:self-auto"><i data-lucide="eye"></i>Visitor View</button>
       </div>
@@ -791,11 +790,11 @@
 
     <!-- Admin View 1: Manage Players & Approvals -->
     <section id="adm-sec-players" class="admin-subview space-y-6">
-      <div class="panel rounded-3xl p-6 md:p-8 border border-white/[.08]">
+      <div class="panel rounded-3xl p-6 md:p-8 border border-black/10">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
           <div>
             <h3 class="text-2xl font-black display text-white">PLAYER REGISTRATIONS & PROFILES</h3>
-            <p class="text-xs text-[#8B8D98] mt-0.5">Admin can add players, verify payments, edit profiles, accept or suspend players.</p>
+            <p class="text-xs text-[#555555] mt-0.5">Admin can add players, verify payments, edit profiles, accept or suspend players.</p>
           </div>
           <div class="flex flex-wrap gap-2 items-center">
             <input id="adm-p-search" class="input md:w-56" placeholder="Search name, phone, Gmail…">
@@ -817,8 +816,8 @@
         </div>
 
         <!-- Bulk-action bar (hidden until ≥1 row selected) -->
-        <div id="adm-bulk-bar" class="hidden items-center gap-2 mb-4 p-3 rounded-xl bg-[#1A1D27] border border-white/[.08]">
-          <span id="adm-bulk-count" class="text-xs font-bold text-[#FFB800] mr-2">0 selected</span>
+        <div id="adm-bulk-bar" class="hidden items-center gap-2 mb-4 p-3 rounded-xl bg-[#F7F3EC] border border-black/10">
+          <span id="adm-bulk-count" class="text-xs font-bold text-[#1B5E3B] mr-2">0 selected</span>
           <button class="btn btn-lime text-xs py-1 px-3" onclick="bulkSetApproval('APPROVED')"><i data-lucide="check"></i>Accept All</button>
           <button class="btn btn-danger text-xs py-1 px-3" onclick="bulkSetApproval('SUSPENDED')"><i data-lucide="ban"></i>Suspend All</button>
           <button class="btn btn-dark text-xs py-1 px-3 text-[#FF3B30]" onclick="bulkDeletePlayers()"><i data-lucide="trash-2"></i>Delete All</button>
@@ -827,7 +826,7 @@
 
         <div class="overflow-x-auto">
           <table class="w-full text-left text-sm">
-            <thead class="border-b border-white/[.08] text-xs text-[#8B8D98] uppercase">
+            <thead class="border-b border-black/10 text-xs text-[#555555] uppercase">
               <tr>
                 <th class="py-3 px-3">
                   <input type="checkbox" id="adm-select-all" title="Select all visible players"
@@ -836,13 +835,13 @@
                 <th class="py-3 px-3">Seed / ID</th>
                 <th class="py-3 px-4">Player Details</th>
                 <th class="py-3 px-3">Contacts</th>
-                <th class="py-3 px-3 text-[#FFB800]">Login Credentials</th>
+                <th class="py-3 px-3 text-[#1B5E3B]">Login Credentials</th>
                 <th class="py-3 px-3">Payment</th>
                 <th class="py-3 px-3">Approval</th>
                 <th class="py-3 px-3 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody id="adm-players-tbody" class="divide-y divide-white/[.06]"></tbody>
+            <tbody id="adm-players-tbody" class="divide-y divide-black/10"></tbody>
           </table>
         </div>
       </div>
@@ -851,7 +850,7 @@
     <!-- Admin View 2: Matches & Video Attachments -->
     <section id="adm-sec-matches" class="admin-subview space-y-6 hidden">
       <div class="grid lg:grid-cols-[1.3fr_1fr] gap-6">
-        <div class="panel rounded-3xl p-6 border border-white/[.08]">
+        <div class="panel rounded-3xl p-6 border border-black/10">
           <div class="flex justify-between items-center mb-5">
             <h3 class="text-xl font-black display text-white">TOURNAMENT MATCHES</h3>
             <span class="tag tag-live text-xs">OFFICIAL FIXTURES</span>
@@ -859,18 +858,18 @@
           <div id="adm-matches-list" class="space-y-3"></div>
         </div>
 
-        <form id="adm-schedule-form" class="panel rounded-3xl p-6 border border-white/[.08] space-y-3">
+        <form id="adm-schedule-form" class="panel rounded-3xl p-6 border border-black/10 space-y-3">
           <h3 class="font-extrabold text-lg text-white flex items-center gap-2">
-            <i data-lucide="calendar-plus" class="text-[#FFB800] w-5"></i>Schedule Match
+            <i data-lucide="calendar-plus" class="text-[#1B5E3B] w-5"></i>Schedule Match
           </h3>
-          <div><label class="text-xs font-bold text-[#8B8D98]">PLAYER A</label><select required id="adm-m-a" class="input mt-1"></select></div>
-          <div><label class="text-xs font-bold text-[#8B8D98]">PLAYER B</label><select required id="adm-m-b" class="input mt-1"></select></div>
+          <div><label class="text-xs font-bold text-[#555555]">PLAYER A</label><select required id="adm-m-a" class="input mt-1"></select></div>
+          <div><label class="text-xs font-bold text-[#555555]">PLAYER B</label><select required id="adm-m-b" class="input mt-1"></select></div>
           <div class="grid grid-cols-2 gap-2">
-            <div><label class="text-xs font-bold text-[#8B8D98]">ROUND</label><input required id="adm-m-round" class="input mt-1" value="Round 1"></div>
-            <div><label class="text-xs font-bold text-[#8B8D98]">TIME</label><input required id="adm-m-time" type="time" class="input mt-1" value="18:00"></div>
+            <div><label class="text-xs font-bold text-[#555555]">ROUND</label><input required id="adm-m-round" class="input mt-1" value="Round 1"></div>
+            <div><label class="text-xs font-bold text-[#555555]">TIME</label><input required id="adm-m-time" type="time" class="input mt-1" value="18:00"></div>
           </div>
-          <div><label class="text-xs font-bold text-[#8B8D98]">MATCH VIDEO URL</label><input id="adm-m-video" class="input mt-1" placeholder="https://youtube.com/watch?v=…"></div>
-          <div><label class="text-xs font-bold text-[#8B8D98]">VIDEO TITLE</label><input id="adm-m-videotitle" class="input mt-1" placeholder="Highlights & Full Recording"></div>
+          <div><label class="text-xs font-bold text-[#555555]">MATCH VIDEO URL</label><input id="adm-m-video" class="input mt-1" placeholder="https://youtube.com/watch?v=…"></div>
+          <div><label class="text-xs font-bold text-[#555555]">VIDEO TITLE</label><input id="adm-m-videotitle" class="input mt-1" placeholder="Highlights & Full Recording"></div>
           <button type="submit" class="btn btn-lime w-full mt-3"><i data-lucide="check"></i>Schedule Match</button>
         </form>
       </div>
@@ -880,47 +879,47 @@
     <section id="adm-sec-live" class="admin-subview space-y-6 hidden">
       <div class="grid lg:grid-cols-[1.4fr_.8fr] gap-6">
         <div class="space-y-6">
-          <article class="panel rounded-3xl overflow-hidden border border-white/[.1]">
-            <div class="bg-[#1A1D27] px-6 py-3 flex justify-between items-center">
+          <article class="panel rounded-3xl overflow-hidden border border-black/15">
+            <div class="bg-[#F7F3EC] px-6 py-3 flex justify-between items-center">
               <span id="adm-ref-mode" class="tag tag-live">LIVE · NORMAL PLAY</span>
-              <span id="adm-ref-clock" class="mono text-xs text-[#8B8D98]">00:00 / 15:00</span>
+              <span id="adm-ref-clock" class="mono text-xs text-[#555555]">00:00 / 15:00</span>
             </div>
             <div class="grid grid-cols-[1fr_auto_1fr] gap-4 p-6 md:p-10 text-center items-center">
               <div>
                 <h4 id="adm-live-a-name" class="text-xl md:text-3xl font-extrabold text-white">—</h4>
-                <p class="text-xs text-[#8B8D98] mt-1 font-bold">GOALS / GD</p>
-                <p id="adm-live-a-score" class="score-number text-6xl md:text-8xl font-black text-[#FFB800] mt-1">0</p>
+                <p class="text-xs text-[#555555] mt-1 font-bold">GOALS / GD</p>
+                <p id="adm-live-a-score" class="score-number text-6xl md:text-8xl font-black text-[#1B5E3B] mt-1">0</p>
                 <span id="adm-live-a-gd" class="tag mt-2">GD +0</span>
               </div>
-              <div class="text-2xl font-black italic text-[#2A2D3A]">:</div>
+              <div class="text-2xl font-black italic text-[#DDDDDD]">:</div>
               <div>
                 <h4 id="adm-live-b-name" class="text-xl md:text-3xl font-extrabold text-white">—</h4>
-                <p class="text-xs text-[#8B8D98] mt-1 font-bold">GOALS / GD</p>
-                <p id="adm-live-b-score" class="score-number text-6xl md:text-8xl font-black text-[#FFB800] mt-1">0</p>
+                <p class="text-xs text-[#555555] mt-1 font-bold">GOALS / GD</p>
+                <p id="adm-live-b-score" class="score-number text-6xl md:text-8xl font-black text-[#1B5E3B] mt-1">0</p>
                 <span id="adm-live-b-gd" class="tag mt-2">GD +0</span>
               </div>
             </div>
 
-            <div class="border-t border-white/[.08] bg-[#13141A] p-5 grid sm:grid-cols-2 gap-4">
+            <div class="border-t border-black/10 bg-white p-5 grid sm:grid-cols-2 gap-4">
               <div class="panel-soft rounded-xl p-3.5">
-                <p class="text-xs text-[#8B8D98]">ATTACKING TURN</p>
-                <p id="adm-live-turn" class="font-extrabold text-[#FFB800] text-lg mt-1">Try 1</p>
+                <p class="text-xs text-[#555555]">ATTACKING TURN</p>
+                <p id="adm-live-turn" class="font-extrabold text-[#1B5E3B] text-lg mt-1">Try 1</p>
               </div>
               <div class="panel-soft rounded-xl p-3.5">
-                <p class="text-xs text-[#8B8D98]">10-TRY SEQUENCE</p>
+                <p class="text-xs text-[#555555]">10-TRY SEQUENCE</p>
                 <div id="adm-live-dots" class="flex flex-wrap gap-2 mt-2"></div>
               </div>
             </div>
           </article>
 
           <!-- Try Timer -->
-          <article class="panel rounded-3xl p-6 border border-white/[.08]">
+          <article class="panel rounded-3xl p-6 border border-black/10">
             <div class="flex justify-between items-center">
               <div>
-                <p class="text-xs font-bold text-[#8B8D98]">CURRENT ATTACKING TRY CLOCK</p>
-                <p class="text-xs text-[#FFB800] mt-0.5">Play ceases immediately on zero.</p>
+                <p class="text-xs font-bold text-[#555555]">CURRENT ATTACKING TRY CLOCK</p>
+                <p class="text-xs text-[#1B5E3B] mt-0.5">Play ceases immediately on zero.</p>
               </div>
-              <div id="adm-live-timer" class="timer text-6xl md:text-7xl font-bold text-[#FFB800]">00:45</div>
+              <div id="adm-live-timer" class="timer text-6xl md:text-7xl font-bold text-[#1B5E3B]">00:45</div>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-5">
               <button id="adm-t-start" class="btn btn-lime"><i data-lucide="play"></i>Start</button>
@@ -931,7 +930,7 @@
           </article>
 
           <!-- Referee Decisions -->
-          <article class="panel rounded-3xl p-6 border border-white/[.08]">
+          <article class="panel rounded-3xl p-6 border border-black/10">
             <div class="flex justify-between items-center mb-3">
               <h4 class="font-extrabold text-base text-white">Referee Decision Actions</h4>
               <button id="adm-undo-event-btn" class="btn btn-dark text-xs"><i data-lucide="undo-2"></i>Undo Action</button>
@@ -952,28 +951,28 @@
 
         <!-- Sidebar Referee Controls -->
         <div class="space-y-6">
-          <article class="panel rounded-3xl p-6 border border-white/[.08] space-y-3">
+          <article class="panel rounded-3xl p-6 border border-black/10 space-y-3">
             <h4 class="font-bold text-white">Select Live Match</h4>
             <select id="adm-match-select" class="input"></select>
             <button id="adm-load-match-btn" class="btn btn-lime w-full"><i data-lucide="play-circle"></i>Load to Live Console</button>
           </article>
 
-          <article class="panel rounded-3xl p-6 border border-white/[.08]">
+          <article class="panel rounded-3xl p-6 border border-black/10">
             <h4 class="font-bold text-white mb-3">Timeouts Management</h4>
             <div class="grid grid-cols-2 gap-3 text-center">
               <div class="panel-soft rounded-xl p-3">
-                <p class="text-[10px] text-[#8B8D98]">PLAYER A TIMEOUT</p>
-                <p id="adm-timeout-a" class="mono text-2xl font-bold text-[#FFB800] mt-1">01:30</p>
+                <p class="text-[10px] text-[#555555]">PLAYER A TIMEOUT</p>
+                <p id="adm-timeout-a" class="mono text-2xl font-bold text-[#1B5E3B] mt-1">01:30</p>
               </div>
               <div class="panel-soft rounded-xl p-3">
-                <p class="text-[10px] text-[#8B8D98]">PLAYER B TIMEOUT</p>
-                <p id="adm-timeout-b" class="mono text-2xl font-bold text-[#FFB800] mt-1">01:30</p>
+                <p class="text-[10px] text-[#555555]">PLAYER B TIMEOUT</p>
+                <p id="adm-timeout-b" class="mono text-2xl font-bold text-[#1B5E3B] mt-1">01:30</p>
               </div>
             </div>
             <button id="adm-call-timeout-btn" class="btn btn-dark w-full mt-3"><i data-lucide="timer"></i>Approve Timeout (−30s)</button>
           </article>
 
-          <article class="panel rounded-3xl p-6 border border-white/[.08] space-y-4">
+          <article class="panel rounded-3xl p-6 border border-black/10 space-y-4">
             <div class="flex justify-between items-center">
               <h4 class="font-bold text-white">Official Event Log</h4>
               <button id="adm-sudden-btn" class="btn btn-dark text-xs">Sudden Death</button>
@@ -987,34 +986,34 @@
 
     <!-- Admin View 4: Header to Footer Tournament Config (NO HARD CODING) -->
     <section id="adm-sec-config" class="admin-subview space-y-6 hidden">
-      <form id="adm-full-config-form" class="panel rounded-3xl p-6 md:p-8 max-w-4xl mx-auto border border-white/[.08] space-y-6">
+      <form id="adm-full-config-form" class="panel rounded-3xl p-6 md:p-8 max-w-4xl mx-auto border border-black/10 space-y-6">
         <div>
           <h3 class="text-2xl font-black display text-white">HEADER-TO-FOOTER CONFIGURATION</h3>
-          <p class="text-xs text-[#8B8D98] mt-0.5">Admin can edit, delete, and update everything across the entire platform. Zero hard-coded values.</p>
+          <p class="text-xs text-[#555555] mt-0.5">Admin can edit, delete, and update everything across the entire platform. Zero hard-coded values.</p>
         </div>
 
         <div class="grid md:grid-cols-2 gap-4">
-          <div><label class="text-xs font-bold text-[#8B8D98]">TOURNAMENT NAME</label><input required id="cfg-tname" class="input mt-1"></div>
-          <div><label class="text-xs font-bold text-[#8B8D98]">HEADER SUBTITLE</label><input required id="cfg-tsub" class="input mt-1"></div>
-          <div><label class="text-xs font-bold text-[#8B8D98]">VENUE NAME</label><input required id="cfg-tvenue" class="input mt-1"></div>
-          <div><label class="text-xs font-bold text-[#8B8D98]">TIMEZONE</label><input required id="cfg-ttz" class="input mt-1"></div>
+          <div><label class="text-xs font-bold text-[#555555]">TOURNAMENT NAME</label><input required id="cfg-tname" class="input mt-1"></div>
+          <div><label class="text-xs font-bold text-[#555555]">HEADER SUBTITLE</label><input required id="cfg-tsub" class="input mt-1"></div>
+          <div><label class="text-xs font-bold text-[#555555]">VENUE NAME</label><input required id="cfg-tvenue" class="input mt-1"></div>
+          <div><label class="text-xs font-bold text-[#555555]">TIMEZONE</label><input required id="cfg-ttz" class="input mt-1"></div>
 
           <!-- Participant Limit — no cap, unlimited -->
           <div>
-            <label class="text-xs font-bold text-[#FFB800]">PARTICIPANT LIMIT <span class="text-[#8B8D98] font-normal">(0 = unlimited)</span></label>
+            <label class="text-xs font-bold text-[#1B5E3B]">PARTICIPANT LIMIT <span class="text-[#555555] font-normal">(0 = unlimited)</span></label>
             <input required type="number" id="cfg-tlimit" class="input mt-1" min="0" value="0">
-            <p class="text-[10px] text-[#8B8D98] mt-1">Set to 0 for unlimited registrations. When a limit is set and saved, players are sorted by <strong class="text-white">enrollment date</strong> — the earliest registrants fill the spots first. Top N are auto-approved; the rest are marked Not Selected.</p>
-            <div id="limit-selection-result" class="hidden mt-3 rounded-xl border border-white/[.1] bg-[#0f1915] p-3 text-[11px] space-y-1"></div>
+            <p class="text-[10px] text-[#555555] mt-1">Set to 0 for unlimited registrations. When a limit is set and saved, players are sorted by <strong class="text-white">enrollment date</strong> — the earliest registrants fill the spots first. Top N are auto-approved; the rest are marked Not Selected.</p>
+            <div id="limit-selection-result" class="hidden mt-3 rounded-xl border border-black/15 bg-[#0f1915] p-3 text-[11px] space-y-1"></div>
           </div>
 
-          <div><label class="text-xs font-bold text-[#8B8D98]">MATCH DURATION (MINUTES)</label><input type="number" id="cfg-tdur" class="input mt-1"></div>
-          <div><label class="text-xs font-bold text-[#8B8D98]">TRY DURATION (SECONDS)</label><input type="number" id="cfg-ttrydur" class="input mt-1"></div>
-          <div><label class="text-xs font-bold text-[#8B8D98]">TRIES PER PLAYER</label><input type="number" id="cfg-ttries" class="input mt-1"></div>
+          <div><label class="text-xs font-bold text-[#555555]">MATCH DURATION (MINUTES)</label><input type="number" id="cfg-tdur" class="input mt-1"></div>
+          <div><label class="text-xs font-bold text-[#555555]">TRY DURATION (SECONDS)</label><input type="number" id="cfg-ttrydur" class="input mt-1"></div>
+          <div><label class="text-xs font-bold text-[#555555]">TRIES PER PLAYER</label><input type="number" id="cfg-ttries" class="input mt-1"></div>
         </div>
 
-        <div><label class="text-xs font-bold text-[#8B8D98]">FOOTER BRANDING TEXT</label><input id="cfg-tfooter" class="input mt-1"></div>
+        <div><label class="text-xs font-bold text-[#555555]">FOOTER BRANDING TEXT</label><input id="cfg-tfooter" class="input mt-1"></div>
 
-        <div class="flex flex-wrap gap-3 pt-4 border-t border-white/[.08]">
+        <div class="flex flex-wrap gap-3 pt-4 border-t border-black/10">
           <button type="submit" class="btn btn-lime"><i data-lucide="save"></i>Save Changes to Database</button>
           <button type="button" id="adm-seed-btn" class="btn btn-sky"><i data-lucide="database"></i>Seed Sample Tournament Data (8 Players & Matches)</button>
         </div>
@@ -1031,27 +1030,27 @@
 
 <!-- 1. LOGIN MODAL -->
 <div id="unified-login-modal" class="hidden fixed z-50 inset-0 modal-backdrop p-4 items-center justify-center" role="dialog">
-  <div class="panel rounded-3xl max-w-md w-full p-6 md:p-8 space-y-5 border border-white/[.1]">
-    <div class="flex justify-between items-center border-b border-white/[.08] pb-3">
+  <div class="panel rounded-3xl max-w-md w-full p-6 md:p-8 space-y-5 border border-black/15">
+    <div class="flex justify-between items-center border-b border-black/10 pb-3">
       <div class="flex items-center gap-2.5">
-        <img src="assets/logo.png" class="w-8 h-8 rounded-md bg-[#16171E]">
+        <img src="assets/logo.png" class="w-8 h-8 rounded-md bg-[#F7F3EC]">
         <h3 class="font-extrabold text-lg text-white">Sign In to 1 ON 1</h3>
       </div>
-      <button onclick="closeLoginModal()" class="text-[#8B8D98] hover:text-white text-lg font-bold">✕</button>
+      <button onclick="closeLoginModal()" class="text-[#555555] hover:text-white text-lg font-bold">✕</button>
     </div>
 
     <form id="unified-login-form" class="space-y-4">
       <div>
-        <label class="text-xs font-bold text-[#8B8D98]">EMAIL ADDRESS</label>
+        <label class="text-xs font-bold text-[#555555]">EMAIL ADDRESS</label>
         <input type="email" id="u-login-email" class="input mt-1" placeholder="you@gmail.com" required autocomplete="email">
       </div>
 
       <div>
-        <label class="text-xs font-bold text-[#8B8D98]">PASSWORD</label>
+        <label class="text-xs font-bold text-[#555555]">PASSWORD</label>
         <div class="relative mt-1">
           <input type="password" id="u-login-pass" class="input pr-10 w-full" placeholder="••••••••" required autocomplete="current-password">
           <button type="button" onclick="togglePassEye()"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-[#8B8D98] hover:text-[#FFB800] transition-colors"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-[#555555] hover:text-[#1B5E3B] transition-colors"
             title="Show / Hide password">
             <i data-lucide="eye" id="eye-icon" class="w-4 h-4"></i>
           </button>
@@ -1062,8 +1061,8 @@
         <i data-lucide="log-in"></i>Sign In
       </button>
 
-      <p class="text-center text-xs text-[#8B8D98]">
-        No account? Contact admin via <a href="https://wa.me/923045534884" target="_blank" class="text-[#FFB800] hover:underline font-bold">WhatsApp</a> to get your login credentials.
+      <p class="text-center text-xs text-[#555555]">
+        No account? Contact admin via <a href="https://wa.me/923045534884" target="_blank" class="text-[#1B5E3B] hover:underline font-bold">WhatsApp</a> to get your login credentials.
       </p>
     </form>
   </div>
@@ -1071,38 +1070,38 @@
 
 <!-- 3. ADMIN ADD / EDIT PLAYER MODAL -->
 <div id="admin-player-edit-modal" class="hidden fixed z-50 inset-0 modal-backdrop p-4 items-center justify-center" role="dialog">
-  <div class="panel rounded-3xl max-w-xl w-full p-6 md:p-8 space-y-4 border border-white/[.1] max-h-[90vh] overflow-y-auto">
-    <div class="flex justify-between items-center border-b border-white/[.08] pb-3">
+  <div class="panel rounded-3xl max-w-xl w-full p-6 md:p-8 space-y-4 border border-black/15 max-h-[90vh] overflow-y-auto">
+    <div class="flex justify-between items-center border-b border-black/10 pb-3">
       <h3 id="adm-p-modal-title" class="font-extrabold text-xl text-white">Add New Player Profile</h3>
       <button onclick="closeAdminPlayerModal()" class="text-lg font-bold">✕</button>
     </div>
 
     <form id="admin-player-save-form" class="space-y-3 text-sm">
       <input type="hidden" id="adm-edit-id">
-      <div><label class="text-xs font-bold text-[#8B8D98]">FULL NAME *</label><input required id="adm-e-name" class="input mt-1"></div>
+      <div><label class="text-xs font-bold text-[#555555]">FULL NAME *</label><input required id="adm-e-name" class="input mt-1"></div>
       <div class="grid grid-cols-2 gap-3">
-        <div><label class="text-xs font-bold text-[#8B8D98]">SEED / ID</label><input id="adm-e-seed" class="input mt-1"></div>
-        <div><label class="text-xs font-bold text-[#8B8D98]">GMAIL ADDRESS</label><input type="email" id="adm-e-gmail" class="input mt-1"></div>
+        <div><label class="text-xs font-bold text-[#555555]">SEED / ID</label><input id="adm-e-seed" class="input mt-1"></div>
+        <div><label class="text-xs font-bold text-[#555555]">GMAIL ADDRESS</label><input type="email" id="adm-e-gmail" class="input mt-1"></div>
       </div>
       <div class="grid grid-cols-2 gap-3">
-        <div><label class="text-xs font-bold text-[#8B8D98]">CELL PHONE</label><input id="adm-e-phone" class="input mt-1"></div>
-        <div><label class="text-xs font-bold text-[#8B8D98]">WHATSAPP NUMBER</label><input id="adm-e-whatsapp" class="input mt-1"></div>
+        <div><label class="text-xs font-bold text-[#555555]">CELL PHONE</label><input id="adm-e-phone" class="input mt-1"></div>
+        <div><label class="text-xs font-bold text-[#555555]">WHATSAPP NUMBER</label><input id="adm-e-whatsapp" class="input mt-1"></div>
       </div>
       <div class="grid grid-cols-2 gap-3">
-        <div><label class="text-xs font-bold text-[#8B8D98]">PREFERRED GOALKEEPER</label><input id="adm-e-keeper" class="input mt-1"></div>
-        <div><label class="text-xs font-bold text-[#8B8D98]">DOMINANT FOOT</label>
+        <div><label class="text-xs font-bold text-[#555555]">PREFERRED GOALKEEPER</label><input id="adm-e-keeper" class="input mt-1"></div>
+        <div><label class="text-xs font-bold text-[#555555]">DOMINANT FOOT</label>
           <select id="adm-e-foot" class="input mt-1"><option>Right</option><option>Left</option><option>Both</option></select>
         </div>
       </div>
       <div class="grid grid-cols-2 gap-3">
-        <div><label class="text-xs font-bold text-[#8B8D98]">PAYMENT STATUS</label>
+        <div><label class="text-xs font-bold text-[#555555]">PAYMENT STATUS</label>
           <select id="adm-e-pay" class="input mt-1">
             <option value="VERIFIED">VERIFIED</option>
             <option value="PENDING">PENDING</option>
             <option value="NOT_SUBMITTED">NOT SUBMITTED</option>
           </select>
         </div>
-        <div><label class="text-xs font-bold text-[#8B8D98]">APPROVAL STATUS</label>
+        <div><label class="text-xs font-bold text-[#555555]">APPROVAL STATUS</label>
           <select id="adm-e-approval" class="input mt-1">
             <option value="APPROVED">APPROVED / ACCEPTED</option>
             <option value="PENDING">PENDING REVIEW</option>
@@ -1110,13 +1109,13 @@
           </select>
         </div>
       </div>
-      <div><label class="text-xs font-bold text-[#8B8D98]">SIGNATURE SKILLS</label><input id="adm-e-skills" class="input mt-1"></div>
-      <div><label class="text-xs font-bold text-[#8B8D98]">INTERNAL NOTES</label><input id="adm-e-notes" class="input mt-1"></div>
+      <div><label class="text-xs font-bold text-[#555555]">SIGNATURE SKILLS</label><input id="adm-e-skills" class="input mt-1"></div>
+      <div><label class="text-xs font-bold text-[#555555]">INTERNAL NOTES</label><input id="adm-e-notes" class="input mt-1"></div>
       <!-- Password — only required when adding a new player; leave blank to keep existing password on edit -->
       <div id="adm-e-pass-wrap">
-        <label class="text-xs font-bold text-[#FFB800]">LOGIN PASSWORD <span id="adm-e-pass-hint" class="text-[#8B8D98] font-normal">(required for new player)</span></label>
+        <label class="text-xs font-bold text-[#1B5E3B]">LOGIN PASSWORD <span id="adm-e-pass-hint" class="text-[#555555] font-normal">(required for new player)</span></label>
         <input type="password" id="adm-e-pass" class="input mt-1" placeholder="Min 8 characters" minlength="8" autocomplete="new-password">
-        <p class="text-[10px] text-[#8B8D98] mt-1">Share this password with the player so they can log in. Leave blank when editing to keep existing password unchanged.</p>
+        <p class="text-[10px] text-[#555555] mt-1">Share this password with the player so they can log in. Leave blank when editing to keep existing password unchanged.</p>
       </div>
       <button type="submit" class="btn btn-lime w-full mt-3"><i data-lucide="save"></i>Save Player & Credentials</button>
     </form>
@@ -1125,36 +1124,36 @@
 
 <!-- 4. PUBLIC PLAYER PROFILE DRAWER -->
 <div id="player-view-modal" class="hidden fixed z-50 inset-0 modal-backdrop p-4 items-center justify-center" role="dialog">
-  <div class="panel rounded-3xl max-w-2xl w-full p-6 md:p-8 space-y-4 max-h-[90vh] overflow-y-auto border border-white/[.1]">
-    <div class="flex justify-between items-start border-b border-white/[.08] pb-4">
+  <div class="panel rounded-3xl max-w-2xl w-full p-6 md:p-8 space-y-4 max-h-[90vh] overflow-y-auto border border-black/15">
+    <div class="flex justify-between items-start border-b border-black/10 pb-4">
       <div>
         <div class="flex items-center gap-2">
           <h3 id="pv-name" class="text-2xl font-black text-white">—</h3>
           <span id="pv-badge" class="tag tag-approved">Active</span>
         </div>
-        <p id="pv-seed" class="text-xs text-[#8B8D98] mono mt-0.5">—</p>
+        <p id="pv-seed" class="text-xs text-[#555555] mono mt-0.5">—</p>
       </div>
       <button onclick="closePlayerViewModal()" class="text-lg font-bold">✕</button>
     </div>
 
     <div class="grid sm:grid-cols-3 gap-3 text-xs">
-      <div class="panel-soft rounded-xl p-3"><p class="text-[#8B8D98]">GOALKEEPER</p><p id="pv-keeper" class="font-bold text-white mt-1">—</p></div>
-      <div class="panel-soft rounded-xl p-3"><p class="text-[#8B8D98]">DOMINANT FOOT</p><p id="pv-foot" class="font-bold text-white mt-1">Right</p></div>
-      <div class="panel-soft rounded-xl p-3"><p class="text-[#8B8D98]">CITY</p><p id="pv-city" class="font-bold text-white mt-1">Faisalabad</p></div>
+      <div class="panel-soft rounded-xl p-3"><p class="text-[#555555]">GOALKEEPER</p><p id="pv-keeper" class="font-bold text-white mt-1">—</p></div>
+      <div class="panel-soft rounded-xl p-3"><p class="text-[#555555]">DOMINANT FOOT</p><p id="pv-foot" class="font-bold text-white mt-1">Right</p></div>
+      <div class="panel-soft rounded-xl p-3"><p class="text-[#555555]">CITY</p><p id="pv-city" class="font-bold text-white mt-1">Faisalabad</p></div>
     </div>
 
     <div class="panel-soft rounded-2xl p-4">
-      <p class="text-xs font-bold text-[#FFB800] mb-1">SIGNATURE SKILLS & PLAYSTYLE</p>
-      <p id="pv-skills" class="text-sm text-[#C8CBD6]">No signature skills recorded.</p>
+      <p class="text-xs font-bold text-[#1B5E3B] mb-1">SIGNATURE SKILLS & PLAYSTYLE</p>
+      <p id="pv-skills" class="text-sm text-[#333333]">No signature skills recorded.</p>
     </div>
 
     <div>
-      <p class="text-xs font-bold text-[#FFB800] mb-2">GAME VIDEOS & SKILL REELS</p>
+      <p class="text-xs font-bold text-[#1B5E3B] mb-2">GAME VIDEOS & SKILL REELS</p>
       <div id="pv-videos-list" class="space-y-2"></div>
     </div>
 
     <div>
-      <p class="text-xs font-bold text-[#FFB800] mb-2">OFFICIAL MATCH RECORDINGS</p>
+      <p class="text-xs font-bold text-[#1B5E3B] mb-2">OFFICIAL MATCH RECORDINGS</p>
       <div id="pv-match-recordings" class="space-y-2"></div>
     </div>
   </div>
@@ -1163,16 +1162,16 @@
 <!-- 5. LIGHTBOX MODAL (For Full Size Flyers & Posters) -->
 <div id="lightbox-modal" class="hidden fixed z-50 inset-0 modal-backdrop p-4 items-center justify-center" role="dialog">
   <div class="relative max-w-2xl w-full p-2 text-center">
-    <button onclick="closeLightbox()" class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#1A1D27] text-white font-bold border border-white/[.1] flex items-center justify-center">✕</button>
-    <img id="lightbox-img" class="w-full max-h-[85vh] object-contain rounded-2xl border border-white/[.1] shadow-2xl">
-    <p id="lightbox-caption" class="text-xs text-[#C8CBD6] mt-2 font-semibold"></p>
+    <button onclick="closeLightbox()" class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#F7F3EC] text-white font-bold border border-black/15 flex items-center justify-center">✕</button>
+    <img id="lightbox-img" class="w-full max-h-[85vh] object-contain rounded-2xl border border-black/15 shadow-2xl">
+    <p id="lightbox-caption" class="text-xs text-[#333333] mt-2 font-semibold"></p>
   </div>
 </div>
 
 <!-- 6. MATCH VIDEO MODAL -->
 <div id="match-video-modal" class="hidden fixed z-50 inset-0 modal-backdrop p-4 items-center justify-center" role="dialog">
-  <div class="panel rounded-3xl max-w-3xl w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto border border-white/[.1]">
-    <div class="flex justify-between items-center border-b border-white/[.08] pb-3">
+  <div class="panel rounded-3xl max-w-3xl w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto border border-black/15">
+    <div class="flex justify-between items-center border-b border-black/10 pb-3">
       <h3 id="mv-title" class="font-black text-xl text-white">Match Recording</h3>
       <button onclick="closeMatchVideoModal()" class="text-lg font-bold">✕</button>
     </div>
@@ -1183,18 +1182,18 @@
 <!-- Toast -->
 <!-- PRIVACY POLICY MODAL -->
 <div id="privacy-modal" class="hidden fixed z-[60] inset-0 modal-backdrop p-4 items-center justify-center" role="dialog" aria-modal="true" aria-label="Privacy Policy">
-  <div class="panel rounded-3xl max-w-2xl w-full p-6 md:p-8 max-h-[88vh] overflow-y-auto border border-white/[.1] space-y-5">
-    <div class="flex justify-between items-center border-b border-white/[.08] pb-3">
+  <div class="panel rounded-3xl max-w-2xl w-full p-6 md:p-8 max-h-[88vh] overflow-y-auto border border-black/15 space-y-5">
+    <div class="flex justify-between items-center border-b border-black/10 pb-3">
       <div class="flex items-center gap-2.5">
-        <i data-lucide="shield-check" class="w-5 h-5 text-[#FFB800]"></i>
+        <i data-lucide="shield-check" class="w-5 h-5 text-[#1B5E3B]"></i>
         <h3 class="font-extrabold text-lg text-white">Privacy Policy</h3>
       </div>
-      <button onclick="closePrivacyModal()" class="text-[#8B8D98] hover:text-white text-lg font-bold">✕</button>
+      <button onclick="closePrivacyModal()" class="text-[#555555] hover:text-white text-lg font-bold">✕</button>
     </div>
 
-    <p class="text-xs text-[#8B8D98]">Last updated: October 2026 · 1 ON 1 Showdown Faisalabad — Hosted by Towncleats</p>
+    <p class="text-xs text-[#555555]">Last updated: October 2026 · 1 ON 1 Showdown Faisalabad — Hosted by Towncleats</p>
 
-    <div class="space-y-4 text-sm text-[#C8CBD6] leading-relaxed">
+    <div class="space-y-4 text-sm text-[#333333] leading-relaxed">
 
       <section>
         <h4 class="font-extrabold text-white mb-1">1. Information We Collect</h4>
@@ -1203,7 +1202,7 @@
 
       <section>
         <h4 class="font-extrabold text-white mb-1">2. How We Use Your Information</h4>
-        <ul class="list-disc list-inside space-y-1 text-[#8B8D98]">
+        <ul class="list-disc list-inside space-y-1 text-[#555555]">
           <li>To manage your tournament enrollment and match fixtures.</li>
           <li>To send you your match schedule, reminders, and official results via WhatsApp or email.</li>
           <li>To display your name and tournament statistics on the public leaderboard.</li>
@@ -1228,12 +1227,12 @@
 
       <section>
         <h4 class="font-extrabold text-white mb-1">6. Your Rights</h4>
-        <p>You may request deletion of your personal data at any time before the tournament by contacting us on WhatsApp at <a href="https://wa.me/923045534884" target="_blank" class="text-[#FFB800] hover:underline">+92 304 5534884</a>. After the event, anonymised match statistics may be retained for historical records.</p>
+        <p>You may request deletion of your personal data at any time before the tournament by contacting us on WhatsApp at <a href="https://wa.me/923045534884" target="_blank" class="text-[#1B5E3B] hover:underline">+92 304 5534884</a>. After the event, anonymised match statistics may be retained for historical records.</p>
       </section>
 
       <section>
         <h4 class="font-extrabold text-white mb-1">7. Contact</h4>
-        <p>For any privacy concerns: <a href="mailto:towncleats@gmail.com" class="text-[#FFB800] hover:underline">towncleats@gmail.com</a> or WhatsApp <a href="https://wa.me/923045534884" target="_blank" class="text-[#FFB800] hover:underline">+92 304 5534884</a>.</p>
+        <p>For any privacy concerns: <a href="mailto:towncleats@gmail.com" class="text-[#1B5E3B] hover:underline">towncleats@gmail.com</a> or WhatsApp <a href="https://wa.me/923045534884" target="_blank" class="text-[#1B5E3B] hover:underline">+92 304 5534884</a>.</p>
       </section>
     </div>
 
@@ -1266,12 +1265,12 @@
 </nav>
 
 <!-- Footer -->
-<footer class="border-t border-white/[.08] bg-[#0A0A0F] py-8 text-center text-xs text-[#8B8D98]">
+<footer class="border-t border-black/10 bg-white py-8 text-center text-xs text-[#555555]">
   <div class="max-w-4xl mx-auto px-4 space-y-2">
     <p class="font-bold text-white text-sm" id="footer-text">1 ON 1 SHOWDOWN FAISALABAD — Official Tournament Platform</p>
     <p class="text-[#4A4C5E]">Hosted by Towncleats · Venue: Padel Pavilion, Faisalabad · Official WhatsApp: +92 304 5534884</p>
     <p class="text-[10px] text-[#2E3045] mt-1">
-      <a href="#" onclick="openPrivacyModal(); return false;" class="hover:text-[#FFB800] transition-colors">Privacy Policy</a>
+      <a href="#" onclick="openPrivacyModal(); return false;" class="hover:text-[#1B5E3B] transition-colors">Privacy Policy</a>
       &nbsp;·&nbsp; Your data is secure &amp; never shared
     </p>
     <p class="text-[10px] text-[#3A3D50]">Live Match Streams on YouTube & Instagram: @FSD.1V1.SHOWDOWN</p>
@@ -1497,7 +1496,7 @@ const fmtTime = s => `${pad(Math.floor(s/60))}:${pad(s%60)}`;
 
 function toast(msg, isErr = false) {
   const t = $('#toast');
-  t.innerHTML = `<span class="${isErr?'text-[#FF3B30]':'text-[#FFB800]'}">⬤</span> ${msg}`;
+  t.innerHTML = `<span class="${isErr?'text-[#FF3B30]':'text-[#1B5E3B]'}">⬤</span> ${msg}`;
   t.classList.remove('hidden');
   setTimeout(() => t.classList.add('hidden'), 3200);
 }
@@ -1608,7 +1607,7 @@ function showSection(secId) {
 
   $$('.v-nav-btn').forEach(b => {
     const isTarget = b.dataset.target === secId;
-    b.className = isTarget ? 'v-nav-btn text-[#FFB800] px-3 py-1.5 rounded-lg font-bold' : 'v-nav-btn text-[#8B8D98] hover:text-white px-3 py-1.5 rounded-lg';
+    b.className = isTarget ? 'v-nav-btn text-[#1B5E3B] px-3 py-1.5 rounded-lg font-bold' : 'v-nav-btn text-[#555555] hover:text-white px-3 py-1.5 rounded-lg';
   });
 
   // Sync mobile bottom nav active state
@@ -1751,20 +1750,20 @@ function renderVisitorFixtures() {
   const list = f === 'All' ? state.matches : state.matches.filter(m => m.state === f);
 
   $('#v-matches-list').innerHTML = list.length ? list.map(m => `
-    <article class="panel rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 border border-white/[.08]">
+    <article class="panel rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 border border-black/10">
       <div>
         <div class="flex items-center gap-2 mb-1">
           <span class="tag ${m.state==='LIVE'?'tag-live':m.state==='FINISHED'?'tag-approved':'tag-pending'}">${m.state}</span>
-          <span class="text-xs text-[#8B8D98]">${m.round || 'Round 1'}</span>
+          <span class="text-xs text-[#555555]">${m.round || 'Round 1'}</span>
         </div>
-        <h4 class="text-lg font-bold text-white">${m.playerA} <span class="text-[#FFB800] mx-1">${m.state==='FINISHED'?m.scoreA+' — '+m.scoreB:'vs'}</span> ${m.playerB}</h4>
-        <p class="text-xs text-[#8B8D98] mt-1"><i data-lucide="clock" class="inline w-3 mr-1 text-[#FFB800]"></i>${m.time || '18:00'} · Padel Pavilion, Faisalabad</p>
+        <h4 class="text-lg font-bold text-white">${m.playerA} <span class="text-[#1B5E3B] mx-1">${m.state==='FINISHED'?m.scoreA+' — '+m.scoreB:'vs'}</span> ${m.playerB}</h4>
+        <p class="text-xs text-[#555555] mt-1"><i data-lucide="clock" class="inline w-3 mr-1 text-[#1B5E3B]"></i>${m.time || '18:00'} · Padel Pavilion, Faisalabad</p>
       </div>
       <div class="flex gap-2">
         ${m.videoUrl ? `<button class="btn btn-lime text-xs" onclick="openMatchVideoModal('${m.id}')"><i data-lucide="play-circle"></i>Watch Recording</button>` : ''}
       </div>
     </article>
-  `).join('') : '<p class="text-center text-[#8B8D98] py-8">No matches scheduled in this category.</p>';
+  `).join('') : '<p class="text-center text-[#555555] py-8">No matches scheduled in this category.</p>';
 
   $$('#v-fixtures-filter button').forEach(b => {
     b.onclick = () => {
@@ -1779,19 +1778,19 @@ function renderVisitorFixtures() {
 function renderVisitorStandings() {
   const sorted = [...state.players].sort((a,b) => (b.goals||0) - (a.goals||0) || (b.matches||0) - (a.matches||0));
   $('#v-standings-table-body').innerHTML = sorted.length ? sorted.map((p, idx) => `
-    <tr class="hover:bg-[#1A1D27] transition">
-      <td class="py-3 px-3 mono font-bold ${idx===0?'text-[#FFB800]':idx<3?'text-[#FFB800]':'text-[#8B8D98]'}">${idx+1}</td>
+    <tr class="hover:bg-[#F7F3EC] transition">
+      <td class="py-3 px-3 mono font-bold ${idx===0?'text-[#1B5E3B]':idx<3?'text-[#1B5E3B]':'text-[#555555]'}">${idx+1}</td>
       <td class="py-3 px-4">
         <p class="font-extrabold text-white">${p.name}</p>
-        <p class="text-xs text-[#8B8D98]">${p.seed || p.id} · ${p.city || 'Faisalabad'}</p>
+        <p class="text-xs text-[#555555]">${p.seed || p.id} · ${p.city || 'Faisalabad'}</p>
       </td>
       <td class="py-3 px-3 text-center font-bold">${p.matches || 0}</td>
-      <td class="py-3 px-3 text-center font-bold text-[#FFB800] text-base">${p.goals || 0}</td>
-      <td class="py-3 px-3 text-center text-[#8B8D98]">${p.shots || 0}</td>
+      <td class="py-3 px-3 text-center font-bold text-[#1B5E3B] text-base">${p.goals || 0}</td>
+      <td class="py-3 px-3 text-center text-[#555555]">${p.shots || 0}</td>
       <td class="py-3 px-3 text-center"><span class="tag ${p.approvalStatus==='APPROVED'?'tag-approved':'tag-pending'}">${p.approvalStatus || 'Active'}</span></td>
       <td class="py-3 px-3 text-right"><button class="btn btn-dark text-xs" onclick="openPlayerViewModal('${p.id}')">Profile</button></td>
     </tr>
-  `).join('') : '<tr><td colspan="7" class="py-8 text-center text-[#8B8D98]">No players in the tournament yet.</td></tr>';
+  `).join('') : '<tr><td colspan="7" class="py-8 text-center text-[#555555]">No players in the tournament yet.</td></tr>';
 }
 
 function renderVisitorPlayers() {
@@ -1799,26 +1798,26 @@ function renderVisitorPlayers() {
   const list = state.players.filter(p => (p.name + (p.seed||'') + (p.preferredKeeper||'')).toLowerCase().includes(q));
 
   $('#v-player-cards-grid').innerHTML = list.length ? list.map(p => `
-    <article class="panel-soft rounded-2xl p-5 border border-white/[.08] flex flex-col justify-between">
+    <article class="panel-soft rounded-2xl p-5 border border-black/10 flex flex-col justify-between">
       <div>
         <div class="flex justify-between items-start">
           <div>
             <h4 class="font-extrabold text-lg text-white">${p.name}</h4>
-            <p class="text-xs text-[#8B8D98] mt-0.5">${p.seed || p.id} · ${p.city || 'Faisalabad'}</p>
+            <p class="text-xs text-[#555555] mt-0.5">${p.seed || p.id} · ${p.city || 'Faisalabad'}</p>
           </div>
           <span class="tag ${p.approvalStatus==='APPROVED'?'tag-approved':'tag-pending'}">${p.approvalStatus||'Active'}</span>
         </div>
-        <div class="grid grid-cols-3 gap-2 my-4 text-center text-xs bg-[#13141A] p-2.5 rounded-xl">
-          <div><b class="text-[#FFB800] text-base block">${p.matches||0}</b>Matches</div>
-          <div><b class="text-[#FFB800] text-base block">${p.goals||0}</b>Goals</div>
+        <div class="grid grid-cols-3 gap-2 my-4 text-center text-xs bg-white p-2.5 rounded-xl">
+          <div><b class="text-[#1B5E3B] text-base block">${p.matches||0}</b>Matches</div>
+          <div><b class="text-[#1B5E3B] text-base block">${p.goals||0}</b>Goals</div>
           <div><b class="text-white text-base block">${p.shots||0}</b>Shots</div>
         </div>
-        <p class="text-xs text-[#8B8D98]"><b class="text-[#FFB800]">Keeper:</b> ${p.preferredKeeper || 'Assigned'}</p>
-        ${p.bestSkills ? `<p class="text-xs text-[#C8CBD6] mt-1"><b class="text-[#FFB800]">Skills:</b> ${p.bestSkills}</p>` : ''}
+        <p class="text-xs text-[#555555]"><b class="text-[#1B5E3B]">Keeper:</b> ${p.preferredKeeper || 'Assigned'}</p>
+        ${p.bestSkills ? `<p class="text-xs text-[#333333] mt-1"><b class="text-[#1B5E3B]">Skills:</b> ${p.bestSkills}</p>` : ''}
       </div>
       <button class="btn btn-lime text-xs w-full mt-4" onclick="openPlayerViewModal('${p.id}')"><i data-lucide="user"></i>View Profile & Skills</button>
     </article>
-  `).join('') : '<p class="col-span-full text-center text-[#8B8D98] py-8">No players found.</p>';
+  `).join('') : '<p class="col-span-full text-center text-[#555555] py-8">No players found.</p>';
   $('#v-player-search-input').oninput = renderVisitorPlayers;
   lucide.createIcons();
 }
@@ -1828,19 +1827,19 @@ function renderVisitorRules() {
   const rangeLabel = (rules) => `${rules[0][0]} – ${rules[rules.length-1][0]}`;
 
   $('#v-rules-list').innerHTML = rulesData.map((chapter, i) => `
-    <details ${i === 0 ? 'open' : ''} class="rounded-2xl border border-white/[.08] bg-[#13141A] overflow-hidden mb-2">
+    <details ${i === 0 ? 'open' : ''} class="rounded-2xl border border-black/10 bg-white overflow-hidden mb-2">
       <summary class="flex items-center justify-between gap-3 px-5 py-4 cursor-pointer select-none hover:bg-white/[.03] transition-colors">
         <div class="flex items-center gap-3">
           <!-- Chapter number badge -->
-          <span class="w-7 h-7 rounded-lg bg-[#FFB800]/10 border border-[#FFB800]/25 text-[#FFB800] text-xs font-black flex items-center justify-center shrink-0">${String(i+1).padStart(2,'0')}</span>
+          <span class="w-7 h-7 rounded-lg bg-[#FFB800]/10 border border-black/20 text-[#1B5E3B] text-xs font-black flex items-center justify-center shrink-0">${String(i+1).padStart(2,'0')}</span>
           <div>
             <p class="font-extrabold text-sm text-white leading-none">${chapter.chapter}</p>
-            <p class="text-[10px] text-[#8B8D98] mt-0.5 mono">${rangeLabel(chapter.rules)}</p>
+            <p class="text-[10px] text-[#555555] mt-0.5 mono">${rangeLabel(chapter.rules)}</p>
           </div>
         </div>
         <div class="flex items-center gap-2 shrink-0">
           <span class="tag text-[10px] px-2 py-0">${chapter.rules.length} rule${chapter.rules.length !== 1 ? 's' : ''}</span>
-          <i data-lucide="chevron-down" class="w-4 h-4 text-[#FFB800] transition-transform details-chevron"></i>
+          <i data-lucide="chevron-down" class="w-4 h-4 text-[#1B5E3B] transition-transform details-chevron"></i>
         </div>
       </summary>
 
@@ -1849,14 +1848,14 @@ function renderVisitorRules() {
         ${chapter.rules.map(([serial, text], ri) => `
           <div class="flex items-start gap-3 px-5 py-3 ${ri % 2 === 0 ? '' : 'bg-white/[.02]'} border-b border-white/[.04] last:border-b-0">
             <!-- Serial badge -->
-            <span class="mono text-[11px] font-black text-[#FFB800] bg-[#FFB800]/10 border border-[#FFB800]/20 rounded-md px-1.5 py-0.5 shrink-0 mt-0.5 leading-none">${serial}</span>
-            <p class="text-sm text-[#C8CBD6] leading-relaxed">${text}</p>
+            <span class="mono text-[11px] font-black text-[#1B5E3B] bg-[#FFB800]/10 border border-black/15 rounded-md px-1.5 py-0.5 shrink-0 mt-0.5 leading-none">${serial}</span>
+            <p class="text-sm text-[#333333] leading-relaxed">${text}</p>
           </div>
         `).join('')}
         ${chapter.note ? `
-          <div class="px-5 py-3 bg-[#FFB800]/[.05] border-t border-[#FFB800]/20 flex items-center gap-2">
-            <i data-lucide="quote" class="w-4 h-4 text-[#FFB800] shrink-0"></i>
-            <p class="text-sm text-[#FFB800] font-semibold italic">${chapter.note}</p>
+          <div class="px-5 py-3 bg-[#FFB800]/[.05] border-t border-black/15 flex items-center gap-2">
+            <i data-lucide="quote" class="w-4 h-4 text-[#1B5E3B] shrink-0"></i>
+            <p class="text-sm text-[#1B5E3B] font-semibold italic">${chapter.note}</p>
           </div>
         ` : ''}
       </div>
@@ -2211,7 +2210,7 @@ function renderPlayerDashboard() {
         <div>
           <span class="tag tag-live text-xs">${myNext.round || 'Round 1'} · ${myNext.state}</span>
           <h4 class="text-xl font-black text-white mt-1">You vs ${opp}</h4>
-          <p class="text-xs text-[#8B8D98] mt-1"><i data-lucide="clock" class="inline w-3 mr-1 text-[#FFB800]"></i>${time} · Padel Pavilion, Faisalabad</p>
+          <p class="text-xs text-[#555555] mt-1"><i data-lucide="clock" class="inline w-3 mr-1 text-[#1B5E3B]"></i>${time} · Padel Pavilion, Faisalabad</p>
         </div>
         <div class="flex gap-2">
           <a href="https://wa.me/${(p.whatsapp||'').replace(/\D/g,'')}?text=${reminderMsg}" target="_blank" class="btn btn-lime text-xs">
@@ -2224,7 +2223,7 @@ function renderPlayerDashboard() {
       </div>
     `;
   } else {
-    $('#p-dash-match-box').innerHTML = '<p class="text-xs text-[#8B8D98]">No match currently scheduled for you. Tournament manager will assign fixtures soon.</p>';
+    $('#p-dash-match-box').innerHTML = '<p class="text-xs text-[#555555]">No match currently scheduled for you. Tournament manager will assign fixtures soon.</p>';
   }
 
   // Videos
@@ -2233,11 +2232,11 @@ function renderPlayerDashboard() {
     <div class="panel-soft rounded-xl p-2.5 flex justify-between items-center text-xs">
       <div>
         <p class="font-bold text-white">${v.title}</p>
-        <a href="${v.url}" target="_blank" class="text-[11px] text-[#FFB800] hover:underline break-all">${v.url}</a>
+        <a href="${v.url}" target="_blank" class="text-[11px] text-[#1B5E3B] hover:underline break-all">${v.url}</a>
       </div>
       <a href="${v.url}" target="_blank" class="btn btn-lime text-[10px] py-1 px-2">Play</a>
     </div>
-  `).join('') : '<p class="text-xs text-[#8B8D98]">No skills or highlight videos added yet.</p>';
+  `).join('') : '<p class="text-xs text-[#555555]">No skills or highlight videos added yet.</p>';
 
   const myMatches = state.matches.filter(m => (m.playerA === p.name || m.playerB === p.name) && m.videoUrl);
   $('#p-my-match-recordings').innerHTML = myMatches.length ? myMatches.map(m => `
@@ -2245,7 +2244,7 @@ function renderPlayerDashboard() {
       <span>${m.playerA} vs ${m.playerB} (${m.round})</span>
       <button class="btn btn-lime text-[10px] py-1 px-2" onclick="openMatchVideoModal('${m.id}')">Watch</button>
     </div>
-  `).join('') : '<p class="text-xs text-[#8B8D98]">No official match recordings for your matches yet.</p>';
+  `).join('') : '<p class="text-xs text-[#555555]">No official match recordings for your matches yet.</p>';
   lucide.createIcons();
 }
 
@@ -2390,27 +2389,27 @@ function renderAdminPlayers() {
   // default 'seed': natural order from state
 
   $('#adm-players-tbody').innerHTML = list.length ? list.map(p => `
-    <tr class="hover:bg-[#1A1D27] transition${_selectedPlayerIds.has(p.id) ? ' bg-[#1e2130] ring-1 ring-inset ring-[#C6F135]/30' : ''}" data-pid="${p.id}">
+    <tr class="hover:bg-[#F7F3EC] transition${_selectedPlayerIds.has(p.id) ? ' bg-[#1e2130] ring-1 ring-inset ring-[#C6F135]/30' : ''}" data-pid="${p.id}">
       <td class="py-3 px-3">
         <input type="checkbox" class="w-4 h-4 rounded accent-[#C6F135] cursor-pointer adm-row-cb"
           data-pid="${p.id}" ${_selectedPlayerIds.has(p.id) ? 'checked' : ''}
           onchange="window._onRowCbChange(this)">
       </td>
-      <td class="py-3 px-3 mono text-xs font-bold text-[#FFB800]">${p.seed || p.id}</td>
+      <td class="py-3 px-3 mono text-xs font-bold text-[#1B5E3B]">${p.seed || p.id}</td>
       <td class="py-3 px-4">
         <p class="font-bold text-white text-sm">${p.name}</p>
-        <p class="text-xs text-[#8B8D98]">${p.city || 'Faisalabad'} · Keeper: ${p.preferredKeeper || 'Assigned'}</p>
+        <p class="text-xs text-[#555555]">${p.city || 'Faisalabad'} · Keeper: ${p.preferredKeeper || 'Assigned'}</p>
       </td>
       <td class="py-3 px-3 text-xs">
-        <p class="text-[#C8CBD6]">${p.gmail || 'No email'}</p>
-        <p class="text-[#FFB800] font-mono mt-0.5">${p.whatsapp || p.cellPhone || 'No phone'}</p>
+        <p class="text-[#333333]">${p.gmail || 'No email'}</p>
+        <p class="text-[#1B5E3B] font-mono mt-0.5">${p.whatsapp || p.cellPhone || 'No phone'}</p>
       </td>
       <td class="py-3 px-3 text-xs max-w-[180px]">
-        ${p.gmail ? `<p class="text-[#C8CBD6] font-mono truncate">${p.gmail}</p>` : '<p class="text-[#4A4C5E]">No email set</p>'}
+        ${p.gmail ? `<p class="text-[#333333] font-mono truncate">${p.gmail}</p>` : '<p class="text-[#4A4C5E]">No email set</p>'}
         ${p.loginPassword
           ? `<div class="flex items-center gap-1 mt-1">
-               <span class="text-[#8B8D98]">Pass:</span>
-               <span id="pw-${p.id}" class="font-mono text-[#FFB800] blur-sm hover:blur-none transition-all cursor-pointer select-all" title="Click to reveal">${p.loginPassword}</span>
+               <span class="text-[#555555]">Pass:</span>
+               <span id="pw-${p.id}" class="font-mono text-[#1B5E3B] blur-sm hover:blur-none transition-all cursor-pointer select-all" title="Click to reveal">${p.loginPassword}</span>
              </div>`
           : `<p class="text-[#4A4C5E] text-[10px] mt-0.5">No password saved</p>`
         }
@@ -2430,7 +2429,7 @@ function renderAdminPlayers() {
         </div>
       </td>
     </tr>
-  `).join('') : '<tr><td colspan="8" class="py-8 text-center text-[#8B8D98]">No players found.</td></tr>';
+  `).join('') : '<tr><td colspan="8" class="py-8 text-center text-[#555555]">No players found.</td></tr>';
 
   $('#adm-p-search').oninput = renderAdminPlayers;
   $('#adm-p-filter').onchange = renderAdminPlayers;
@@ -2592,10 +2591,10 @@ function renderAdminMatches() {
       <div>
         <div class="flex items-center gap-2">
           <span class="tag ${m.state==='LIVE'?'tag-live':m.state==='FINISHED'?'tag-approved':'tag-pending'}">${m.state}</span>
-          <span class="text-xs text-[#8B8D98]">${m.round} · ${m.time}</span>
+          <span class="text-xs text-[#555555]">${m.round} · ${m.time}</span>
         </div>
-        <h4 class="font-extrabold text-lg text-white mt-1">${m.playerA} <span class="text-[#FFB800] mx-1">${m.state==='FINISHED'?m.scoreA+' — '+m.scoreB:'vs'}</span> ${m.playerB}</h4>
-        ${m.videoUrl ? `<p class="text-xs text-[#FFB800] mt-1"><i data-lucide="video" class="inline w-3 mr-1"></i>Video Linked: ${m.videoTitle || 'Match Recording'}</p>` : ''}
+        <h4 class="font-extrabold text-lg text-white mt-1">${m.playerA} <span class="text-[#1B5E3B] mx-1">${m.state==='FINISHED'?m.scoreA+' — '+m.scoreB:'vs'}</span> ${m.playerB}</h4>
+        ${m.videoUrl ? `<p class="text-xs text-[#1B5E3B] mt-1"><i data-lucide="video" class="inline w-3 mr-1"></i>Video Linked: ${m.videoTitle || 'Match Recording'}</p>` : ''}
       </div>
       <div class="flex gap-2 flex-wrap">
         <button class="btn btn-lime text-xs" onclick="loadMatchToLiveConsole('${m.id}')"><i data-lucide="play"></i>Live Console</button>
@@ -2603,7 +2602,7 @@ function renderAdminMatches() {
         <button class="btn btn-danger text-xs" onclick="deleteMatch('${m.id}')"><i data-lucide="trash"></i>Delete</button>
       </div>
     </article>
-  `).join('') : '<p class="text-center text-[#8B8D98] py-8">No matches scheduled.</p>';
+  `).join('') : '<p class="text-center text-[#555555] py-8">No matches scheduled.</p>';
 
   // Select options for player A & B
   const opts = state.players.map(p => `<option value="${p.name}">${p.name} (${p.seed || p.id})</option>`).join('');
@@ -2703,10 +2702,10 @@ function renderAdminLiveConsole() {
 
   $('#adm-event-log-box').innerHTML = st.events.slice().reverse().slice(0, 15).map(e => `
     <div class="panel rounded-lg p-2 text-xs">
-      <b class="text-[#FFB800]">${e.time}</b> · Try ${e.try} · ${e.player}<br>
-      <span class="text-[#C8CBD6]">${e.text}</span>
+      <b class="text-[#1B5E3B]">${e.time}</b> · Try ${e.try} · ${e.player}<br>
+      <span class="text-[#333333]">${e.text}</span>
     </div>
-  `).join('') || '<p class="text-[#8B8D98]">No events logged yet.</p>';
+  `).join('') || '<p class="text-[#555555]">No events logged yet.</p>';
   lucide.createIcons();
 }
 
@@ -3022,11 +3021,11 @@ window.openPlayerViewModal = id => {
     <div class="panel rounded-xl p-2.5 flex justify-between items-center text-xs">
       <div>
         <p class="font-bold text-white">${v.title}</p>
-        <a href="${v.url}" target="_blank" class="text-[11px] text-[#FFB800] hover:underline break-all">${v.url}</a>
+        <a href="${v.url}" target="_blank" class="text-[11px] text-[#1B5E3B] hover:underline break-all">${v.url}</a>
       </div>
       <a href="${v.url}" target="_blank" class="btn btn-lime text-[10px] py-1 px-2">Play</a>
     </div>
-  `).join('') : '<p class="text-xs text-[#8B8D98]">No game highlight reels uploaded yet.</p>';
+  `).join('') : '<p class="text-xs text-[#555555]">No game highlight reels uploaded yet.</p>';
 
   const matchVids = state.matches.filter(m => (m.playerA === p.name || m.playerB === p.name) && m.videoUrl);
   $('#pv-match-recordings').innerHTML = matchVids.length ? matchVids.map(m => `
@@ -3034,7 +3033,7 @@ window.openPlayerViewModal = id => {
       <span>${m.playerA} vs ${m.playerB} (${m.round})</span>
       <button class="btn btn-lime text-[10px] py-1 px-2" onclick="closePlayerViewModal(); openMatchVideoModal('${m.id}')">Watch Match</button>
     </div>
-  `).join('') : '<p class="text-xs text-[#8B8D98]">No match recordings featuring this player yet.</p>';
+  `).join('') : '<p class="text-xs text-[#555555]">No match recordings featuring this player yet.</p>';
 
   $('#player-view-modal').classList.remove('hidden');
   $('#player-view-modal').classList.add('flex');
@@ -3047,7 +3046,7 @@ function closePlayerViewModal() {
 }
 
 function formatVideoEmbed(url) {
-  if (!url) return '<p class="text-xs text-[#8B8D98]">No video attached.</p>';
+  if (!url) return '<p class="text-xs text-[#555555]">No video attached.</p>';
   const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
   if (ytMatch) {
     return `<iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/${ytMatch[1]}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
