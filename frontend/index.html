@@ -489,130 +489,419 @@
     .v-nav-btn.nav-active { color: #FFFFFF; background: rgba(255,255,255,.2); box-shadow: 0 2px 0 0 rgba(255,255,255,.4); }
 
     /* ═══════════════════════════════════════════════════════════════════════
-       MOBILE OVERRIDES (≤ 639px)
+       MOBILE OVERRIDES — COMPLETE (≤ 639px)
+       Every panel · every page · every section · zero overlap · zero overflow
        ═══════════════════════════════════════════════════════════════════════ */
     @media (max-width: 639px) {
-      main { padding: .75rem !important; }
 
-      header .max-w-\[1600px\] { flex-wrap: nowrap; gap: .5rem; padding: .5rem .75rem; }
-      #brand-sub { display: none; }
-      #brand-title { font-size: 1rem; }
-      header img { width: 2.25rem; height: 2.25rem; }
+      /* ── Global containment ── */
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body { overflow-x: hidden; max-width: 100vw; }
+      main { padding: .65rem !important; }
+      /* Override Tailwind space-y-14 (3.5rem) to a tighter gap on mobile */
+      #visitor-root > * + * { margin-top: 1.5rem !important; }
 
-      #unauthenticated-buttons .btn,
-      #player-session-badge .btn,
-      #admin-session-badge .btn { padding: .38rem .65rem; font-size: .72rem; gap: .3rem; min-height: 36px; }
-      #player-session-name { max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-      #admin-session-label { display: none; }
-      #backend-status-badge { display: none !important; }
-
-      #mobile-nav { display: flex !important; }
-      #visitor-root { gap: 1.25rem; }
-
-      /* Countdown – compact but readable; justify across full width */
-      .countdown-unit { min-width: 2.6rem; padding: .28rem .35rem .22rem; }
-      .countdown-num  { font-size: 1.25rem; }
-      .countdown-lbl  { font-size: .46rem; }
-      #countdown-wrap { justify-content: space-between; width: 100%; }
-
-      /* Hero stat strip – equal borders in 2-col grid */
-      .grid.grid-cols-2 .stat-card:nth-child(odd)  { border-right: 2px solid var(--clr-line) !important; }
-      .grid.grid-cols-2 .stat-card:nth-child(-n+2) { border-bottom: 2px solid var(--clr-line) !important; }
-
-      /* Hero poster images – shorter on mobile */
-      .grid.grid-cols-2.gap-3 .poster-card img { height: 9rem; }
-
-      /* Hero CTA buttons – full-width stack */
-      .flex.flex-wrap.gap-3.pt-1 { flex-direction: column; }
-      .flex.flex-wrap.gap-3.pt-1 .btn,
-      .flex.flex-wrap.gap-3.pt-1 a.btn { width: 100%; justify-content: center; }
-
-      .panel h2 { font-size: 1.6rem !important; }
-
-      /* Section headers – tighten on mobile */
-      .section-header { gap: .5rem; margin-bottom: var(--sp-4); }
-      .section-header h3 { font-size: 1.15rem; }
-
-      /* Fixtures filter – scrollable row, no wrap */
-      #v-fixtures-filter {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+      /* ── HEADER ── */
+      header .max-w-\[1600px\] {
         flex-wrap: nowrap;
-        scrollbar-width: none;
-        width: 100%;
+        gap: .4rem;
+        padding: .45rem .65rem;
+        min-height: 52px;
+        align-items: center;
+      }
+      /* Brand — compact logo + text, no subtitle */
+      header a.flex { gap: .55rem; min-width: 0; flex-shrink: 1; }
+      header a.flex img { width: 2rem; height: 2rem; flex-shrink: 0; }
+      #brand-title { font-size: .9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 130px; }
+      #brand-sub { display: none; }
+      /* Hide the FAISALABAD tag next to title so it doesn't push */
+      header a.flex .tag { display: none; }
+      /* Auth controls — icon-only logout, compact login button */
+      header > div > div.flex { flex-shrink: 0; }
+      #backend-status-badge { display: none !important; }
+      #unauthenticated-buttons .btn { padding: .35rem .6rem; font-size: .72rem; gap: .25rem; min-height: 34px; white-space: nowrap; }
+      #player-session-badge .btn,
+      #admin-session-badge .btn { padding: .35rem .6rem; font-size: .72rem; gap: .25rem; min-height: 34px; }
+      #player-session-name { max-width: 72px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      #admin-session-label { display: none; }
+
+      /* ── MOBILE NAV ── */
+      #mobile-nav { display: flex !important; }
+      body { padding-bottom: 4.75rem; }
+
+      /* ── Touch targets ── */
+      .btn { min-height: 40px; touch-action: manipulation; }
+      .v-nav-btn { min-height: 36px; }
+
+      /* ── Panels — no side overflow ── */
+      .panel, .panel-soft, .panel-green,
+      section, article { max-width: 100%; overflow-x: hidden; }
+      .overflow-x-auto { -webkit-overflow-scrolling: touch; }
+
+      /* ── SECTION HEADERS (all 6 sections) ── */
+      .section-header {
+        gap: .5rem !important;
+        margin-bottom: .85rem !important;
+        align-items: flex-start !important;
+      }
+      .section-header h3 { font-size: 1.05rem !important; line-height: 1.2 !important; }
+      .section-header p  { font-size: .72rem !important; margin-top: 2px !important; }
+
+      /* ══════════════════════════════════════════════════
+         SECTION 1: OVERVIEW / HERO
+         ══════════════════════════════════════════════════ */
+
+      /* Hero panel — tighter padding */
+      #sec-overview .panel.rounded-2xl > div:first-child { padding: 1rem !important; }
+
+      /* Hero headline */
+      #sec-overview h1 { font-size: clamp(1.9rem, 9vw, 2.8rem) !important; }
+
+      /* Hero CTA buttons — full-width column stack */
+      #sec-overview .flex.flex-wrap.gap-3.pt-1 {
+        flex-direction: column !important;
+        gap: .5rem !important;
+      }
+      #sec-overview .flex.flex-wrap.gap-3.pt-1 > * {
+        width: 100% !important;
+        justify-content: center !important;
+        margin: 0 !important;
+      }
+
+      /* Official Posters grid — shorter images */
+      #sec-overview .grid.grid-cols-2.gap-3 { margin-top: .75rem; }
+      #sec-overview .grid.grid-cols-2.gap-3 img { height: 8rem !important; }
+
+      /* Stats strip — 2×2 grid with proper dividers */
+      #sec-overview .grid.grid-cols-2.sm\:grid-cols-4 {
+        grid-template-columns: 1fr 1fr !important;
+      }
+      #sec-overview .grid.grid-cols-2.sm\:grid-cols-4 .stat-card {
+        padding: .6rem .4rem !important;
+      }
+      #sec-overview .grid.grid-cols-2.sm\:grid-cols-4 .stat-card .stat-num {
+        font-size: 1.1rem !important;
+      }
+      /* Borders between cells */
+      #sec-overview .grid.grid-cols-2.sm\:grid-cols-4 > *:nth-child(odd)  { border-right: 2px solid var(--clr-line) !important; }
+      #sec-overview .grid.grid-cols-2.sm\:grid-cols-4 > *:nth-child(-n+2) { border-bottom: 2px solid var(--clr-line) !important; }
+      #sec-overview .grid.grid-cols-2.sm\:grid-cols-4 > *:nth-child(3),
+      #sec-overview .grid.grid-cols-2.sm\:grid-cols-4 > *:nth-child(4) { border-bottom: none !important; }
+
+      /* Countdown panel — stack vertically */
+      #sec-overview .panel.rounded-xl.px-5 {
+        flex-direction: column !important;
+        gap: .75rem !important;
+        padding: .85rem 1rem !important;
+      }
+      #countdown-wrap {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: .35rem !important;
+        width: 100% !important;
+      }
+      .countdown-unit { min-width: 2.5rem !important; padding: .25rem .3rem .2rem !important; }
+      .countdown-num  { font-size: 1.2rem !important; }
+      .countdown-lbl  { font-size: .44rem !important; }
+
+      /* Perks grid — single column */
+      #sec-overview .grid.sm\:grid-cols-2.lg\:grid-cols-4 {
+        grid-template-columns: 1fr !important;
+        gap: .6rem !important;
+      }
+      #sec-overview .grid.sm\:grid-cols-2.lg\:grid-cols-4 article {
+        padding: .85rem !important;
+      }
+      #sec-overview .grid.sm\:grid-cols-2.lg\:grid-cols-4 h4 { font-size: .9rem !important; }
+      #sec-overview .grid.sm\:grid-cols-2.lg\:grid-cols-4 p   { font-size: .75rem !important; }
+
+      /* ══════════════════════════════════════════════════
+         SECTION 2: LIVE ARENA
+         ══════════════════════════════════════════════════ */
+      /* Match header bar */
+      #sec-live article.panel > div:first-child { flex-wrap: wrap; gap: .3rem; padding: .6rem .85rem !important; }
+
+      /* Score area — tighter padding */
+      #sec-live .grid.grid-cols-\[1fr_auto_1fr\] { padding: 1.25rem .75rem !important; gap: .5rem !important; }
+
+      /* Player names — don't overflow */
+      #v-score-a-name, #v-score-b-name {
+        font-size: clamp(.8rem, 3.5vw, 1rem) !important;
+        word-break: break-word !important;
+        overflow-wrap: anywhere !important;
+        max-width: 100% !important;
+      }
+      /* Score numbers — big but contained */
+      #v-score-a-num, #v-score-b-num {
+        font-size: clamp(3rem, 14vw, 5rem) !important;
+      }
+
+      /* Match meta — single column */
+      #sec-live .grid.grid-cols-1.sm\:grid-cols-3 {
+        grid-template-columns: 1fr !important;
+        padding: .75rem !important;
+        gap: .5rem !important;
+      }
+
+      /* ══════════════════════════════════════════════════
+         SECTION 3: FIXTURES
+         ══════════════════════════════════════════════════ */
+      /* The fixtures section-header wraps onto 2 lines on mobile:
+         title on top, filter row below full-width */
+      #sec-fixtures .section-header { flex-direction: column !important; align-items: stretch !important; }
+      #sec-fixtures .section-header > div:first-child { flex: none !important; }
+
+      /* Filter pill row — horizontally scrollable, no wrap */
+      #v-fixtures-filter {
+        display: flex !important;
+        flex-shrink: 1 !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        gap: .3rem !important;
+        padding: .3rem !important;
+        width: 100% !important;
+        min-width: 0 !important;
       }
       #v-fixtures-filter::-webkit-scrollbar { display: none; }
-      #v-fixtures-filter .btn { flex-shrink: 0; font-size: .68rem; padding: .35rem .6rem; min-height: 34px; }
+      #v-fixtures-filter .btn {
+        flex-shrink: 0 !important;
+        font-size: .65rem !important;
+        padding: .3rem .55rem !important;
+        min-height: 32px !important;
+        white-space: nowrap !important;
+      }
 
-      /* Live score display */
-      #v-score-a-num, #v-score-b-num { font-size: 4.5rem !important; }
-      #v-score-a-name, #v-score-b-name { font-size: 1.1rem !important; }
+      /* Fixture cards — stack vertically */
+      #v-matches-list article {
+        flex-direction: column !important;
+        gap: .6rem !important;
+        padding: .85rem !important;
+      }
+      #v-matches-list article h4 {
+        font-size: .9rem !important;
+        word-break: break-word !important;
+        overflow-wrap: anywhere !important;
+      }
+      #v-matches-list article .flex.gap-2 { width: 100%; }
+      #v-matches-list article .btn { width: 100% !important; justify-content: center !important; }
 
-      /* Standings – hide less important columns on very small screens */
+      /* ══════════════════════════════════════════════════
+         SECTION 4: STANDINGS
+         ══════════════════════════════════════════════════ */
+      #sec-standings .panel { padding: .85rem !important; }
+
+      /* Hide low-priority columns on phones */
       #v-standings-table-body td:nth-child(5),
-      #v-standings-table-body td:nth-child(6) { display: none; }
-      thead th:nth-child(5), thead th:nth-child(6) { display: none; }
+      #v-standings-table-body td:nth-child(6),
+      #v-standings-table-body td:nth-child(7),
+      #sec-standings thead th:nth-child(5),
+      #sec-standings thead th:nth-child(6),
+      #sec-standings thead th:nth-child(7) { display: none !important; }
 
-      /* Standings & Players panel – remove side padding squeeze */
-      #sec-standings .panel,
-      #sec-players .panel { padding: 1rem !important; }
+      /* Tighten remaining cells */
+      #sec-standings table th,
+      #sec-standings table td { padding: .5rem .35rem !important; font-size: .72rem !important; }
+      #sec-standings table th:nth-child(2),
+      #sec-standings table td:nth-child(2) { padding-left: .5rem !important; }
 
-      /* Player search – full-width when it wraps to its own row */
-      #v-player-search-input { max-width: 100% !important; width: 100%; }
+      /* ══════════════════════════════════════════════════
+         SECTION 5: PLAYERS ROSTER
+         ══════════════════════════════════════════════════ */
+      #sec-players .panel { padding: .85rem !important; }
 
-      /* Modals – full-width bottom-sheet style, safe scroll */
+      /* Player search — full width below heading */
+      #v-player-search-input {
+        max-width: 100% !important;
+        width: 100% !important;
+        font-size: .8rem !important;
+      }
+
+      /* Player card grid — single column */
+      #v-player-cards-grid {
+        grid-template-columns: 1fr !important;
+        gap: .6rem !important;
+      }
+      #v-player-cards-grid article { padding: .85rem !important; }
+      #v-player-cards-grid article h4 { font-size: 1rem !important; }
+
+      /* Stats mini-row inside card — 3-col but compressed */
+      #v-player-cards-grid .grid.grid-cols-3 {
+        gap: .2rem !important;
+        padding: .5rem !important;
+        font-size: .7rem !important;
+      }
+      #v-player-cards-grid .grid.grid-cols-3 b { font-size: .95rem !important; }
+
+      /* ══════════════════════════════════════════════════
+         SECTION 6: OFFICIAL RULES
+         ══════════════════════════════════════════════════ */
+      #sec-rules .panel { padding: .85rem !important; }
+
+      /* Section header right-side tags — wrap to next line */
+      #sec-rules .section-header > div.flex.items-center.gap-2 {
+        flex-wrap: wrap !important;
+        gap: .3rem !important;
+      }
+      #sec-rules .section-header .tag { font-size: .6rem !important; }
+
+      /* Rule accordion rows — tighter */
+      #v-rules-list details summary { padding: .7rem .85rem !important; }
+      #v-rules-list details summary > div.flex { gap: .5rem !important; }
+      #v-rules-list details > div > div { padding: .6rem .85rem !important; }
+
+      /* Rule text readable at small size */
+      #v-rules-list details p.text-sm { font-size: .8rem !important; }
+      #v-rules-list details summary p.font-extrabold { font-size: .8rem !important; }
+
+      /* ══════════════════════════════════════════════════
+         PLAYER PORTAL
+         ══════════════════════════════════════════════════ */
+      /* space-y-4 uses margin-top on children — override to tighten spacing */
+      #player-portal-view > * + * { margin-top: .75rem !important; }
+
+      /* Portal header banner */
+      #player-portal-view > div:first-child {
+        flex-direction: column !important;
+        gap: .6rem !important;
+        padding: .85rem 1rem !important;
+        border-radius: 1rem !important;
+      }
+      #player-portal-view > div:first-child > div.flex.gap-2 { width: 100%; }
+      #player-portal-view > div:first-child > div.flex.gap-2 .btn {
+        flex: 1 !important;
+        justify-content: center !important;
+        font-size: .7rem !important;
+      }
+      #p-dash-checkin-btn span { display: inline !important; font-size: .7rem; }
+
+      /* Player name heading */
+      #p-dash-name { font-size: 1.3rem !important; }
+
+      /* Alert box — readable */
+      #player-portal-view .rounded-2xl.p-5 { padding: .85rem !important; }
+      #player-portal-view h4.font-extrabold { font-size: .82rem !important; }
+
+      /* Next match card */
+      #player-portal-view article.panel { padding: .85rem !important; border-radius: 1rem !important; }
+
+      /* Profile / Videos grid — single column */
+      #player-portal-view .grid.grid-cols-1.lg\:grid-cols-\[1fr_\.9fr\] {
+        grid-template-columns: 1fr !important;
+        gap: .75rem !important;
+      }
+      #player-portal-view article.panel.rounded-3xl { border-radius: 1rem !important; padding: .85rem !important; }
+
+      /* Form grids inside portal — 1 col */
+      #player-self-profile-form .grid.sm\:grid-cols-2 { grid-template-columns: 1fr !important; }
+
+      /* ══════════════════════════════════════════════════
+         ADMIN PANEL
+         ══════════════════════════════════════════════════ */
+      /* space-y-6 uses margin-top on children */
+      #admin-panel-view > * + * { margin-top: .75rem !important; }
+
+      /* Admin header card */
+      #admin-panel-view > div:first-child { padding: .75rem !important; border-radius: 1rem !important; }
+      #admin-panel-view h2.display { font-size: 1.1rem !important; }
+      #admin-panel-view > div:first-child .btn { font-size: .68rem !important; padding: .3rem .55rem !important; }
+
+      /* Admin tab strip — horizontally scrollable */
+      #admin-panel-view .flex.gap-2.overflow-x-auto { gap: .3rem !important; padding-bottom: .25rem; }
+      .adm-tab { font-size: .65rem !important; padding: .3rem .5rem !important; min-height: 32px !important; white-space: nowrap !important; }
+
+      /* Admin panel buttons globally */
+      #admin-panel-view .btn { font-size: .68rem !important; }
+
+      /* Players section — panel padding */
+      #adm-sec-players .panel { padding: .75rem !important; }
+      #adm-sec-players h3 { font-size: 1rem !important; }
+
+      /* Player search/filter controls — stack */
+      #adm-sec-players .flex.flex-wrap.gap-2.items-center {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: .4rem !important;
+      }
+      #adm-sec-players .flex.flex-wrap.gap-2.items-center .input,
+      #adm-sec-players .flex.flex-wrap.gap-2.items-center .btn { width: 100% !important; }
+
+      /* Players table — horizontal scroll, nowrap cells */
+      #adm-sec-players .overflow-x-auto { overflow-x: auto !important; }
+      #adm-players-tbody td, #adm-players-tbody th,
+      #adm-sec-players thead th { white-space: nowrap !important; font-size: .68rem !important; padding: .4rem .35rem !important; }
+
+      /* Bulk action bar */
+      #adm-bulk-bar { flex-wrap: wrap !important; gap: .3rem !important; }
+      #adm-bulk-bar .btn { font-size: .62rem !important; padding: .25rem .45rem !important; min-height: 30px !important; }
+
+      /* Admin Matches section */
+      #adm-sec-matches .grid.lg\:grid-cols-\[1\.3fr_1fr\] { grid-template-columns: 1fr !important; }
+      #adm-sec-matches .panel { padding: .85rem !important; border-radius: 1rem !important; }
+      #adm-schedule-form .grid.grid-cols-2 { grid-template-columns: 1fr !important; }
+
+      /* Admin Live Console */
+      #adm-sec-live .grid.lg\:grid-cols-\[1\.4fr_\.8fr\] { grid-template-columns: 1fr !important; }
+      #adm-live-a-name, #adm-live-b-name { font-size: 1rem !important; }
+      #adm-live-a-score, #adm-live-b-score { font-size: 3rem !important; }
+      #adm-live-timer { font-size: 2.8rem !important; }
+      #adm-sec-live article.panel { padding: .75rem !important; border-radius: 1rem !important; }
+      #adm-sec-live .grid.grid-cols-\[1fr_auto_1fr\] { padding: .85rem .5rem !important; gap: .3rem !important; }
+      /* Referee decisions — 2-col */
+      #adm-sec-live .grid.grid-cols-2.sm\:grid-cols-3 { grid-template-columns: 1fr 1fr !important; }
+      #adm-sec-live .grid.grid-cols-2.sm\:grid-cols-4 { grid-template-columns: 1fr 1fr !important; }
+      /* Timer buttons 2-col */
+      #adm-sec-live .grid.grid-cols-2.sm\:grid-cols-4 .btn { font-size: .68rem !important; padding: .35rem .4rem !important; }
+      /* Referee decision buttons */
+      #adm-sec-live .grid.grid-cols-2.sm\:grid-cols-3 .btn { font-size: .62rem !important; padding: .3rem .35rem !important; min-height: 36px !important; }
+
+      /* Admin add/edit player modal form */
+      #admin-player-save-form .grid.grid-cols-2 { grid-template-columns: 1fr !important; }
+
+      /* Admin Config */
+      #adm-sec-config .panel { padding: .85rem !important; border-radius: 1rem !important; }
+      #adm-sec-config h3 { font-size: 1rem !important; }
+      #adm-sec-config .grid.md\:grid-cols-2 { grid-template-columns: 1fr !important; }
+      #adm-sec-config .flex.flex-wrap.gap-3 { flex-direction: column !important; }
+      #adm-sec-config .flex.flex-wrap.gap-3 .btn { width: 100% !important; justify-content: center !important; }
+
+      /* ══════════════════════════════════════════════════
+         MODALS — bottom-sheet style on mobile
+         ══════════════════════════════════════════════════ */
       .modal-backdrop { align-items: flex-end !important; padding: 0 !important; }
       .modal-backdrop > div {
-        border-bottom-left-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
         border-radius: 1.25rem 1.25rem 0 0 !important;
         max-height: 92dvh !important;
         width: 100% !important;
         max-width: 100% !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
-        animation: slideUp .3s cubic-bezier(.4,0,.2,1) both !important;
+        animation: slideUp .28s cubic-bezier(.4,0,.2,1) both !important;
       }
+      /* Lightbox stays centered */
+      #lightbox-modal { align-items: center !important; padding: .75rem !important; }
+      #lightbox-modal > div { border-radius: 1rem !important; width: 100% !important; max-width: 100% !important; }
+
+      /* Modal headers */
+      .modal-backdrop h3 { font-size: 1rem !important; }
+      /* Modal form grids */
+      #admin-player-save-form .grid.grid-cols-2 { grid-template-columns: 1fr !important; }
+      #player-view-modal .grid.sm\:grid-cols-3 { grid-template-columns: 1fr 1fr 1fr !important; }
+
       @keyframes slideUp {
         from { transform: translateY(60px); opacity: 0; }
         to   { transform: translateY(0);    opacity: 1; }
       }
 
-      /* Admin panel – prevent overflow */
-      #admin-panel-view .panel .flex.flex-wrap.gap-2 { gap: .35rem; }
-      .adm-tab, #admin-panel-view .btn { font-size: .68rem !important; padding: .38rem .55rem !important; }
+      /* ── Footer ── */
+      footer { padding: 1rem .75rem !important; }
+      footer p { font-size: .66rem !important; line-height: 1.5 !important; }
 
-      /* Admin live console */
-      #adm-live-a-score, #adm-live-b-score { font-size: 3.5rem !important; }
-      #adm-live-a-name,  #adm-live-b-name  { font-size: 1rem !important; }
-      #adm-live-timer { font-size: 3rem !important; }
-
-      /* Admin referee decisions – 2 col on mobile */
-      #adm-sec-live .grid.grid-cols-2.sm\:grid-cols-3 { grid-template-columns: 1fr 1fr; }
-
-      /* Timeout grid always 2 col – OK */
-      #adm-players-tbody td, #adm-players-tbody th { white-space: nowrap; }
-      #player-portal-view .panel.rounded-3xl { border-radius: 1.25rem; }
-      #p-dash-checkin-btn span { display: none; }
-
-      /* Admin form grids – stack on mobile */
-      #admin-player-save-form .grid.grid-cols-2 { grid-template-columns: 1fr !important; }
-      #adm-schedule-form .grid.grid-cols-2 { grid-template-columns: 1fr !important; }
-
-      /* Player stats mini-grid – keep 3 col but tighten */
-      .grid.grid-cols-3 { gap: .25rem !important; }
-
-      /* Touch targets – minimum 44px */
-      .btn { min-height: 40px; }
-      .v-nav-btn { min-height: 36px; }
-
-      /* Footer */
-      footer { padding: 1.25rem .75rem !important; }
-      footer p { font-size: .68rem; }
-
-      /* Prevent horizontal overflow everywhere */
-      section, article, .panel, .panel-soft { max-width: 100vw; overflow-x: hidden; }
-      .overflow-x-auto { -webkit-overflow-scrolling: touch; }
+      /* ── Toast ── */
+      #toast { right: .5rem !important; bottom: 5.5rem !important; left: .5rem !important; right: .5rem !important; font-size: .8rem !important; }
     }
 
     /* ── Tap highlight removal (iOS feels more native) ── */
@@ -646,7 +935,7 @@
     #mobile-nav button.mob-active { color: var(--clr-green); background: var(--clr-mint); }
     #mobile-nav button.mob-active svg { transform: scale(1.18) translateY(-1px); }
     #mobile-nav button:active { transform: scale(.93); background: var(--clr-mint); }
-    @media (max-width: 639px) { body { padding-bottom: 4.5rem; } }
+    /* body padding-bottom for mobile nav handled in the main mobile block above */
 
     /* ── Bracket ── */
     .bk-col { display: flex; flex-direction: column; justify-content: space-around; min-width: 175px; }
