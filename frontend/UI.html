@@ -176,7 +176,6 @@
       <button class="v-nav-btn text-[#FFB800] px-3 py-1.5 rounded-lg" data-target="overview">Tournament Info</button>
       <button class="v-nav-btn text-[#8B8D98] hover:text-white px-3 py-1.5 rounded-lg" data-target="live">Live Arena</button>
       <button class="v-nav-btn text-[#8B8D98] hover:text-white px-3 py-1.5 rounded-lg" data-target="fixtures">Fixtures & Results</button>
-      <button class="v-nav-btn text-[#8B8D98] hover:text-white px-3 py-1.5 rounded-lg" data-target="bracket">Bracket</button>
       <button class="v-nav-btn text-[#8B8D98] hover:text-white px-3 py-1.5 rounded-lg" data-target="standings">Leaderboard</button>
       <button class="v-nav-btn text-[#8B8D98] hover:text-white px-3 py-1.5 rounded-lg" data-target="players">Players Roster</button>
       <button class="v-nav-btn text-[#8B8D98] hover:text-white px-3 py-1.5 rounded-lg" data-target="rules">Official Rules</button>
@@ -444,28 +443,14 @@
       <div id="v-matches-list" class="space-y-3"></div>
     </section>
 
-    <!-- 3b. KNOCKOUT BRACKET -->
-    <section id="sec-bracket" class="visitor-section space-y-6">
-      <div class="panel rounded-3xl p-6 md:p-8 border border-white/[.08]">
-        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
-          <div>
-            <h3 class="text-2xl font-black display text-white">KNOCKOUT BRACKET</h3>
-            <p class="text-xs text-[#8B8D98] mt-0.5">Single-elimination draw — auto-generated from approved players.</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <span id="bracket-player-count" class="tag tag-approved text-xs">0 players</span>
-            <span id="bracket-rounds-count" class="tag text-xs">0 rounds</span>
-          </div>
-        </div>
-        <!-- Bracket canvas — horizontally scrollable -->
-        <div id="bracket-scroll-area" class="overflow-x-auto pb-4">
-          <div id="bracket-canvas" class="inline-flex gap-0 items-stretch min-w-full"></div>
-        </div>
-        <p id="bracket-empty-msg" class="text-center text-[#8B8D98] py-10 hidden">
-          No approved players yet. Once admin adds and approves players, the bracket builds automatically.
-        </p>
-      </div>
-    </section>
+    <!-- Bracket section removed from visitor view — available in Admin Panel -->
+    <!-- Hidden elements kept so bracket JS functions don't throw errors -->
+    <div style="display:none">
+      <span id="bracket-player-count"></span>
+      <span id="bracket-rounds-count"></span>
+      <div id="bracket-scroll-area"><div id="bracket-canvas"></div></div>
+      <p id="bracket-empty-msg"></p>
+    </div>
 
     <!-- 4. LEADERBOARD & TOP SCORERS -->
     <section id="sec-standings" class="visitor-section space-y-6">
@@ -1429,6 +1414,7 @@ async function loadTournamentState() {
 
 // ── UI Navigation Router ───────────────────────────────────────────────────
 function showSection(secId) {
+  if (secId === 'bracket') secId = 'overview'; // bracket removed from visitor view
   // Visitor sub-section router
   $('#visitor-root').classList.remove('hidden');
   $('#player-portal-view').classList.add('hidden');
@@ -2103,8 +2089,10 @@ $('#p-add-video-form').addEventListener('submit', async e => {
 
   const title = $('#p-v-title').value.trim();
   const url = $('#p-v-url').value.trim();
+  if (!title || !url) return toast('Please enter both a title and a URL.', true);
   if (!p.gameVideos) p.gameVideos = [];
-  p.gameVideos.push({ id: 'V-' + randHex(), title, url });
+  const vidId = 'V-' + Array.from(crypto.getRandomValues(new Uint8Array(4))).map(b => b.toString(16).padStart(2,'0')).join('').toUpperCase();
+  p.gameVideos.push({ id: vidId, title, url });
 
   apiFetch('/players/' + p.id, { method: 'PATCH', body: { gameVideos: p.gameVideos } }).catch(() => {});
   saveLocal();
