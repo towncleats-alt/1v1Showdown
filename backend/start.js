@@ -1,35 +1,30 @@
 /**
- * backend/start.js — Production startup wrapper for Railway
- * Starts the HTTP server immediately (so healthchecks pass),
- * then runs migrations + seed in the background.
+ * backend/start.js — Railway startup wrapper
+ * Server starts immediately on 0.0.0.0 so healthcheck passes.
+ * Migrations + seed run in background after server is up.
  */
 import { exec } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(__dirname, '..');
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-function runBackground(cmd) {
-  return new Promise((resolve) => {
-    console.log(`\n▶ ${cmd}`);
-    exec(cmd, { cwd: root }, (err, stdout, stderr) => {
-      if (stdout) console.log(stdout);
-      if (stderr) console.error(stderr);
-      if (err) console.error(`Command failed (non-fatal): ${err.message}`);
-      resolve();
+// Start server immediately — healthcheck will pass right away
+await import('./server.js');
+
+// Run migrations + seed in background (non-blocking)
+setTimeout(() => {
+  console.log('[start] Running migrations in background...');
+  exec('node backend/db/migrate.js', { cwd: root }, (err, out, errOut) => {
+    if (out) console.log(out);
+    if (errOut) console.error(errOut);
+    if (err) { console.error('[start] Migration error (non-fatal):', err.message); return; }
+    console.log('[start] Migrations done. Running seed...');
+    exec('node backend/db/seed.js', { cwd: root }, (err2, out2, errOut2) => {
+      if (out2) console.log(out2);
+      if (errOut2) console.error(errOut2);
+      if (err2) console.error('[start] Seed error (non-fatal):', err2.message);
+      else console.log('[start] Seed done. Admin user ready.');
     });
   });
-}
-
-// Start the server first so Railway healthcheck passes immediately
-const serverModule = await import('./server.js');
-
-// Then run migrations + seed in the background (non-blocking)
-(async () => {
-  console.log('\n[start] Running DB migrations...');
-  await runBackground('node backend/db/migrate.js');
-  console.log('[start] Running DB seed...');
-  await runBackground('node backend/db/seed.js');
-  console.log('[start] Migrations and seed complete.');
-})();
+}, 2000); // 2s delay to let server fully initialize first

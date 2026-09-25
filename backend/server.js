@@ -1044,9 +1044,9 @@ app.use((error, _request, response, _next) => {
   response.status(500).json({ error: 'Unexpected server error.' });
 });
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   store.seedEnvAdmin();
-  console.log(`Faisalabad 1v1 API listening on http://127.0.0.1:${port}`);
+  console.log(`Faisalabad 1v1 API listening on http://0.0.0.0:${port}`);
 });
 
 const shutdown = async () => { await pool.end(); process.exit(0); };
