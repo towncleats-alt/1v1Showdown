@@ -185,7 +185,7 @@
     <!-- Top Right Controls: Status & Login/Profile State -->
     <div class="flex items-center gap-2.5">
       <!-- Status badge: only shown to admin — hidden from visitors & players -->
-      <span id="backend-status-badge" class="hidden tag tag-live text-[11px]">⬤ Connected (Docker DB)</span>
+      <span id="backend-status-badge" class="hidden tag tag-live text-[11px]">⬤ Connected (DB)</span>
 
       <!-- NOT Logged In State (Visitors) -->
       <div id="unauthenticated-buttons" class="flex items-center gap-2">
@@ -1404,7 +1404,7 @@ async function loadTournamentState() {
     if (data.settings) state.settings = { ...state.settings, ...data.settings };
     if (data.admins) state.admins = data.admins;
 
-    $('#backend-status-badge').textContent = data._mode === 'memory' ? '⬤ Live (Memory)' : '⬤ Connected (Docker DB)';
+    $('#backend-status-badge').textContent = data._mode === 'memory' ? '⬤ Live (Memory)' : '⬤ Connected (DB)';
     $('#backend-status-badge').className = 'tag tag-live text-[11px]';
 
     _pollFailCount = 0;
