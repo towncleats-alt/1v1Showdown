@@ -7,11 +7,12 @@
     "node": ">=20"
   },
   "scripts": {
-    "start": "node backend/server.js",
+    "start": "node backend/start.js",
     "dev": "node --watch backend/server.js",
     "build": "node scripts/inject-api-url.js",
     "db:migrate": "node backend/db/migrate.js",
     "db:seed": "node backend/db/seed.js",
+    "db:admin": "node scripts/create-admin.js",
     "db:seed:players": "node scripts/seed128players.js",
     "test": "node --test backend/tests/*.test.js"
   },
