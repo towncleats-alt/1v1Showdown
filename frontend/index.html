@@ -75,15 +75,17 @@
       --fs-4xl: 3.75rem;
 
       /* ── Animation ── */
-      --ease-fast:  .1s ease;
-      --ease-mid:   .18s ease;
-      --ease-slow:  .3s ease;
+      --ease-fast:  .12s cubic-bezier(.4,0,.2,1);
+      --ease-mid:   .22s cubic-bezier(.4,0,.2,1);
+      --ease-slow:  .38s cubic-bezier(.4,0,.2,1);
+      --ease-spring:.45s cubic-bezier(.34,1.56,.64,1);
     }
 
     /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; }
 
     /* ── Base ── */
+    html { scroll-behavior: smooth; }
     body {
       font-family: "DM Sans", system-ui, sans-serif;
       background: var(--clr-bg);
@@ -92,6 +94,32 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
+
+    /* ── Smooth scroll-reveal ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(.96); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .anim-fade-up   { animation: fadeUp  .45s cubic-bezier(.4,0,.2,1) both; }
+    .anim-fade-in   { animation: fadeIn  .35s cubic-bezier(.4,0,.2,1) both; }
+    .anim-scale-in  { animation: scaleIn .35s cubic-bezier(.34,1.56,.64,1) both; }
+    .anim-d1 { animation-delay: .05s; }
+    .anim-d2 { animation-delay: .10s; }
+    .anim-d3 { animation-delay: .15s; }
+    .anim-d4 { animation-delay: .22s; }
+    .anim-d5 { animation-delay: .30s; }
 
     /* ── Typography Utilities ── */
     .display {
@@ -132,16 +160,25 @@
       background: var(--clr-surface);
       border: var(--bw-md) solid var(--clr-ink);
       box-shadow: var(--sh-md);
+      transition: box-shadow var(--ease-mid), transform var(--ease-mid);
     }
     .panel-soft {
       background: var(--clr-surface-soft);
       border: var(--bw-sm) solid var(--clr-line);
+      transition: box-shadow var(--ease-mid), background var(--ease-mid);
     }
     .panel-green {
       background: var(--clr-green);
       border: var(--bw-md) solid var(--clr-ink);
       box-shadow: var(--sh-md);
       color: #FFFFFF;
+      transition: box-shadow var(--ease-mid), transform var(--ease-mid);
+    }
+    /* Hover lift on article cards */
+    article.panel:hover,
+    article.panel-soft:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--sh-lg);
     }
 
     /* ── Buttons ── */
@@ -156,7 +193,7 @@
       font-size: var(--fs-sm);
       letter-spacing: .06em;
       text-transform: uppercase;
-      transition: transform var(--ease-fast), box-shadow var(--ease-fast), background var(--ease-mid);
+      transition: transform var(--ease-fast), box-shadow var(--ease-fast), background var(--ease-mid), color var(--ease-fast);
       cursor: pointer;
       border: var(--bw-md) solid var(--clr-ink);
       white-space: nowrap;
@@ -351,10 +388,14 @@
     .timer.urgent { color: var(--clr-danger); animation: pulse .8s infinite; }
     @keyframes pulse { 50% { opacity: .5; transform: scale(1.03); } }
 
-    /* ── Modal backdrop ── */
+    /* ── Modal backdrop & entrance ── */
     .modal-backdrop {
       background: rgba(8,8,8,.78);
       backdrop-filter: blur(8px);
+      animation: fadeIn .18s ease both;
+    }
+    .modal-backdrop > div {
+      animation: scaleIn .25s cubic-bezier(.34,1.56,.64,1) both;
     }
 
     /* ── Rulebook details ── */
@@ -364,11 +405,12 @@
     summary::-webkit-details-marker { display: none; }
 
     /* ── Poster / media card ── */
-    .poster-card { transition: transform var(--ease-mid), box-shadow var(--ease-mid); }
+    .poster-card { transition: transform var(--ease-mid), box-shadow var(--ease-mid); cursor: pointer; }
     .poster-card:hover {
       transform: translate(-3px,-3px);
       box-shadow: var(--sh-lg);
     }
+    .poster-card:active { transform: translate(1px,1px); box-shadow: var(--sh-xs); }
 
     /* ── Section header ── */
     .section-header {
@@ -432,10 +474,12 @@
       color: rgba(255,255,255,.7);
       padding: .45rem .7rem;
       border-radius: var(--r-xs);
-      transition: color var(--ease-fast), background var(--ease-fast);
+      transition: color var(--ease-mid), background var(--ease-mid), transform var(--ease-fast);
+      position: relative;
     }
-    .v-nav-btn:hover { color: #FFFFFF; background: rgba(255,255,255,.1); }
-    .v-nav-btn.nav-active { color: #FFFFFF; background: rgba(255,255,255,.18); }
+    .v-nav-btn:hover { color: #FFFFFF; background: rgba(255,255,255,.12); transform: translateY(-1px); }
+    .v-nav-btn:active { transform: translateY(0); }
+    .v-nav-btn.nav-active { color: #FFFFFF; background: rgba(255,255,255,.2); box-shadow: 0 2px 0 0 rgba(255,255,255,.4); }
 
     /* ═══════════════════════════════════════════════════════════════════════
        MOBILE OVERRIDES (≤ 639px)
@@ -504,6 +548,7 @@
       align-items: center;
       gap: .1rem;
       box-shadow: 0 -3px 0 0 var(--clr-ink);
+      animation: slideDown .3s cubic-bezier(.4,0,.2,1) both;
     }
     #mobile-nav button {
       display: flex; flex-direction: column; align-items: center; gap: .15rem;
@@ -512,12 +557,13 @@
       font-size: .56rem; font-weight: 800;
       font-family: "DM Sans", sans-serif;
       padding: .3rem .5rem; border-radius: var(--r-xs);
-      transition: color var(--ease-fast), background var(--ease-fast);
+      transition: color var(--ease-mid), background var(--ease-mid), transform var(--ease-fast);
       min-width: 3.2rem; letter-spacing: .06em; text-transform: uppercase;
     }
-    #mobile-nav button svg { width: 1.2rem; height: 1.2rem; }
+    #mobile-nav button svg { width: 1.2rem; height: 1.2rem; transition: transform var(--ease-spring); }
     #mobile-nav button.mob-active { color: var(--clr-green); background: var(--clr-mint); }
-    #mobile-nav button:active { background: var(--clr-mint); }
+    #mobile-nav button.mob-active svg { transform: scale(1.18) translateY(-1px); }
+    #mobile-nav button:active { transform: scale(.93); background: var(--clr-mint); }
     @media (max-width: 639px) { body { padding-bottom: 4.5rem; } }
 
     /* ── Bracket ── */
@@ -529,10 +575,11 @@
       border: var(--bw-md) solid var(--clr-ink);
       border-radius: var(--r-sm); overflow: hidden;
       background: var(--clr-surface);
-      transition: box-shadow var(--ease-fast), transform var(--ease-fast);
+      transition: box-shadow var(--ease-mid), transform var(--ease-mid);
       box-shadow: var(--sh-sm);
     }
     .bk-match:hover { box-shadow: var(--sh-lg); transform: translate(-2px,-2px); }
+    .bk-match:active { transform: translate(1px,1px); box-shadow: var(--sh-xs); }
     .bk-slot {
       padding: 7px 11px; font-size: 12px; font-weight: 800;
       display: flex; align-items: center; justify-content: space-between; gap: 6px;
@@ -650,18 +697,18 @@
         <div class="px-6 py-5 sm:px-10 sm:py-8" style="background:var(--clr-green);border-bottom:3px solid var(--clr-ink);">
           <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div class="space-y-3">
-              <span class="tag tag-live animate-pulse" style="background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4);color:#fff;box-shadow:none;">
+              <span class="tag tag-live animate-pulse anim-fade-in" style="background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4);color:#fff;box-shadow:none;">
                 ⚽ ONE-DAY TOURNAMENT · FAISALABAD, PAKISTAN
               </span>
-              <h1 class="display text-white leading-none" style="font-size:clamp(2.2rem,7vw,4.5rem);letter-spacing:.03em;">
+              <h1 class="display text-white leading-none anim-fade-up anim-d1" style="font-size:clamp(2.2rem,7vw,4.5rem);letter-spacing:.03em;">
                 FAISALABAD<br>
                 <span style="color:var(--clr-mint);">1 VS 1</span><br>
                 FOOTBALL
               </h1>
-              <p class="text-sm sm:text-base font-medium leading-relaxed" style="color:rgba(255,255,255,.75);max-width:500px;">
+              <p class="text-sm sm:text-base font-medium leading-relaxed anim-fade-up anim-d2" style="color:rgba(255,255,255,.75);max-width:500px;">
                 No team to hide behind. Just you, your ball, your skills. One day. Every skill you have. Pakistan's 1v1 era starts here.
               </p>
-              <div class="flex flex-wrap gap-3 pt-1">
+              <div class="flex flex-wrap gap-3 pt-1 anim-fade-up anim-d3">
                 <a href="https://forms.gle/b7nFBif7d65v94op8" target="_blank" rel="noopener"
                   class="btn" style="background:#fff;color:var(--clr-green);border-color:var(--clr-ink);box-shadow:3px 3px 0 0 rgba(0,0,0,.35);">
                   <i data-lucide="clipboard-list"></i>Register Now
@@ -3434,6 +3481,42 @@ loadTournamentState();
 
   draw();
   window.addEventListener('resize', draw, { passive: true });
+})();
+
+// ── Scroll-reveal IntersectionObserver ────────────────────────────────────
+(function() {
+  if (!('IntersectionObserver' in window)) return;
+  // Add reveal class to all sections and major article cards
+  const targets = document.querySelectorAll(
+    '#visitor-root > section, #visitor-root > div, ' +
+    'article.panel, article.panel-soft'
+  );
+  targets.forEach((el, i) => {
+    // Skip elements already animated (hero etc)
+    if (el.classList.contains('anim-fade-up') || el.classList.contains('anim-fade-in')) return;
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity .45s cubic-bezier(.4,0,.2,1), transform .45s cubic-bezier(.4,0,.2,1)';
+    el.dataset.revealDelay = Math.min(i % 4 * 60, 180);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const delay = el.dataset.revealDelay || 0;
+        setTimeout(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, delay);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  targets.forEach(el => {
+    if (el.style.opacity === '0') observer.observe(el);
+  });
 })();
 </script>
 </body>
