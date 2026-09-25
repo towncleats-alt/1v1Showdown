@@ -501,6 +501,11 @@ app.patch('/api/v1/admin/tournament/matches/:matchId/video', requireAuth, requir
 // ── Tournament ops — DB-first, in-memory fallback on every route ─────────────
 // Helper: shape a player row → UI-expected object
 function shapePlayer(p) {
+  const notes = p.notes ?? '';
+  // Extract login password hint stored as [LOGIN_PW: xxx] prefix in notes
+  const pwMatch = notes.match(/^\[LOGIN_PW:\s*([^\]]+)\]/);
+  const loginPassword = pwMatch ? pwMatch[1].trim() : '';
+  const cleanNotes = notes.replace(/^\[LOGIN_PW:[^\]]+\]\s*/, '');
   return {
     id: p.id, name: p.name, seed: p.seed ?? '—', status: p.status ?? 'Active',
     goals: p.goals ?? 0, shots: p.shots ?? 0, matches: p.matches ?? 0,
@@ -512,7 +517,9 @@ function shapePlayer(p) {
     paymentStatus: p.payment_status ?? 'NOT_SUBMITTED', paymentRef: p.payment_ref ?? '',
     paymentMethod: p.payment_method ?? 'EasyPaisa/Cash',
     approvalStatus: p.approval_status ?? 'PENDING',
-    checkedIn: Boolean(p.checked_in), notes: p.notes ?? '',
+    checkedIn: Boolean(p.checked_in),
+    notes: cleanNotes,
+    loginPassword, // plain-text hint for admin credentials view only
   };
 }
 function shapeMatch(m) {
@@ -674,7 +681,11 @@ app.post('/api/tournament/players', async (req, res, next) => {
       payment_status: b.paymentStatus ?? 'NOT_SUBMITTED', payment_ref: b.paymentRef ?? null,
       payment_method: b.paymentMethod ?? 'EasyPaisa/Cash',
       approval_status: b.approvalStatus ?? 'PENDING',
-      checked_in: Boolean(b.checkedIn), notes: b.notes ?? null,
+      checked_in: Boolean(b.checkedIn),
+      // Store login password hint in notes for admin reference (prefixed so it's identifiable)
+      notes: b.loginPassword
+        ? `[LOGIN_PW: ${b.loginPassword}]${b.notes ? ' ' + b.notes : ''}`
+        : (b.notes ?? null),
     };
     store.players.upsert(dbRow);
     let savedRow = dbRow;
@@ -719,7 +730,11 @@ app.patch('/api/tournament/players/:id', async (req, res, next) => {
       city: b.city, bio: b.bio, best_skills: b.bestSkills,
       game_videos: b.gameVideos,
       payment_status: b.paymentStatus, payment_ref: b.paymentRef, payment_method: b.paymentMethod,
-      approval_status: b.approvalStatus, checked_in: b.checkedIn, notes: b.notes,
+      approval_status: b.approvalStatus, checked_in: b.checkedIn,
+      // Preserve [LOGIN_PW:] prefix when updating notes
+      notes: b.loginPassword
+        ? `[LOGIN_PW: ${b.loginPassword}]${b.notes ? ' ' + b.notes : ''}`
+        : b.notes,
     };
     const memRow = store.players.patch(req.params.id, memPatch);
     if (!memRow && !isDbAvailable()) return res.status(404).json({ error: 'Player not found.' });

@@ -694,6 +694,7 @@
                 <th class="py-3 px-3">Seed / ID</th>
                 <th class="py-3 px-4">Player Details</th>
                 <th class="py-3 px-3">Contacts</th>
+                <th class="py-3 px-3 text-[#FFB800]">Login Credentials</th>
                 <th class="py-3 px-3">Payment</th>
                 <th class="py-3 px-3">Approval</th>
                 <th class="py-3 px-3 text-right">Actions</th>
@@ -2221,6 +2222,16 @@ function renderAdminPlayers() {
         <p class="text-[#C8CBD6]">${p.gmail || 'No email'}</p>
         <p class="text-[#FFB800] font-mono mt-0.5">${p.whatsapp || p.cellPhone || 'No phone'}</p>
       </td>
+      <td class="py-3 px-3 text-xs max-w-[180px]">
+        ${p.gmail ? `<p class="text-[#C8CBD6] font-mono truncate">${p.gmail}</p>` : '<p class="text-[#4A4C5E]">No email set</p>'}
+        ${p.loginPassword
+          ? `<div class="flex items-center gap-1 mt-1">
+               <span class="text-[#8B8D98]">Pass:</span>
+               <span id="pw-${p.id}" class="font-mono text-[#FFB800] blur-sm hover:blur-none transition-all cursor-pointer select-all" title="Click to reveal">${p.loginPassword}</span>
+             </div>`
+          : `<p class="text-[#4A4C5E] text-[10px] mt-0.5">No password saved</p>`
+        }
+      </td>
       <td class="py-3 px-3">
         <span class="tag ${p.paymentStatus==='VERIFIED'?'tag-approved':'tag-pending'}">${p.paymentStatus || 'NOT_SUBMITTED'}</span>
       </td>
@@ -2236,7 +2247,7 @@ function renderAdminPlayers() {
         </div>
       </td>
     </tr>
-  `).join('') : '<tr><td colspan="7" class="py-8 text-center text-[#8B8D98]">No players found.</td></tr>';
+  `).join('') : '<tr><td colspan="8" class="py-8 text-center text-[#8B8D98]">No players found.</td></tr>';
 
   $('#adm-p-search').oninput = renderAdminPlayers;
   $('#adm-p-filter').onchange = renderAdminPlayers;
@@ -2315,7 +2326,10 @@ window.openAdminEditPlayerModal = id => {
   $('#adm-e-pass').value = '';
   // Password optional on edit (leave blank = keep existing)
   $('#adm-e-pass').required = false;
-  $('#adm-e-pass-hint').textContent = '(leave blank to keep current password)';
+  const savedPw = p.loginPassword || '';
+  $('#adm-e-pass-hint').textContent = savedPw
+    ? `(current: ${savedPw} — leave blank to keep)`
+    : '(leave blank to keep current password)';
 
   $('#admin-player-edit-modal').classList.remove('hidden');
   $('#admin-player-edit-modal').classList.add('flex');
@@ -2353,8 +2367,11 @@ $('#admin-player-save-form').addEventListener('submit', async e => {
     status: 'Active'
   };
 
-  // Include password in payload only when provided
-  if (password) payload.password = password;
+  // Store plain-text password hint for admin reference, and send to backend for hashing
+  if (password) {
+    payload.password = password;
+    payload.loginPassword = password; // stored on player object for admin credentials view
+  }
 
   const btn = e.target.querySelector('button[type="submit"]');
   btn.disabled = true; btn.textContent = 'Saving…';
@@ -2368,8 +2385,10 @@ $('#admin-player-save-form').addEventListener('submit', async e => {
     } else {
       payload.goals = 0; payload.shots = 0; payload.matches = 0; payload.gameVideos = [];
       const saved = await apiFetch('/players', { method: 'POST', body: payload });
-      state.players.push(saved || payload);
-      toast(`Player ${payload.name} added! Share login: ${payload.gmail} / the password you set.`);
+      // Preserve loginPassword on the local state object (not returned by API)
+      const localPlayer = { ...(saved || payload), loginPassword: payload.loginPassword || '' };
+      state.players.push(localPlayer);
+      toast(`Player ${payload.name} added! Login: ${payload.gmail} / ${payload.loginPassword}`);
     }
     saveLocal();
     closeAdminPlayerModal();
